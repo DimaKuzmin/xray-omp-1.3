@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#pragma hdrstop
+
 
 #include "xrdebug.h"
 #include "os_clipboard.h"
@@ -24,8 +24,8 @@ extern bool shared_str_initialized;
         static BOOL			bException	= TRUE;
     #   define USE_BUG_TRAP
 #else
-    #   define USE_BUG_TRAP
-    #	define DEBUG_INVOKE	__asm int 3
+   // #   define USE_BUG_TRAP
+    #	define DEBUG_INVOKE DebugBreak	()
         static BOOL			bException	= FALSE;
 #endif
 
@@ -319,18 +319,16 @@ int out_of_memory_handler	(size_t size)
 {
 	if ( g_full_memory_stats_callback )
 		g_full_memory_stats_callback	( );
-	else {
-		Memory.mem_compact	();
-#ifndef _EDITOR
-		u32					crt_heap		= mem_usage_impl((HANDLE)_get_heap_handle(),0,0);
-#else // _EDITOR
-		u32					crt_heap		= 0;
-#endif // _EDITOR
-		u32					process_heap	= mem_usage_impl(GetProcessHeap(),0,0);
-		int					eco_strings		= (int)g_pStringContainer->stat_economy			();
-		int					eco_smem		= (int)g_pSharedMemoryContainer->stat_economy	();
-		Msg					("* [x-ray]: crt heap[%d K], process heap[%d K]",crt_heap/1024,process_heap/1024);
-		Msg					("* [x-ray]: economy: strings[%d K], smem[%d K]",eco_strings/1024,eco_smem);
+	else 
+	{
+		Memory.mem_compact	();			
+		
+		 
+		size_t process_heap = Memory.mem_usage();
+		int eco_strings = (int)g_pStringContainer->stat_economy();
+		int eco_smem = (int)g_pSharedMemoryContainer->stat_economy();
+		Msg("* [x-ray]: process heap[%llu K]", process_heap / 1024, process_heap / 1024);
+		Msg("* [x-ray]: economy: strings[%lld K], smem[%lld K]", eco_strings / 1024, eco_smem);
 	}
 
 	Debug.fatal				(DEBUG_INFO,"Out of memory. Memory request: %d K",size/1024);
@@ -379,6 +377,7 @@ void CALLBACK PreErrorHandler	(INT_PTR)
 void SetupExceptionHandler	(const bool &dedicated)
 {
 	BT_InstallSehFilter		();
+
 #if 1//ndef USE_OWN_ERROR_MESSAGE_WINDOW
 	if (!dedicated && !strstr(GetCommandLine(),"-silent_error_mode"))
 		BT_SetActivityType	(BTA_SHOWUI);
@@ -505,6 +504,7 @@ void save_mini_dump			(_EXCEPTION_POINTERS *pExceptionInfo)
 			string64	t_stemp;
 
 			timestamp	(t_stemp);
+			xr_strcpy		( szDumpPath, "dumped\\");
 			xr_strcpy		( szDumpPath, Core.ApplicationName);
 			xr_strcat		( szDumpPath, "_"					);
 			xr_strcat		( szDumpPath, Core.UserName			);
@@ -512,7 +512,10 @@ void save_mini_dump			(_EXCEPTION_POINTERS *pExceptionInfo)
 			xr_strcat		( szDumpPath, t_stemp				);
 			xr_strcat		( szDumpPath, ".mdmp"				);
 
-			__try {
+
+
+			__try 
+			{
 				if (FS.path_exist("$logs$"))
 					FS.update_path	(szDumpPath,"$logs$",szDumpPath);
 			}
@@ -540,19 +543,26 @@ void save_mini_dump			(_EXCEPTION_POINTERS *pExceptionInfo)
 				ExInfo.ClientPointers		= NULL;
 
 				// write the dump
-				MINIDUMP_TYPE	dump_flags	= MINIDUMP_TYPE(MiniDumpNormal | MiniDumpFilterMemory | MiniDumpScanMemory );
+				bool SaveMEM = strstr(Core.Params, "-mdmp_memory");
+															/*DEFAULT*/
+ 				u32 spec_flag = SaveMEM ? MiniDumpWithFullMemoryInfo : 0; //  MiniDumpWithFullMemory : 0;
+
+
+				MINIDUMP_TYPE dump_flags	= MINIDUMP_TYPE(  MiniDumpNormal | MiniDumpFilterMemory |  MiniDumpScanMemory | spec_flag ); //MiniDumpWithPrivateReadWriteMemory  //  | MiniDumpWithDataSegs
 
 				BOOL bOK = pDump( GetCurrentProcess(), GetCurrentProcessId(), hFile, dump_flags, &ExInfo, NULL, NULL );
 				if (bOK)
 				{
-					xr_sprintf( szScratch, "Saved dump file to '%s'", szDumpPath );
+					xr_sprintf( szScratch, "Saved dump file to '%s' With Full MemoryFlag: [%d]", szDumpPath , spec_flag);
 					szResult = szScratch;
+					Msg(szScratch);
 //					retval = EXCEPTION_EXECUTE_HANDLER;
 				}
 				else
 				{
 					xr_sprintf( szScratch, "Failed to save dump file to '%s' (error %d)", szDumpPath, GetLastError() );
-					szResult = szScratch;
+					szResult = szScratch; 
+					Msg(szScratch);
 				}
 				::CloseHandle(hFile);
 			}
@@ -650,10 +660,12 @@ LONG WINAPI UnhandledFilter	(_EXCEPTION_POINTERS *pExceptionInfo)
 
 #ifndef USE_OWN_ERROR_MESSAGE_WINDOW
 #	ifdef USE_OWN_MINI_DUMP
+		CloseLog();
 		save_mini_dump		(pExceptionInfo);
 #	endif // USE_OWN_MINI_DUMP
 #else // USE_OWN_ERROR_MESSAGE_WINDOW
-	if (!error_after_dialog) {
+	if (!error_after_dialog) 
+	{
 		if (Debug.get_on_dialog())
 			Debug.get_on_dialog()	(true);
 
@@ -665,23 +677,14 @@ LONG WINAPI UnhandledFilter	(_EXCEPTION_POINTERS *pExceptionInfo)
 	ReportFault				( pExceptionInfo, 0 );
 #endif
 
-	if (!previous_filter) {
-#ifdef USE_OWN_ERROR_MESSAGE_WINDOW
-		if (Debug.get_on_dialog())
-			Debug.get_on_dialog()	(false);
-#endif // USE_OWN_ERROR_MESSAGE_WINDOW
-
-		return				(EXCEPTION_CONTINUE_SEARCH) ;
-	}
-
-	previous_filter			(pExceptionInfo);
 
 #ifdef USE_OWN_ERROR_MESSAGE_WINDOW
 	if (Debug.get_on_dialog())
 		Debug.get_on_dialog()		(false);
 #endif // USE_OWN_ERROR_MESSAGE_WINDOW
 
-	return					(EXCEPTION_CONTINUE_SEARCH) ;
+
+	return                  EXCEPTION_EXECUTE_HANDLER;
 }
 #endif
 
@@ -736,7 +739,7 @@ LONG WINAPI UnhandledFilter	(_EXCEPTION_POINTERS *pExceptionInfo)
 		
 		LPCSTR					endline = "\r\n";
 		LPSTR					buffer = assertion_info + xr_strlen(assertion_info);
-		buffer					+= xr_sprintf(buffer,"Press OK to abort execution%s",endline);
+		//buffer					+= xr_sprintf(buffer,"Press OK to abort execution%s",endline);
 
 		MessageBox				(
 			GetTopWindow(NULL),
