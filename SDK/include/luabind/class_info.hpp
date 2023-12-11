@@ -20,9 +20,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
 // OR OTHER DEALINGS IN THE SOFTWARE.
 
-
-#ifndef LUABIND_CLASS_INFO_HPP_INCLUDED
-#define LUABIND_CLASS_INFO_HPP_INCLUDED
+#pragma once
 
 #include <luabind/prefix.hpp>
 #include <luabind/lua_include.hpp>
@@ -30,7 +28,7 @@
 
 namespace luabind
 {
-	struct class_info
+	struct LUABIND_API class_info
 	{
 		class_info(lua_State* L)
 			: methods(L)
@@ -41,10 +39,7 @@ namespace luabind
 		object attributes;
 	};
 
-	class_info get_class_info(const object&);
+	class_info LUABIND_API get_class_info(const object&);
 
-	void bind_class_info(lua_State*);
+	void LUABIND_API bind_class_info(lua_State*);
 }
-
-#endif
-
