@@ -1053,6 +1053,17 @@ void  CScriptGameObject::AllowSprint(bool b)
 	Actor()->SetCantRunState(!b);
 }
 
+#include "Actor.h"
+
+bool CScriptGameObject::IsSafeMode()
+{
+	CActor* actor = smart_cast<CActor*>(&object());
+	if (actor)
+		return actor->MpSafeMode();
+
+	return false;
+}
+
 int	CScriptGameObject::animation_slot			() const
 {
 	CHudItem		*hud_item = smart_cast<CHudItem*>(&object());

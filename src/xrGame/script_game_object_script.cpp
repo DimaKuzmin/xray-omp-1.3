@@ -14,9 +14,9 @@
 
 using namespace luabind;
 
-extern class_<CScriptGameObject> &script_register_game_object1(class_<CScriptGameObject> &);
-extern class_<CScriptGameObject> &script_register_game_object2(class_<CScriptGameObject> &);
-extern class_<CScriptGameObject> &script_register_game_object_trader(class_<CScriptGameObject> &);
+extern class_<CScriptGameObject> script_register_game_object1(class_<CScriptGameObject> &&);
+extern class_<CScriptGameObject> script_register_game_object2(class_<CScriptGameObject> &&);
+extern class_<CScriptGameObject> script_register_game_object_trader(class_<CScriptGameObject> &&);
 
 #pragma optimize("s",on)
 void CScriptGameObject::script_register(lua_State *L)
@@ -49,7 +49,7 @@ void CScriptGameObject::script_register(lua_State *L)
 		
 		script_register_game_object2(
 			script_register_game_object1(
-				script_register_game_object_trader(instance)
+				script_register_game_object_trader(std::move(instance))
 			)
 		),
 
@@ -91,7 +91,7 @@ void CScriptGameObject::script_register(lua_State *L)
 				value("task_state",					int(GameObject::eTaskStateChange)),
 				value("take_item_from_box",			int(GameObject::eInvBoxItemTake)),
 				value("weapon_no_ammo",				int(GameObject::eWeaponNoAmmoAvailable)),
-				
+
 				value("map_location_added",			int(GameObject::eMapLocationAdded))
 			],
 

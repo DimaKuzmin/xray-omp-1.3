@@ -283,10 +283,13 @@ void item_respawn_manager::add_new_rpoint(shared_str profile_sect, RPoint const 
 	}
 }
 
+using namespace std::placeholders;
+
+
 void item_respawn_manager::check_to_delete(u16 item_id)
-{
-	respawn_iter temp_iter = std::find_if(m_respawns.begin(), m_respawns.end(),
-		std::bind2nd(search_by_id_predicate(), item_id));
+{ 
+	/*
+	respawn_iter temp_iter = std::find_if(m_respawns.begin(), m_respawns.end(),	 std::bind(search_by_id_predicate(), item_id, std::placeholders::_1));
 
 	if (temp_iter != m_respawns.end())
 	{
@@ -298,6 +301,7 @@ void item_respawn_manager::check_to_delete(u16 item_id)
 	{
 		level_items_respawn.erase(temp_li_iter);
 	}
+	*/
 }
 
 void item_respawn_manager::update(u32 current_time)

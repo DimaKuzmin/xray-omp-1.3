@@ -259,6 +259,11 @@ bool CActor::MpInvisibility() const
 	return (ps && ps->testFlag(GAME_PLAYER_MP_INVIS));
 }
 
+bool CActor::MpSafeMode() const
+{
+	return false;
+}
+
 void CActor::reinit	()
 {
 	character_physics_support()->movement()->CreateCharacter		();

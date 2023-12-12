@@ -85,6 +85,8 @@ public:
 			bool						MpNoClip					() const				;
 			bool						MpInvisibility				() const				;
 
+			bool						MpSafeMode() const;
+
 	virtual BOOL						AlwaysTheCrow				()						{ return TRUE; }
 
 	virtual CAttachmentOwner*			cast_attachment_owner		()						{return this;}
