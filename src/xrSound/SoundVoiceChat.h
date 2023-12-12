@@ -10,6 +10,9 @@
 #define VOICE_SAMPLES_PER_BUFFER 960
 #define VOICE_FORMAT AL_FORMAT_MONO16
 
+#pragma comment(lib,	"libspeexdsp.lib"			)
+#pragma comment(lib,	"opus.lib"			)
+
 class SoundVoiceChat : ISoundVoiceChat
 {
 public:

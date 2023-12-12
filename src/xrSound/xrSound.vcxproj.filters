@@ -75,26 +75,8 @@
     <ClInclude Include="SoundRender_Cache.h">
       <Filter>Cache</Filter>
     </ClInclude>
-    <ClInclude Include="VoicePacket.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="IStreamPlayer.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="ISoundVoiceChat.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="ISoundRecorder.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="IVoicePacketSender.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="SpeexPreprocess.h">
-      <Filter>VoiceChat</Filter>
-    </ClInclude>
-    <ClInclude Include="VoicePacketsPacker.h">
-      <Filter>VoiceChat</Filter>
+    <ClInclude Include="SoundRecorderA.h">
+      <Filter>VoiceChat\OpenAL</Filter>
     </ClInclude>
     <ClInclude Include="SoundVoiceChat.h">
       <Filter>VoiceChat\OpenAL</Filter>
@@ -102,10 +84,28 @@
     <ClInclude Include="StreamPlayerA.h">
       <Filter>VoiceChat\OpenAL</Filter>
     </ClInclude>
-    <ClInclude Include="SoundRecorderA.h">
-      <Filter>VoiceChat\OpenAL</Filter>
+    <ClInclude Include="ISoundRecorder.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="ISoundVoiceChat.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="IStreamPlayer.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="IVoicePacketSender.h">
+      <Filter>VoiceChat</Filter>
     </ClInclude>
     <ClInclude Include="RingBuffer.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="SpeexPreprocess.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="VoicePacket.h">
+      <Filter>VoiceChat</Filter>
+    </ClInclude>
+    <ClInclude Include="VoicePacketsPacker.h">
       <Filter>VoiceChat</Filter>
     </ClInclude>
   </ItemGroup>
@@ -167,11 +167,8 @@
     <ClCompile Include="SoundRender_Cache.cpp">
       <Filter>Cache</Filter>
     </ClCompile>
-    <ClCompile Include="SpeexPreprocess.cpp">
-      <Filter>VoiceChat</Filter>
-    </ClCompile>
-    <ClCompile Include="VoicePacketsPacker.cpp">
-      <Filter>VoiceChat</Filter>
+    <ClCompile Include="SoundRecorderA.cpp">
+      <Filter>VoiceChat\OpenAL</Filter>
     </ClCompile>
     <ClCompile Include="SoundVoiceChat.cpp">
       <Filter>VoiceChat\OpenAL</Filter>
@@ -179,8 +176,11 @@
     <ClCompile Include="StreamPlayerA.cpp">
       <Filter>VoiceChat\OpenAL</Filter>
     </ClCompile>
-    <ClCompile Include="SoundRecorderA.cpp">
-      <Filter>VoiceChat\OpenAL</Filter>
+    <ClCompile Include="SpeexPreprocess.cpp">
+      <Filter>VoiceChat</Filter>
+    </ClCompile>
+    <ClCompile Include="VoicePacketsPacker.cpp">
+      <Filter>VoiceChat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

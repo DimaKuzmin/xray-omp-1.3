@@ -41,7 +41,7 @@
       <Filter>NET_Server</Filter>
     </ClCompile>
     <ClCompile Include="WinsocksHelper.cpp">
-      <Filter>NET_Common</Filter>
+      <Filter>WinSocks</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -105,7 +105,7 @@
       <Filter>NET_Server</Filter>
     </ClInclude>
     <ClInclude Include="WinsocksHelper.h">
-      <Filter>NET_Common</Filter>
+      <Filter>WinSocks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -117,6 +117,9 @@
     </Filter>
     <Filter Include="NET_Client">
       <UniqueIdentifier>{e9d7a0f5-655c-4c81-b93c-cdb619930612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="WinSocks">
+      <UniqueIdentifier>{f40edea8-c231-45f7-8c3f-65111a398611}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
