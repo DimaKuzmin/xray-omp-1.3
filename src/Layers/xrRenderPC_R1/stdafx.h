@@ -40,6 +40,8 @@
 #include "../../xrParticles/psystem.h"
 #include "../xrRender/xrRender_console.h"
 #include "FStaticRender.h"
+
+#pragma comment(lib, "xrScripts.lib")
 #endif
 
 #define		TEX_POINT_ATT	"internal\\internal_light_attpoint"
