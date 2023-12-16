@@ -225,6 +225,7 @@ void	CResourceManager::LS_Load			()
 	//	luabind::set_error_callback		(LuaError);
 #endif
 
+
 	function		(LSVM, "log",	LuaLog);
 
 	module			(LSVM)

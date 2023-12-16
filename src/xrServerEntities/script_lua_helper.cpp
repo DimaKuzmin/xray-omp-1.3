@@ -40,9 +40,9 @@ int CDbgLuaHelper::PrepareLua(lua_State* l)
 void CDbgLuaHelper::PrepareLuaBind()
 {
 	luabind::set_pcall_callback	(hookLuaBind);
-#if !XRAY_EXCEPTIONS
-	luabind::set_error_callback (errormessageLuaBind);
-#endif
+//#if !XRAY_EXCEPTIONS
+//	luabind::set_error_callback (errormessageLuaBind);
+//#endif
 }
 
 

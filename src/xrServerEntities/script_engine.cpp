@@ -165,8 +165,33 @@ void CScriptEngine::unload				()
 	*m_last_no_file			= 0;
 }
 
+void printLuaTraceback(lua_State* L)
+{
+	lua_Debug ar;
+	int level = 0;
+	Msg("--- CallStack: ");
+	
+	while (lua_getstack(L, level, &ar))
+	{
+		lua_getinfo(L, "Slnt", &ar);
+
+		std::string functionName = ar.name ? ar.name : "(unknown)";
+		std::string source = ar.source ? ar.source : "(unknown)";
+		int line = ar.currentline;
+
+		Msg("[%d] %s (%s : %d)", level, functionName.c_str(), source.c_str(), line);
+
+		level++;
+	}
+
+	Msg("--- Callstack End");
+}
+
+
 int CScriptEngine::lua_panic			(lua_State *L)
 {
+	printLuaTraceback(L);
+
 	print_output	(L,"PANIC",LUA_ERRRUN);
 	return			(0);
 }
@@ -185,6 +210,8 @@ void CScriptEngine::lua_error			(lua_State *L)
 
 int  CScriptEngine::lua_pcall_failed	(lua_State *L)
 {
+	printLuaTraceback(L);
+
 	print_output			(L,"",LUA_ERRRUN);
 	ai().script_engine().on_error	(L);
 
@@ -205,31 +232,19 @@ void lua_cast_failed					(lua_State *L, LUABIND_TYPE_INFO info)
 
 void CScriptEngine::setup_callbacks		()
 {
-#ifdef USE_DEBUGGER
-#	ifndef USE_LUA_STUDIO
-		if( debugger() )
-			debugger()->PrepareLuaBind	();
-#	endif // #ifndef USE_LUA_STUDIO
-#endif
-
-#ifdef USE_DEBUGGER
-#	ifndef USE_LUA_STUDIO
-		if (!debugger() || !debugger()->Active() ) 
-#	endif // #ifndef USE_LUA_STUDIO
-#endif
 	{
-#if !XRAY_EXCEPTIONS
-		luabind::set_error_callback		(CScriptEngine::lua_error);
-#endif
 
-#ifndef MASTER_GOLD
+//#if !XRAY_EXCEPTIONS
+//		luabind::set_error_callback		(CScriptEngine::lua_error);
+//#endif
+ 
 		luabind::set_pcall_callback		(CScriptEngine::lua_pcall_failed);
-#endif // MASTER_GOLD
-	}
+ 	}
 
-#if !XRAY_EXCEPTIONS
-	luabind::set_cast_failed_callback	(lua_cast_failed);
-#endif
+//#if !XRAY_EXCEPTIONS
+//	luabind::set_cast_failed_callback	(lua_cast_failed);
+//#endif
+
 	lua_atpanic							(lua(),CScriptEngine::lua_panic);
 }
 
