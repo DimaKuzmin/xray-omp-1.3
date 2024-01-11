@@ -5,7 +5,7 @@
 
 class game_sv_freemp : public game_sv_mpalife, private pure_relcase
 {
-	typedef game_sv_mp inherited;
+	typedef game_sv_mpalife inherited;
 
 public:
 									game_sv_freemp();
