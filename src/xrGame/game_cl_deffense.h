@@ -15,8 +15,7 @@ public:
    	void OnVoiceMessage(NET_Packet* P);
 
 	virtual void TranslateGameMessage(u32 msg, NET_Packet& P);
-
-public:
+ 
 	virtual void SetGameUI(CUIGameCustom*);
 	virtual CUIGameCustom* createGameUI();
 

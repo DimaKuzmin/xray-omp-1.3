@@ -213,6 +213,7 @@
 #define CLSID_SV_GAME_FREE_MP				MK_CLSID('S','V','_','F','R','E','E',' ')
 #define CLSID_SV_GAME_ROLEPLAY				MK_CLSID('S','V','_','R','P',' ',' ',' ')
 #define CLSID_SV_GAME_DEFFENSE				MK_CLSID('S','V','_','D','E','F',' ',' ')
+#define CLSID_SV_GAME_COOP					MK_CLSID('S','V','_','C','O','O','P',' ')
 
 //#define CLSID_GAME_CS				MK_CLSID('S','V','_','C','S',' ',' ',' ')
 #define CLSID_CL_GAME_SINGLE			MK_CLSID('C','L','_','S','I','N','G','L')
@@ -222,6 +223,8 @@
 #define CLSID_CL_GAME_CAPTURETHEARTEFACT	MK_CLSID('C','L','_','C','T','A',' ',' ')
 #define CLSID_CL_GAME_FREE_MP				MK_CLSID('C','L','_','F','R','E','E',' ')
 #define CLSID_CL_GAME_ROLEPLAY				MK_CLSID('C','L','_','R','P',' ',' ',' ')
+#define CLSID_CL_GAME_DEFFENSE				MK_CLSID('C','L','_','D','E','F',' ',' ')
+#define CLSID_CL_GAME_COOP					MK_CLSID('C','L','_','C','O','O','P',' ')
 
 // Game UI types
 #define CLSID_GAME_UI_SINGLE			MK_CLSID('U','I','_','S','I','N','G','L')
@@ -232,4 +235,6 @@
 #define CLSID_GAME_UI_FREEMP			MK_CLSID('U','I','_','F','M','P',' ',' ')
 #define CLSID_GAME_UI_ROLEPLAY			MK_CLSID('U','I','_','R','P',' ',' ',' ')
 #define CLSID_GAME_UI_DEFFENSE			MK_CLSID('U','I','_','D','E','F',' ',' ')
+#define CLSID_GAME_UI_COOP				MK_CLSID('U','I','_','C','O','O','P',' ')
+
 #define CLSID_ONLINE_OFFLINE_GROUP		MK_CLSID('O','N','_','O','F','F','_','G')

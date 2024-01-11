@@ -211,6 +211,9 @@ LPCSTR GameTypeToString(EGameIDs gt, bool bShort)
 		return (bShort) ? "rp" : "roleplay";
 	case eGameIDDeffense:
 		return (bShort) ? "def" : "deffense";
+	case eGameIDCoop: 
+		return (bShort) ? "coop" : "coop";
+
 	default :
 		return		"---";
 	}
@@ -241,6 +244,9 @@ EGameIDs ParseStringToGameType(LPCSTR str)
 	else 
 	if ( !xr_strcmp(str, "deffense") || !xr_strcmp(str, "def") )
 		return eGameIDDeffense;
+	else 
+	if (!xr_strcmp(str, "coop") || !xr_strcmp(str, "coop"))
+		return eGameIDCoop;
 	else 
 		return eGameIDNoGame; //EGameIDs
 }

@@ -163,6 +163,7 @@
 #	include "game_sv_freemp.h"
 #	include "game_sv_roleplay.h"
 #   include "game_sv_deffense.h"
+#   include "game_sv_coop.h" 
 
 #	include "game_cl_single.h"
 #	include "game_cl_deathmatch.h"
@@ -172,6 +173,7 @@
 #	include "game_cl_freemp.h"
 #	include "game_cl_roleplay.h"
 #	include "game_cl_deffense.h"
+#   include "game_cl_coop.h"
 
 #	include "UIGameSP.h"
 #	include "UIGameAHunt.h"
@@ -179,6 +181,7 @@
 #	include "UIGameFMP.h"
 #	include "UIGameRP.h"
 #   include "UIGameDeffense.h"
+#   include "UIGameCoop.h"
 
 #	include	"climableobject.h"
 #	include "space_restrictor.h"
@@ -218,12 +221,14 @@ void CObjectFactory::register_classes	()
 	add<game_sv_freemp>											(CLSID_SV_GAME_FREE_MP, "game_sv_freemp");
 	add<game_sv_roleplay>										(CLSID_SV_GAME_ROLEPLAY, "game_sv_roleplay");
 	add<game_sv_deffense>										(CLSID_SV_GAME_DEFFENSE, "game_sv_deffense");
+	add<game_sv_coop>											(CLSID_SV_GAME_COOP, "game_sv_coop");
 
 #endif	//	BENCHMARK_BUILD
 	//Client Game type
 #ifndef NO_SINGLE
 	add<game_cl_Single>											(CLSID_CL_GAME_SINGLE			,"game_cl_single");
 #endif // #ifndef NO_SINGLE
+
 #ifndef	BENCHMARK_BUILD
 	add<game_cl_Deathmatch>										(CLSID_CL_GAME_DEATHMATCH		,"game_cl_deathmatch");
 	add<game_cl_TeamDeathmatch>									(CLSID_CL_GAME_TEAMDEATHMATCH	,"game_cl_team_deathmatch");
@@ -231,7 +236,8 @@ void CObjectFactory::register_classes	()
 	add<game_cl_CaptureTheArtefact>									(CLSID_CL_GAME_CAPTURETHEARTEFACT	,"game_cl_capture_the_artefact");
 	add<game_cl_freemp>											(CLSID_CL_GAME_FREE_MP, "game_cl_freemp");
 	add<game_cl_roleplay>										(CLSID_CL_GAME_ROLEPLAY, "game_cl_roleplay");
-	add<game_cl_deffense>										(CLSID_SV_GAME_DEFFENSE, "game_sv_deffense");
+	add<game_cl_deffense>										(CLSID_CL_GAME_DEFFENSE, "game_cl_deffense");
+	add<game_cl_coop>											(CLSID_CL_GAME_COOP, "game_cl_coop");
 #endif	//	BENCHMARK_BUILD
 
 
@@ -243,6 +249,8 @@ void CObjectFactory::register_classes	()
 	add<CUIGameFMP>												(CLSID_GAME_UI_FREEMP, "game_ui_freemp");
 	add<CUIGameRP>												(CLSID_GAME_UI_ROLEPLAY, "game_ui_roleplay");
 	add<CUIGameDeffense>										(CLSID_GAME_UI_DEFFENSE, "game_ui_deffense");
+    add<CUIGameCoop>											(CLSID_GAME_UI_COOP, "game_ui_coop");
+
 #	ifndef NO_SINGLE
 		ADD_MP(CActor,CActorMP,CSE_ALifeCreatureActor,CSE_ActorMP	,CLSID_OBJECT_ACTOR				,"actor");
 #	else // #ifndef NO_SINGLE

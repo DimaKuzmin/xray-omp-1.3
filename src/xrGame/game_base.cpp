@@ -271,6 +271,13 @@ CLASS_ID game_GameState::getCLASS_ID(LPCSTR game_type_name, bool isServer)
 		return			(isServer) ? TEXT2CLSID("SV_RP") : TEXT2CLSID("CL_RP");
 		break;
 
+	case eGameIDCoop:
+		return (isServer) ? TEXT2CLSID("SV_COOP") : TEXT2CLSID("CL_COOP");
+		break;
+
+	case eGameIDDeffense:
+		return (isServer) ? TEXT2CLSID("SV_DEF") : TEXT2CLSID("CL_DEF");
+
 	default:
 		return			(TEXT2CLSID(""));
 		break;

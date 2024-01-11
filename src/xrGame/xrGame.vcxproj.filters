@@ -2524,6 +2524,15 @@
     <Filter Include="UI\GameTypes\Deffense">
       <UniqueIdentifier>{250363f2-9fcc-489d-93c9-375dffd2070f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Server\Games\server\coop">
+      <UniqueIdentifier>{9547949b-fef3-4827-aae5-14240eca0a54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Server\Games\client\coop">
+      <UniqueIdentifier>{b3e507b8-9884-4d70-a52a-c21877f4b01e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\GameTypes\Coop">
+      <UniqueIdentifier>{9c2d63ce-8987-42a3-9f6f-988624bb8835}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -7455,6 +7464,16 @@
     <ClInclude Include="UIGameDeffense.h">
       <Filter>UI\GameTypes\Deffense</Filter>
     </ClInclude>
+ 
+    <ClInclude Include="game_cl_coop.h">
+      <Filter>Core\Server\Games\client\coop</Filter>
+    </ClInclude>
+    <ClInclude Include="game_sv_coop.h">
+      <Filter>Core\Server\Games\server\coop</Filter>
+    </ClInclude>
+    <ClInclude Include="UIGameCoop.h">
+      <Filter>UI\GameTypes\Coop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -11170,6 +11189,16 @@
     </ClCompile>
     <ClCompile Include="game_sv_deffense_helper.cpp">
       <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClCompile>
+ 
+    <ClCompile Include="game_cl_coop.cpp">
+      <Filter>Core\Server\Games\client\coop</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_coop.cpp">
+      <Filter>Core\Server\Games\server\coop</Filter>
+    </ClCompile>
+    <ClCompile Include="UIGameCoop.cpp">
+      <Filter>UI\GameTypes\Coop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

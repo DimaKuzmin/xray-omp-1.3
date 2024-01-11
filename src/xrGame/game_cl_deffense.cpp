@@ -32,6 +32,7 @@ void game_cl_deffense::OnVoiceMessage(NET_Packet* P)
 void game_cl_deffense::OnConnected()
 {
 	inherited::OnConnected();
+
 	if (m_game_ui)
 	{
 		R_ASSERT(!g_dedicated_server);
