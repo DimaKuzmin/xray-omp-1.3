@@ -1,9 +1,9 @@
 #pragma once
 
-#include "game_sv_mp.h"
+#include "game_sv_mpalife.h"
 #include "../xrEngine/pure_relcase.h"
 
-class game_sv_freemp : public game_sv_mp, private pure_relcase
+class game_sv_freemp : public game_sv_mpalife, private pure_relcase
 {
 	typedef game_sv_mp inherited;
 
@@ -17,7 +17,7 @@ public:
 	virtual		bool				UseSKin() const { return false; }
 
 	virtual		LPCSTR				type_name() const { return "freemp"; };
-	void __stdcall		net_Relcase(CObject* O) {};
+	void __stdcall					net_Relcase(CObject* O) {};
 
 	// helper functions
 	void									AddMoneyToPlayer(game_PlayerState* ps, s32 amount);

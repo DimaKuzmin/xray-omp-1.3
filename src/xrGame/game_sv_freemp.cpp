@@ -3,8 +3,7 @@
 #include "Level.h"
 #include "alife_simulator.h"
 
-game_sv_freemp::game_sv_freemp()
-	:pure_relcase(&game_sv_freemp::net_Relcase)
+game_sv_freemp::game_sv_freemp() : pure_relcase(&game_sv_freemp::net_Relcase)
 {
 	m_type = eGameIDFreeMp;
 

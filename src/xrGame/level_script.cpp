@@ -25,7 +25,8 @@
 #include "script_engine.h"
 #include "game_cl_single.h"
 #include "game_sv_single.h"
-#include "game_sv_mp.h"
+#include "game_sv_mpalife.h"
+
 #include "map_manager.h"
 #include "map_spot.h"
 #include "map_location.h"
@@ -747,7 +748,7 @@ int get_g_actor_id()
 
 void sv_teleport_player(u32 clientID, const Fvector3 pos)
 {
-	game_sv_mp* srv = smart_cast<game_sv_mp*>(Level().Server->game);
+	game_sv_mpalife* srv = smart_cast<game_sv_mpalife*>(Level().Server->game);
 	if (srv)
 	{
 		srv->TeleportPlayerTo(clientID, pos);
@@ -756,7 +757,7 @@ void sv_teleport_player(u32 clientID, const Fvector3 pos)
 
 void sv_teleport_player2(u32 clientID, const Fvector3 pos, const Fvector3 dir)
 {
-	game_sv_mp* srv = smart_cast<game_sv_mp*>(Level().Server->game);
+	game_sv_mpalife* srv = smart_cast<game_sv_mpalife*>(Level().Server->game);
 	if (srv)
 	{
 		srv->TeleportPlayerTo(clientID, pos, dir);

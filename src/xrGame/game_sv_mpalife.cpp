@@ -14,7 +14,7 @@
 #include "Actor.h"
 
 
-game_sv_mpalife::game_sv_mpalife() : pure_relcase(&game_sv_mpalife::net_Relcase)
+game_sv_mpalife::game_sv_mpalife()  
 {
 	m_alife_simulator			= NULL;
 }

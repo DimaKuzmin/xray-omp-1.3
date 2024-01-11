@@ -1,8 +1,7 @@
 #pragma once
 #include "game_sv_mp.h"
-#include "../xrEngine/pure_relcase.h"
-
-class game_sv_mpalife : public game_sv_mp, private pure_relcase
+ 
+class game_sv_mpalife : public game_sv_mp 
 {
 	typedef game_sv_mp base_class;
 protected:
@@ -36,6 +35,5 @@ public:
 
 	bool TeleportPlayerTo(ClientID id, Fvector3 P, Fvector3 A);
 
-	void __stdcall		net_Relcase(CObject* O) {};
-};
+ };
 
