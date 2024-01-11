@@ -20,9 +20,12 @@ static BOOL 				no_log			= TRUE;
 xr_vector<shared_str>*		LogFile			= NULL;
 static LogCallback			LogCB			= 0;
 
+IWriter* writer_file = 0;
+
 void FlushLog			()
 {
-	if (!no_log){
+	if (!no_log)
+	{
 		logCS.Enter			();
 		IWriter *f			= FS.w_open(logFName);
         if (f) {
@@ -43,11 +46,9 @@ void AddOne				(const char *split)
 
 	logCS.Enter			();
 
-#ifdef DEBUG
-	OutputDebugString	(split);
+ 	OutputDebugString	(split);
 	OutputDebugString	("\n");
-#endif
-
+ 
 //	DUMP_PHASE;
 	{
 		shared_str			temp = shared_str(split);
@@ -55,8 +56,14 @@ void AddOne				(const char *split)
 		LogFile->push_back	(temp);
 	}
 
+	if (writer_file)
+	{
+		writer_file->w_string(split); writer_file->flush();
+	}
+
 	//exec CallBack
-	if (LogExecCB&&LogCB)LogCB(split);
+	if (LogExecCB&&LogCB)
+		LogCB(split);
 
 	logCS.Leave				();
 }
@@ -184,7 +191,9 @@ void CreateLog			(BOOL nl)
 	strconcat			(sizeof(log_file_name),log_file_name,Core.ApplicationName,"_",Core.UserName,".log");
 	if (FS.path_exist("$logs$"))
 		FS.update_path	(logFName,"$logs$",log_file_name);
-	if (!no_log){
+	/*
+	if (!no_log)
+	{
         IWriter *f		= FS.w_open	(logFName);
         if (f==NULL){
         	MessageBox	(NULL,"Can't create log file.","Error",MB_ICONERROR);
@@ -192,6 +201,16 @@ void CreateLog			(BOOL nl)
         }
         FS.w_close		(f);
     }
+	*/
+
+	if (!writer_file)
+	{
+		writer_file =  FS.w_open	(logFName);
+		for (auto str : *LogFile)
+		{
+			writer_file->w_string(str.c_str());
+		}
+	}
 }
 
 void CloseLog(void)
@@ -199,4 +218,5 @@ void CloseLog(void)
 	FlushLog		();
  	LogFile->clear	();
 	xr_delete		(LogFile);
+	FS.w_close(writer_file);
 }
