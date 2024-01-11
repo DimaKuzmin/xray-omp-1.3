@@ -318,13 +318,30 @@ void xrCompressor::OpenPack(LPCSTR tgt_folder, int num)
 {
 	VERIFY			(0==fs_pack_writer);
 
-	string_path		fname;
-	string128		s_num;
+	string_path		fname = {0};
+	string128		s_num = {0};
+	
+	if (strstr(Core.Params, "-arch "))
+	{
+		xr_strcat(fname, "gamedata\\");
+
+		string64				c_name = {0};
+		sscanf(strstr(Core.Params, "-arch ") + 6, "%[^ ] ", c_name);
+		xr_strcat(fname, c_name);
+		xr_strcat(fname, ".db");
+		xr_strcat(fname, itoa(num, s_num, 10));
+	}
+	else
+	{
 #ifdef MOD_COMPRESS
-	strconcat		(sizeof(fname),fname,tgt_folder,".xdb",itoa(num,s_num,10));
+		strconcat(sizeof(fname), fname, tgt_folder, ".xdb", itoa(num, s_num, 10));
 #else
-	strconcat		(sizeof(fname),fname,tgt_folder,".pack_#",itoa(num,s_num,10));
+		strconcat(sizeof(fname), fname, tgt_folder, ".pack_#", itoa(num, s_num, 10));
 #endif
+	}
+
+	Msg("PATH = %s", fname);
+
 	unlink			(fname);
 	fs_pack_writer	= FS.w_open	(fname);
 	fs_desc.clear	();
