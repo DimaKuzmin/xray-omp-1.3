@@ -2137,9 +2137,6 @@
     <Filter Include="Core\Server\Games\server\team_deathmatch">
       <UniqueIdentifier>{5f299045-fd33-4a6d-961f-afb2f06a2cd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Server\Games\server\mp">
-      <UniqueIdentifier>{3ecab47b-b92a-4c63-b596-b20fb791eb62}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Server\Games\server\capture_the_artefact">
       <UniqueIdentifier>{a58df264-1026-4011-a161-c1c769651a23}</UniqueIdentifier>
     </Filter>
@@ -2511,6 +2508,15 @@
     </Filter>
     <Filter Include="Core\Client\VoiceChat">
       <UniqueIdentifier>{6c28ff95-4315-4a19-b71d-41045706e757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Server\Games\server\deffense">
+      <UniqueIdentifier>{de4f8db6-ecaf-4790-a1fa-a1409b15c90e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Server\Games\server\mp">
+      <UniqueIdentifier>{3ecab47b-b92a-4c63-b596-b20fb791eb62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Server\Games\server\mpalife">
+      <UniqueIdentifier>{ceec0391-4c24-4bda-b30d-790f2e90d324}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -7431,6 +7437,10 @@
     <ClInclude Include="VoiceSender.h">
       <Filter>Core\Client\VoiceChat</Filter>
     </ClInclude>
+    <ClInclude Include="game_sv_deffense.h">
+      <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClInclude>
+    <ClInclude Include="game_sv_mpalife.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -11123,6 +11133,10 @@
     <ClCompile Include="game_cl_freemp_messages.cpp">
       <Filter>Core\Server\Games\client\freemp</Filter>
     </ClCompile>
+    <ClCompile Include="game_sv_deffense.cpp">
+      <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_mpalife.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

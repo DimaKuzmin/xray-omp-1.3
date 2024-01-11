@@ -27,7 +27,9 @@
 #include "ai/stalker/ai_stalker.h"
 #include "InventoryBox.h"
 
-#include <locale.h>
+#include <locale.h>				   
+
+#include "game_sv_mpalife.h"
 
 EGameIDs	ParseStringToGameType	(LPCSTR str);
 LPCSTR		GameTypeToString		(EGameIDs gt, bool bShort);
@@ -1994,7 +1996,7 @@ public:
 	{
 		if (!g_pGameLevel || !Level().Server) return;
 
-		game_sv_mp* srv = smart_cast<game_sv_mp*>(Level().Server->game);
+		game_sv_mpalife* srv = smart_cast<game_sv_mpalife*>(Level().Server->game);
 		if (!srv) return;
 
 		ClientID client_id(0);
@@ -2033,7 +2035,7 @@ public:
 	{
 		if (!g_pGameLevel || !Level().Server) return;
 
-		game_sv_mp* srv = smart_cast<game_sv_mp*>(Level().Server->game);
+		game_sv_mpalife* srv = smart_cast<game_sv_mpalife*>(Level().Server->game);
 		if (!srv) return;
 
 		u16 tmp_id;
@@ -2069,7 +2071,7 @@ public:
 	{
 		if (!g_pGameLevel || !Level().Server) return;
 
-		game_sv_mp* srv = smart_cast<game_sv_mp*>(Level().Server->game);
+		game_sv_mpalife* srv = smart_cast<game_sv_mpalife*>(Level().Server->game);
 		if (!srv) return;
 
 		string256 section;
@@ -2446,7 +2448,7 @@ public:
 	{
 		if (!g_pGameLevel || !Level().Server) return;
 
-		game_sv_mp* sv_game = smart_cast<game_sv_mp*>(Level().Server->game);
+		game_sv_mpalife* sv_game = smart_cast<game_sv_mpalife*>(Level().Server->game);
 		if (!sv_game) return;
 
 		string1024 buff;

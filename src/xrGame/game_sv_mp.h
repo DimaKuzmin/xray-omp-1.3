@@ -36,7 +36,7 @@ class game_sv_mp :public game_sv_GameState
 	typedef game_sv_GameState inherited;
 
 protected:
-	CALifeSimulator					*m_alife_simulator;
+
 	//список трупов для удаления
 	DEF_DEQUE(CORPSE_LIST, u16);
 
@@ -214,23 +214,6 @@ public:
 	virtual		void				Player_ExperienceFin	(game_PlayerState* ps);
 	virtual		void				Player_AddMoney			(game_PlayerState* ps, s32 MoneyAmount);
 				void				SpawnPlayer				(ClientID id, LPCSTR N);
-
-				bool				SpawnItem(LPCSTR section, u16 parent);
-				bool				SpawnItemToPos(LPCSTR section, Fvector3 position);
-
-				bool				TeleportPlayerTo(ClientID id, Fvector3 P);
-				bool				TeleportPlayerTo(ClientID id, Fvector3 P, Fvector3 A);
-
-	IC			xrServer			&server					() const
-	{
-		VERIFY						(m_server);
-		return						(*m_server);
-	}
-
-	IC			CALifeSimulator		&alife					() const
-	{
-		VERIFY						(m_alife_simulator);
-		return						(*m_alife_simulator);
-	}
+ 
 };
 
