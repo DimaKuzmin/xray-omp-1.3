@@ -20,8 +20,8 @@ public:
 	void __stdcall					net_Relcase(CObject* O) {};
 
 	// helper functions
-	void									AddMoneyToPlayer(game_PlayerState* ps, s32 amount);
-	void									SpawnItemToActor(u16 actorId, LPCSTR name);
+	void							AddMoneyToPlayer(game_PlayerState* ps, s32 amount);
+	void							SpawnItemToActor(u16 actorId, LPCSTR name);
 
 	virtual		void				OnPlayerReady(ClientID id_who);
 	virtual		void				OnPlayerConnect(ClientID id_who);

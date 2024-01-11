@@ -1,30 +1,26 @@
 #include "stdafx.h"
-#include "UIGameFMP.h"
-#include "game_cl_freemp.h"
-#include "../xrEngine/xr_input.h"
+#include "UIGameDeffense.h"
+#include "game_cl_deffense.h"
 
+#include "Level.h"
 #include "Actor.h"
-#include "level.h"
 #include "xr_level_controller.h"
-
 #include "ui/UIStatic.h"
 #include "ui/UIXmlInit.h"
 
-extern BOOL g_cl_draw_mp_statistic;
-
-CUIGameFMP::CUIGameFMP()
+CUIGameDeffense::CUIGameDeffense()
 {
 	m_game = NULL;
 }
 
-CUIGameFMP::~CUIGameFMP()
+CUIGameDeffense::~CUIGameDeffense()
 {
 }
 
-void CUIGameFMP::Init(int stage)
+void CUIGameDeffense::Init(int stage)
 {
 	CUIXml uiXml;
-	uiXml.Load(CONFIG_PATH, UI_PATH, "ui_game_fmp.xml");
+	uiXml.Load(CONFIG_PATH, UI_PATH, "ui_game_deffense.xml");
 
 	if (stage == 0)
 	{
@@ -50,21 +46,17 @@ void CUIGameFMP::Init(int stage)
 	}
 }
 
-void CUIGameFMP::SetClGame(game_cl_GameState * g)
+void CUIGameDeffense::SetClGame(game_cl_GameState* g)
 {
 	inherited::SetClGame(g);
-	m_game = smart_cast<game_cl_freemp*>(g);
+	m_game = smart_cast<game_cl_deffense*>(g);
 	R_ASSERT(m_game);
 }
-
-void CUIGameFMP::HideShownDialogs()
+ 
+extern BOOL g_cl_draw_mp_statistic;
+void _BCL CUIGameDeffense::OnFrame()
 {
-	inherited::HideShownDialogs();
-}
-
-void _BCL CUIGameFMP::OnFrame()
-{
-	inherited::OnFrame();
+		inherited::OnFrame();
 
 
 	if (g_cl_draw_mp_statistic && Level().game->local_player)
@@ -129,7 +121,7 @@ void _BCL CUIGameFMP::OnFrame()
 	}
 }
 
-bool CUIGameFMP::IR_UIOnKeyboardPress(int dik)
+bool CUIGameDeffense::IR_UIOnKeyboardPress(int dik)
 {
 	if (inherited::IR_UIOnKeyboardPress(dik)) return true;
 	if (Device.Paused()) return false;

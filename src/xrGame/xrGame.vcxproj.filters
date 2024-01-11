@@ -2518,6 +2518,12 @@
     <Filter Include="Core\Server\Games\server\mpalife">
       <UniqueIdentifier>{ceec0391-4c24-4bda-b30d-790f2e90d324}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Server\Games\client\deffense">
+      <UniqueIdentifier>{6a70cdc3-f926-48eb-801b-d9a2865b56ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\GameTypes\Deffense">
+      <UniqueIdentifier>{250363f2-9fcc-489d-93c9-375dffd2070f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -7440,7 +7446,15 @@
     <ClInclude Include="game_sv_deffense.h">
       <Filter>Core\Server\Games\server\deffense</Filter>
     </ClInclude>
-    <ClInclude Include="game_sv_mpalife.h" />
+    <ClInclude Include="game_cl_deffense.h">
+      <Filter>Core\Server\Games\client\deffense</Filter>
+    </ClInclude>
+    <ClInclude Include="game_sv_mpalife.h">
+      <Filter>Core\Server\Games\server\mpalife</Filter>
+    </ClInclude>
+    <ClInclude Include="UIGameDeffense.h">
+      <Filter>UI\GameTypes\Deffense</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -11136,7 +11150,27 @@
     <ClCompile Include="game_sv_deffense.cpp">
       <Filter>Core\Server\Games\server\deffense</Filter>
     </ClCompile>
-    <ClCompile Include="game_sv_mpalife.cpp" />
+    <ClCompile Include="game_cl_deffense.cpp">
+      <Filter>Core\Server\Games\client\deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_mpalife.cpp">
+      <Filter>Core\Server\Games\server\mpalife</Filter>
+    </ClCompile>
+    <ClCompile Include="UIGameDeffense.cpp">
+      <Filter>UI\GameTypes\Deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_cl_deffense_messages.cpp">
+      <Filter>Core\Server\Games\client\deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_deffense_connect.cpp">
+      <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_deffense_trade_update.cpp">
+      <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClCompile>
+    <ClCompile Include="game_sv_deffense_helper.cpp">
+      <Filter>Core\Server\Games\server\deffense</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ai\monsters\chimera\chimera_attack_state.h">

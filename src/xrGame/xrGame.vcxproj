@@ -838,12 +838,14 @@
     <ClInclude Include="cover_point_inline.h" />
     <ClInclude Include="cta_game_artefact.h" />
     <ClInclude Include="cta_game_artefact_activation.h" />
+    <ClInclude Include="game_cl_deffense.h" />
     <ClInclude Include="game_cl_roleplay.h" />
     <ClInclude Include="game_sv_deffense.h" />
     <ClInclude Include="game_sv_mpalife.h" />
     <ClInclude Include="game_sv_roleplay.h" />
     <ClInclude Include="net_physics_state.h" />
     <ClInclude Include="script_event.h" />
+    <ClInclude Include="UIGameDeffense.h" />
     <ClInclude Include="UIGameFMP.h" />
     <ClInclude Include="CustomDetector.h" />
     <ClInclude Include="CustomMonster.h" />
@@ -2769,9 +2771,14 @@
     </ClCompile>
     <ClCompile Include="cta_game_artefact.cpp" />
     <ClCompile Include="cta_game_artefact_activation.cpp" />
+    <ClCompile Include="game_cl_deffense.cpp" />
+    <ClCompile Include="game_cl_deffense_messages.cpp" />
     <ClCompile Include="game_cl_freemp_messages.cpp" />
     <ClCompile Include="game_cl_roleplay.cpp" />
     <ClCompile Include="game_sv_deffense.cpp" />
+    <ClCompile Include="game_sv_deffense_connect.cpp" />
+    <ClCompile Include="game_sv_deffense_helper.cpp" />
+    <ClCompile Include="game_sv_deffense_trade_update.cpp" />
     <ClCompile Include="game_sv_freemp_trade.cpp" />
     <ClCompile Include="game_sv_freemp_upgrade_and_repair.cpp" />
     <ClCompile Include="game_sv_mpalife.cpp" />
@@ -2784,6 +2791,7 @@
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
       <PrecompiledHeaderOutputFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)$(ProjectName)_script.pch</PrecompiledHeaderOutputFile>
     </ClCompile>
+    <ClCompile Include="UIGameDeffense.cpp" />
     <ClCompile Include="UIGameFMP.cpp" />
     <ClCompile Include="CustomDetector.cpp" />
     <ClCompile Include="CustomMonster.cpp">
