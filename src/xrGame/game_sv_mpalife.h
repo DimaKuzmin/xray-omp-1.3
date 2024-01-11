@@ -26,6 +26,10 @@ public:
 		return						(*m_alife_simulator);
 	}
 
+	void sls_default				();
+
+	virtual		bool				custom_sls_default		() {return !!m_alife_simulator;};
+
 
 	bool SpawnItem(LPCSTR section, u16 parent);
 

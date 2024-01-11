@@ -58,22 +58,22 @@ void game_sv_deffense::OnPlayerReady(ClientID id_who)
 {
 	switch (Phase())
 	{
-	case GAME_PHASE_INPROGRESS:
-	{
-		xrClientData*	xrCData = (xrClientData*)m_server->ID_to_client(id_who);
-		game_PlayerState*	ps = get_id(id_who);
+		case GAME_PHASE_INPROGRESS:
+		{
+			xrClientData*	xrCData = (xrClientData*)m_server->ID_to_client(id_who);
+			game_PlayerState*	ps = get_id(id_who);
 
-		if (ps->IsSkip())
+			if (ps->IsSkip())
+				break;
+
+			if (!(ps->testFlag(GAME_PLAYER_FLAG_VERY_VERY_DEAD)))
+				break;
+
+			RespawnPlayer(id_who, true);
+		} break;
+
+		default:
 			break;
-
-		if (!(ps->testFlag(GAME_PLAYER_FLAG_VERY_VERY_DEAD)))
-			break;
-
-		RespawnPlayer(id_who, true);
-	} break;
-
-	default:
-		break;
 	};
 }
 

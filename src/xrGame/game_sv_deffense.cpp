@@ -17,10 +17,23 @@ void game_sv_deffense::Create(shared_str& options)
 
 	R_ASSERT2(rpoints[0].size(), "rpoints for players not found");
 
+	Msg("!! Rpoints Finded For Defense: %d", rpoints[0].size());
 	switch_Phase(GAME_PHASE_PENDING);
 
 	::Random.seed(GetTickCount());
 	m_CorpseList.clear();
+}
+
+void game_sv_deffense::assign_RP(CSE_Abstract* E, game_PlayerState* ps_who)
+{
+	R_ASSERT(rpoints[0].size() > 0);
+
+	xr_vector<RPoint>&	rp	= rpoints[0];
+	
+	RPoint& rpoint = rp[Random.randI(0, rp.size())];
+
+	E->position().set(rpoint.P);
+	E->angle().set(rpoint.A);
 }
 
 

@@ -19,6 +19,7 @@ public:
 	virtual		LPCSTR				type_name() const { return "freemp"; };
 	void __stdcall					net_Relcase(CObject* O) {};
 
+ 
 	// helper functions
 	void							AddMoneyToPlayer(game_PlayerState* ps, s32 amount);
 	void							SpawnItemToActor(u16 actorId, LPCSTR name);
