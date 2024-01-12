@@ -18,7 +18,10 @@ xr_token g_GameModes	[] = {
 	{ "st_artefacthunt",			eGameIDArtefactHunt			},
 	{ "st_capture_the_artefact",	eGameIDCaptureTheArtefact	},
 	{ "st_freemp",					eGameIDFreeMp				},
-	{ "st_roleplay",					eGameIDRolePlay				},
+	{ "st_roleplay",				eGameIDRolePlay				},
+	
+	{ "st_deffense",				eGameIDDeffense				},
+	{ "st_coop",					eGameIDCoop					},
 	{ 0,							0							}
 };
 

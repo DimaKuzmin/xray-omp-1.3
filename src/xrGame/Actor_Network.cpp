@@ -514,13 +514,17 @@ BOOL CActor::net_Spawn		(CSE_Abstract* DC)
 	//force actor to be local on server client
 	CSE_Abstract			*e	= (CSE_Abstract*)(DC);
 	CSE_ALifeCreatureActor	*E	= smart_cast<CSE_ALifeCreatureActor*>(e);
-	if (!IsGameTypeSingle()) {
+	
+	if (!IsGameTypeSingle()) 
+	{
 		if (OnServer())
 		{
-			if (!smart_cast<CActorMP*>(this)) {
+			if (!smart_cast<CActorMP*>(this)) 
+			{
 				E->s_flags.set(M_SPAWN_OBJECT_LOCAL, TRUE);
 				E->s_flags.set(M_SPAWN_OBJECT_ASPLAYER, FALSE);
 				Msg("single_actor_spawn");
+				
 				g_actor = this;
 				g_single_actor = this;
 			}

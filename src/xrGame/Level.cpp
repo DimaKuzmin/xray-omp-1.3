@@ -181,6 +181,7 @@ CLevel::CLevel():NET_CLIENT_CLASS (Device.GetTimerGlobal())
 //	m_bDemoStarted	= FALSE;
 
 	Msg("%s", Core.Params);
+
 	/*
 	if (strstr(Core.Params,"-tdemo ") || strstr(Core.Params,"-tdemof ")) {		
 		string1024				f_name;
@@ -345,17 +346,17 @@ void CLevel::setup_game_flags()
 	g_game_flags[F_DISABLE_RENDER_WEAPON_WHEN_LOOKOUT] = eGameIDDeathmatch | eGameIDTeamDeathmatch | eGameIDArtefactHunt | eGameIDCaptureTheArtefact;
 	g_game_flags[F_DISABLE_RENDER_WEAPON_CROSSHAIR_WHEN_LOOKOUT] = eGameIDDeathmatch | eGameIDTeamDeathmatch | eGameIDArtefactHunt | eGameIDCaptureTheArtefact;
 	
-	g_game_flags[F_USE_BOLT] = eGameIDSingle | eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_USE_NO_ACTIVE_SLOT] = eGameIDSingle | eGameIDFreeMp | eGameIDRolePlay;
+	g_game_flags[F_USE_BOLT] = eGameIDSingle | eGameIDFreeMp | eGameIDRolePlay | eGameIDCoop | eGameIDDeffense;
+	g_game_flags[F_USE_NO_ACTIVE_SLOT] = eGameIDSingle | eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
 
-	g_game_flags[F_RENDER_ACTOR_HUD_INFO] = eGameIDFreeMp | eGameIDRolePlay;
+	g_game_flags[F_RENDER_ACTOR_HUD_INFO] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
 
-	g_game_flags[F_SPECTATOR_MOVEMENT_DISABLED] = eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_SPECTATOR_ROTATION_DISABLED] = eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_ITEMS_AUTO_PICKUP_DISABLED] = eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_MUTANTS_DEADBODY_SEARCH_ENABLED] = eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_ZONES_ALWAYS_FAST_MODE] = eGameIDFreeMp | eGameIDRolePlay;
-	g_game_flags[F_RESTART_DISABLED] = eGameIDFreeMp | eGameIDRolePlay;
+	g_game_flags[F_SPECTATOR_MOVEMENT_DISABLED] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;  
+	g_game_flags[F_SPECTATOR_ROTATION_DISABLED] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
+	g_game_flags[F_ITEMS_AUTO_PICKUP_DISABLED] = eGameIDFreeMp | eGameIDRolePlay   | eGameIDCoop | eGameIDDeffense;
+	g_game_flags[F_MUTANTS_DEADBODY_SEARCH_ENABLED] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
+	g_game_flags[F_ZONES_ALWAYS_FAST_MODE] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
+	g_game_flags[F_RESTART_DISABLED] = eGameIDFreeMp | eGameIDRolePlay  | eGameIDCoop | eGameIDDeffense;
 }
 
 shared_str	CLevel::name		() const

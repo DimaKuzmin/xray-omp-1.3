@@ -61,7 +61,7 @@ CUIGameCustom* game_cl_deffense::createGameUI()
 	if (g_dedicated_server)
 		return NULL;
 
-	CLASS_ID clsid = CLSID_GAME_UI_FREEMP;
+	CLASS_ID clsid = CLSID_GAME_UI_DEFFENSE;
 	m_game_ui = smart_cast<CUIGameDeffense*> (NEW_INSTANCE(clsid));
 	R_ASSERT(m_game_ui);
 	m_game_ui->Load();

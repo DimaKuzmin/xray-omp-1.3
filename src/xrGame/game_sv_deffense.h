@@ -18,8 +18,10 @@ public:
 	virtual							~game_sv_deffense();
 	virtual		void				Create(shared_str &options);
 	virtual		void				assign_RP(CSE_Abstract* E, game_PlayerState* ps_who);
-		
+	
+	virtual		void				Update();
  
+
 	// Connection Flags
 	virtual		void OnPlayerConnect(ClientID id_who);
 	virtual		void OnPlayerConnectFinished(ClientID id_who);

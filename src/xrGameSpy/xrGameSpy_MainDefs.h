@@ -14,10 +14,10 @@
 	#define GAME_VERSION					"1.6.02"
 	#define REGISTRY_PATH					"Software\\GSC Game World\\STALKER-COP_DBG\\"
 #else
-	#define	GAMESPY_GAMENAME				"stalkercoppc"
+	#define	GAMESPY_GAMENAME				"OmpEngine V1.3 By Se7kills"
 	#define GAMESPY_GAMEID					2760
 	#define GAMESPY_PRODUCTID				11994
-	#define GAME_VERSION					"1.6.02"
+	#define GAME_VERSION					"0.01a OMP"
 	#define REGISTRY_PATH					"Software\\GSC Game World\\STALKER-COP\\"
 #endif
 

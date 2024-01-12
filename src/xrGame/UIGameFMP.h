@@ -9,6 +9,7 @@ class CUIGameFMP : public UIGameMP
 {
 private:
 	game_cl_freemp *	m_game;
+	
 	typedef UIGameMP inherited;
 
 protected:

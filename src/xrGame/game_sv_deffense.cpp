@@ -5,6 +5,7 @@
  
 game_sv_deffense::game_sv_deffense()  : pure_relcase(&game_sv_deffense::net_Relcase)
 {
+	m_type = eGameIDDeffense;
 }
 
 game_sv_deffense::~game_sv_deffense()
@@ -34,6 +35,16 @@ void game_sv_deffense::assign_RP(CSE_Abstract* E, game_PlayerState* ps_who)
 
 	E->position().set(rpoint.P);
 	E->angle().set(rpoint.A);
+}
+
+void game_sv_deffense::Update()
+{
+	inherited::Update();
+
+	if (Phase() != GAME_PHASE_INPROGRESS)
+	{
+		OnRoundStart();
+	}
 }
 
 

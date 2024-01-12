@@ -205,14 +205,15 @@ LPCSTR GameTypeToString(EGameIDs gt, bool bShort)
 	case eGameIDCaptureTheArtefact:
 		return (bShort)?"cta":"capturetheartefact";
 		break;
+
 	case eGameIDFreeMp:
-		return (bShort) ? "fmp" : "freemp";
+		return (bShort) ? "FreeMp" : "FreeMp";
 	case eGameIDRolePlay:
-		return (bShort) ? "rp" : "roleplay";
+		return (bShort) ? "RolePlay" : "RolePlay";
 	case eGameIDDeffense:
-		return (bShort) ? "def" : "deffense";
+		return (bShort) ? "Deffense" : "Deffense";
 	case eGameIDCoop: 
-		return (bShort) ? "coop" : "coop";
+		return (bShort) ? "Coop" : "Coop";
 
 	default :
 		return		"---";

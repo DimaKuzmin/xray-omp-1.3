@@ -7,7 +7,7 @@ class CUIGameCoop : public CUIGameFMP
 {
 private:
 	game_cl_coop *	m_game;
-	typedef UIGameMP inherited;
+	typedef CUIGameFMP inherited;
 public: 
 	CUIGameCoop() {m_game = 0;};
 	~CUIGameCoop() {};

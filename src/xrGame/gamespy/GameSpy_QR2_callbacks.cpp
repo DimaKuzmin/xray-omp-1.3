@@ -280,29 +280,38 @@ int __cdecl callback_count(qr2_key_type keytype, void *userdata)
 	xrGameSpyServer* pServer = (xrGameSpyServer*) userdata;
 	switch (keytype)
 	{
-	case key_player:
-		{
-			return pServer->GetPlayersCount();
-		}break;
-	case key_team:
-		{
-			if (!pServer->game) return 0;
-			switch (pServer->game->Type()) {
-				case eGameIDDeathmatch:
-				case eGameIDFreeMp:
-				case eGameIDRolePlay: // TODO: fix
-					return 1;
-				case eGameIDTeamDeathmatch:
-				case eGameIDArtefactHunt:
-				case eGameIDCaptureTheArtefact:
-					return 2;
-				default : 
-					R_ASSERT(0);
+		case key_player:
+			{
+				return pServer->GetPlayersCount();
+			}break;
+		case key_team:
+			{
+				if (!pServer->game) 
 					return 0;
-			}
-		}break;
-	default:
-		return 0;
+				
+				EGameIDs type = pServer->game->Type();
+				switch (type)
+				{
+					case eGameIDDeathmatch:
+					case eGameIDFreeMp:
+					case eGameIDRolePlay: // TODO: fix
+					case eGameIDCoop:
+					case eGameIDDeffense:
+						return 1;
+
+					case eGameIDTeamDeathmatch:
+					case eGameIDArtefactHunt:
+					case eGameIDCaptureTheArtefact:
+						return 2;
+			 
+					default : 
+						Msg("Cant Find GameSPY QR2 Callback: for type: %d deffault used", type);
+						//R_ASSERT(0);
+						return 0;
+				}
+			}break;
+		default:
+			return 0;
 	}
 	//return 0;
 };

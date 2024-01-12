@@ -1,28 +1,22 @@
 #pragma once
+#include "UIGameFMP.h"
 #include "UIGameMP.h"
  
 class game_cl_deffense;
 class CUITextWnd;
 
-class CUIGameDeffense : public UIGameMP
+class CUIGameDeffense : public CUIGameFMP
 {
 private:
 	game_cl_deffense *	m_game;
-	typedef UIGameMP inherited;
-
-protected:
-	CUITextWnd*			m_stats;
-
+	typedef CUIGameFMP inherited;
+ 	typedef UIGameMP basemp;
 public:
-				CUIGameDeffense();
-	virtual		~CUIGameDeffense();
+	CUIGameDeffense() {m_game = 0;};
+	~CUIGameDeffense() {};
 
-	virtual	void Init(int stage);
-
+ 
 	virtual void SetClGame(game_cl_GameState* g);
 
  
-	virtual void	_BCL OnFrame();
-
-	virtual bool IR_UIOnKeyboardPress(int dik);
 };
