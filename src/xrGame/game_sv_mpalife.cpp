@@ -41,10 +41,11 @@ void game_sv_mpalife::Create(shared_str& options)
 
 }
 
-void game_sv_mpalife::sls_default()
+/*void game_sv_mpalife::sls_default()
 {
 	alife().update_switch	();
 }
+*/
 
 bool game_sv_mpalife::SpawnItem(LPCSTR section, u16 parent)
 {

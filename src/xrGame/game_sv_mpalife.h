@@ -26,7 +26,7 @@ public:
 		return						(*m_alife_simulator);
 	}
 
-	void sls_default				();
+//	void sls_default				();
 
 	virtual		bool				custom_sls_default		() {return !!m_alife_simulator;};
 
