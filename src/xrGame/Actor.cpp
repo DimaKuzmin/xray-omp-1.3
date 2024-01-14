@@ -99,6 +99,7 @@ int				psActorSleepTime = 1;
 
 CActor::CActor() : CEntityAlive(),current_ik_cam_shift(0)
 {
+	mp_actor = false;
 	game_news_registry		= xr_new<CGameNewsRegistryWrapper		>();
 	// Cameras
 	cameras[eacFirstEye]	= xr_new<CCameraFirstEye>				(this);
@@ -254,6 +255,8 @@ bool CActor::MpInvisibility() const
 {
 	if (!g_Alive())
 		return false;
+	if (!mp_actor)
+		return true;
 
 	game_PlayerState* ps = Game().GetPlayerByGameID(ID());
 	return (ps && ps->testFlag(GAME_PLAYER_MP_INVIS));

@@ -76,6 +76,7 @@ class	CActor:
 private:
 	typedef CEntityAlive	inherited;
 public:
+	bool mp_actor = false;
 										CActor				();
 	virtual								~CActor				();
 
