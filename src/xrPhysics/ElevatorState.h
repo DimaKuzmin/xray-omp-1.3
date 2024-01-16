@@ -7,8 +7,7 @@ struct dContact;
 struct SGameMtl;
 class IClimableObject;
 
-class CElevatorState :
-	public IElevatorState
+class CElevatorState : public IElevatorState
 {
 public:	
 
@@ -20,7 +19,7 @@ private:
 		u32	  time;
 	};
 
-static SEnertionState m_etable[CElevatorState::clbNoState][CElevatorState::clbNoState];
+static SEnertionState m_etable[Estate::clbNoState][Estate::clbNoState];
 
 IClimableObject	*m_ladder;	
 CPHCharacter	*m_character;

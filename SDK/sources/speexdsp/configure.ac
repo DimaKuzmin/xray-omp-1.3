@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script. -*-m4-*-
 
-AC_INIT([speexdsp],[1.2.0],[speex-dev@xiph.org])
+AC_INIT([speexdsp],[1.2.1],[speex-dev@xiph.org])
 
 AC_CONFIG_SRCDIR([libspeexdsp/preprocess.c])
 AC_CONFIG_MACRO_DIR([m4])
@@ -10,7 +10,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 
 SPEEXDSP_LT_CURRENT=6
-SPEEXDSP_LT_REVISION=1
+SPEEXDSP_LT_REVISION=2
 SPEEXDSP_LT_AGE=5
 
 
@@ -22,8 +22,8 @@ AM_INIT_AUTOMAKE([foreign no-define])
 AM_MAINTAINER_MODE([enable])
 
 AC_CANONICAL_HOST
-AC_LIBTOOL_WIN32_DLL
-AM_PROG_LIBTOOL
+_LT_SET_OPTION([LT_INIT],[win32-dll])
+LT_INIT
 
 AC_C_BIGENDIAN
 AC_C_CONST
@@ -32,37 +32,14 @@ AC_C_RESTRICT
 
 
 AC_MSG_CHECKING(for C99 variable-size arrays)
-AC_TRY_COMPILE( , [
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[]], [[
 int foo;
 foo = 10;
 int array[foo];
-],
-[has_var_arrays=yes;AC_DEFINE([VAR_ARRAYS], [], [Use C99 variable-size arrays])
-],
-has_var_arrays=no
-)
+]])],[has_var_arrays=yes;AC_DEFINE([VAR_ARRAYS], [], [Use C99 variable-size arrays])
+],[has_var_arrays=no
+])
 AC_MSG_RESULT($has_var_arrays)
-
-AC_CHECK_HEADERS([alloca.h getopt.h])
-AC_MSG_CHECKING(for alloca)
-AC_TRY_COMPILE( [
-#ifdef HAVE_ALLOCA_H
-# include <alloca.h>
-#endif
-#include <stdlib.h>
-], [
-int foo=10;
-int *array = alloca(foo);
-],
-[
-has_alloca=yes;
-if test x$has_var_arrays = "xno" ; then
-AC_DEFINE([USE_ALLOCA], [], [Make use of alloca])
-fi
-],
-has_alloca=no
-)
-AC_MSG_RESULT($has_alloca)
 
 AC_MSG_CHECKING(for SSE in current arch/CFLAGS)
 AC_LINK_IFELSE([
@@ -142,11 +119,6 @@ AC_SUBST(src)
 
 LT_LIB_M
 
-
-AC_ARG_ENABLE(valgrind, [  --enable-valgrind       Enable valgrind extra checks],
-[if test "$enableval" = yes; then
-  AC_DEFINE([ENABLE_VALGRIND], , [Enable valgrind extra checks])
-fi])
 
 AC_ARG_ENABLE(sse, [  --enable-sse            Enable SSE support], [
 if test "x$enableval" != xno; then
@@ -269,7 +241,7 @@ void func() {
   MKL_LONG result=DftiCreateDescriptor(&h, DFTI_SINGLE, DFTI_REAL, 0);
 }]])],
    [AC_MSG_RESULT(yes)],
-   [AC_MSG_FAILURE([Failed to compile MKL test program. Make sure you set CFLAGS to include the include directory and set LDFLAGS to include the library directory and all necesarry libraries.])]
+   [AC_MSG_FAILURE([Failed to compile MKL test program. Make sure you set CFLAGS to include the include directory and set LDFLAGS to include the library directory and all necessary libraries.])]
   )
  ],
  [AC_MSG_FAILURE([Unknown FFT $FFT specified for --with-fft])]

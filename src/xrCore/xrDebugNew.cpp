@@ -171,6 +171,8 @@ void xrDebug::do_exit	(const std::string &message)
 
 void xrDebug::backend	(const char *expression, const char *description, const char *argument0, const char *argument1, const char *file, int line, const char *function, bool &ignore_always)
 {
+
+
 	static xrCriticalSection CS
 #ifdef PROFILE_CRITICAL_SECTIONS
 	(MUTEX_PROFILE_ID(xrDebug::backend))
@@ -200,6 +202,9 @@ void xrDebug::backend	(const char *expression, const char *description, const ch
 		get_on_dialog()	(true);
 
 	FlushLog			();
+
+	if (strstr(GetCommandLine(), "-silent_error_mode"))
+		exit(-1);
 
 #ifdef XRCORE_STATIC
 	MessageBox			(NULL,assertion_info,"X-Ray error",MB_OK|MB_ICONERROR|MB_SYSTEMMODAL);

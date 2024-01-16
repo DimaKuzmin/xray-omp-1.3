@@ -1,0 +1,961 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeDetermineSystem.cmake:211 (message)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      The system is: Windows - 10.0.19045 - AMD64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:7 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler:  
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+      Сборка начата 16.01.2024 19:45:47.
+      
+      Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\3.27.2-msvc1\\CompilerIdC\\CompilerIdC.vcxproj" в узле 1 (целевые объекты по умолчанию).
+      PrepareForBuild:
+        Создание каталога "Debug\\".
+        Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+        Создание каталога "Debug\\CompilerIdC.tlog\\".
+      InitializeBuildStatus:
+        Создание "Debug\\CompilerIdC.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+        Обращение к "Debug\\CompilerIdC.tlog\\unsuccessfulbuild".
+      ClCompile:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /nologo /W0 /WX- /diagnostics:column /Od /D _MBCS /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\\\" /Fd"Debug\\vc143.pdb" /external:W0 /Gd /TC /FC /errorReport:queue CMakeCCompilerId.c
+        CMakeCCompilerId.c
+      Link:
+        C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:".\\CompilerIdC.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:".\\CompilerIdC.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:".\\CompilerIdC.lib" /MACHINE:X64 Debug\\CMakeCCompilerId.obj
+        CompilerIdC.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\3.27.2-msvc1\\CompilerIdC\\CompilerIdC.exe
+      PostBuildEvent:
+        for %%i in (cl.exe) do @echo CMAKE_C_COMPILER=%%~$PATH:i
+        :VCEnd
+        CMAKE_C_COMPILER=C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\Hostx64\\x64\\cl.exe
+      FinalizeBuildStatus:
+        Файл "Debug\\CompilerIdC.tlog\\unsuccessfulbuild" удаляется.
+        Обращение к "Debug\\CompilerIdC.tlog\\CompilerIdC.lastbuildstate".
+      Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\3.27.2-msvc1\\CompilerIdC\\CompilerIdC.vcxproj" завершена (целевые объекты по умолчанию).
+      
+      Сборка успешно завершена.
+          Предупреждений: 0
+          Ошибок: 0
+      
+      Прошло времени 00:00:01.07
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.exe"
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "CompilerIdC.vcxproj"
+      
+      The C compiler identification is MSVC, found in:
+        D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/3.27.2-msvc1/CompilerIdC/CompilerIdC.exe
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:7 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ft8h51"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ft8h51"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ft8h51'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_3dcee.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:48.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ft8h51\\cmTC_3dcee.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_3dcee.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ft8h51\\Debug\\".
+          Создание каталога "cmTC_3dcee.dir\\Debug\\cmTC_3dcee.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_3dcee.dir\\Debug\\cmTC_3dcee.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_3dcee.dir\\Debug\\cmTC_3dcee.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3dcee.dir\\Debug\\\\" /Fd"cmTC_3dcee.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_3dcee.dir\\Debug\\\\" /Fd"cmTC_3dcee.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\Common7\\IDE\\CommonExtensions\\Microsoft\\CMake\\CMake\\share\\cmake-3.27\\Modules\\CMakeCCompilerABI.c"
+          CMakeCCompilerABI.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ft8h51\\Debug\\cmTC_3dcee.exe" /INCREMENTAL /ILK:"cmTC_3dcee.dir\\Debug\\cmTC_3dcee.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ft8h51/Debug/cmTC_3dcee.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ft8h51/Debug/cmTC_3dcee.lib" /MACHINE:X64  /machine:x64 cmTC_3dcee.dir\\Debug\\CMakeCCompilerABI.obj
+          cmTC_3dcee.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ft8h51\\Debug\\cmTC_3dcee.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_3dcee.dir\\Debug\\cmTC_3dcee.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_3dcee.dir\\Debug\\cmTC_3dcee.tlog\\cmTC_3dcee.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ft8h51\\cmTC_3dcee.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "cmake/CFeatureCheck.cmake:30 (try_compile)"
+      - "cmake/OpusConfig.cmake:27 (c_feature_check)"
+      - "CMakeLists.txt:11 (include)"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeTmp"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeTmp"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "COMPILE_VLA_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeTmp'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_be766.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:50.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_be766.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\Debug\\".
+          Создание каталога "cmTC_be766.dir\\Debug\\cmTC_be766.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_be766.dir\\Debug\\cmTC_be766.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_be766.dir\\Debug\\cmTC_be766.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_be766.dir\\Debug\\\\" /Fd"cmTC_be766.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_be766.dir\\Debug\\\\" /Fd"cmTC_be766.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c"
+          vla.c
+        D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,12): error C2057: требуется константное выражение [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,15): error C2466: невозможно выделить память для массива постоянного нулевого размера [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,10): error C2133: a: неизвестный размер [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(4,16): warning C4034: sizeof возвращает 0 [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj" завершена (целевые объекты по умолчанию) с ошибкой.
+        
+        Ошибка сборки.
+        
+        "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj" (целевой объект по умолчанию) (1) ->
+        (Целевой объект ClCompile) -> 
+          D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(4,16): warning C4034: sizeof возвращает 0 [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        
+        
+        "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj" (целевой объект по умолчанию) (1) ->
+        (Целевой объект ClCompile) -> 
+          D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,12): error C2057: требуется константное выражение [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+          D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,15): error C2466: невозможно выделить память для массива постоянного нулевого размера [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+          D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\cmake\\vla.c(3,10): error C2133: a: неизвестный размер [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeTmp\\cmTC_be766.vcxproj]
+        
+            Предупреждений: 1
+            Ошибок: 3
+        
+        Прошло времени 00:00:00.89
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusConfig.cmake:30 (check_include_file)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for alloca.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-kzwpc5"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-kzwpc5"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_ALLOCA_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-kzwpc5'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ca2da.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:51.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\cmTC_ca2da.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_ca2da.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\Debug\\".
+          Создание каталога "cmTC_ca2da.dir\\Debug\\cmTC_ca2da.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_ca2da.dir\\Debug\\cmTC_ca2da.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_ca2da.dir\\Debug\\cmTC_ca2da.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ca2da.dir\\Debug\\\\" /Fd"cmTC_ca2da.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ca2da.dir\\Debug\\\\" /Fd"cmTC_ca2da.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\CheckIncludeFile.c(1,10): error C1083: Не удается открыть файл включение: alloca.h: No such file or directory, [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\cmTC_ca2da.vcxproj]
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\cmTC_ca2da.vcxproj" завершена (целевые объекты по умолчанию) с ошибкой.
+        
+        Ошибка сборки.
+        
+        "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\cmTC_ca2da.vcxproj" (целевой объект по умолчанию) (1) ->
+        (Целевой объект ClCompile) -> 
+          D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\CheckIncludeFile.c(1,10): error C1083: Не удается открыть файл включение: alloca.h: No such file or directory, [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-kzwpc5\\cmTC_ca2da.vcxproj]
+        
+            Предупреждений: 0
+            Ошибок: 1
+        
+        Прошло времени 00:00:00.90
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "cmake/OpusConfig.cmake:37 (check_symbol_exists)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for alloca"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-l8kqd7"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-l8kqd7"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "USE_ALLOCA_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-l8kqd7'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_c839c.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:52.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\cmTC_c839c.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_c839c.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\Debug\\".
+          Создание каталога "cmTC_c839c.dir\\Debug\\cmTC_c839c.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_c839c.dir\\Debug\\cmTC_c839c.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_c839c.dir\\Debug\\cmTC_c839c.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_c839c.dir\\Debug\\\\" /Fd"cmTC_c839c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\CheckSymbolExists.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_c839c.dir\\Debug\\\\" /Fd"cmTC_c839c.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\CheckSymbolExists.c"
+          CheckSymbolExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\Debug\\cmTC_c839c.exe" /INCREMENTAL /ILK:"cmTC_c839c.dir\\Debug\\cmTC_c839c.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-l8kqd7/Debug/cmTC_c839c.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-l8kqd7/Debug/cmTC_c839c.lib" /MACHINE:X64  /machine:x64 cmTC_c839c.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_c839c.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\Debug\\cmTC_c839c.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_c839c.dir\\Debug\\cmTC_c839c.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_c839c.dir\\Debug\\cmTC_c839c.tlog\\cmTC_c839c.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-l8kqd7\\cmTC_c839c.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.06
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckLibraryExists.cmake:69 (try_compile)"
+      - "cmake/OpusConfig.cmake:43 (check_library_exists)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for floor in m"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-su1ibf"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-su1ibf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_LIBM"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-su1ibf'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_ede1e.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:53.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\cmTC_ede1e.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_ede1e.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\Debug\\".
+          Создание каталога "cmTC_ede1e.dir\\Debug\\cmTC_ede1e.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_ede1e.dir\\Debug\\cmTC_ede1e.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_ede1e.dir\\Debug\\cmTC_ede1e.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=floor /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ede1e.dir\\Debug\\\\" /Fd"cmTC_ede1e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\CheckFunctionExists.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D CHECK_FUNCTION_EXISTS=floor /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_ede1e.dir\\Debug\\\\" /Fd"cmTC_ede1e.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\CheckFunctionExists.c"
+          CheckFunctionExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\Debug\\cmTC_ede1e.exe" /INCREMENTAL /ILK:"cmTC_ede1e.dir\\Debug\\cmTC_ede1e.ilk" /NOLOGO m.lib kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-su1ibf/Debug/cmTC_ede1e.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-su1ibf/Debug/cmTC_ede1e.lib" /MACHINE:X64  /machine:x64 cmTC_ede1e.dir\\Debug\\CheckFunctionExists.obj
+        LINK : fatal error LNK1104: не удается открыть файл "m.lib" [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\cmTC_ede1e.vcxproj]
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\cmTC_ede1e.vcxproj" завершена (целевые объекты по умолчанию) с ошибкой.
+        
+        Ошибка сборки.
+        
+        "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\cmTC_ede1e.vcxproj" (целевой объект по умолчанию) (1) ->
+        (Целевой объект Link) -> 
+          LINK : fatal error LNK1104: не удается открыть файл "m.lib" [D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-su1ibf\\cmTC_ede1e.vcxproj]
+        
+            Предупреждений: 0
+            Ошибок: 1
+        
+        Прошло времени 00:00:00.95
+        
+      exitCode: 1
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "cmake/OpusConfig.cmake:49 (check_symbol_exists)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for lrintf"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-dyuquh"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-dyuquh"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_LRINTF"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-dyuquh'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2b547.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:55.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\cmTC_2b547.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_2b547.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\Debug\\".
+          Создание каталога "cmTC_2b547.dir\\Debug\\cmTC_2b547.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_2b547.dir\\Debug\\cmTC_2b547.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_2b547.dir\\Debug\\cmTC_2b547.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2b547.dir\\Debug\\\\" /Fd"cmTC_2b547.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\CheckSymbolExists.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2b547.dir\\Debug\\\\" /Fd"cmTC_2b547.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\CheckSymbolExists.c"
+          CheckSymbolExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\Debug\\cmTC_2b547.exe" /INCREMENTAL /ILK:"cmTC_2b547.dir\\Debug\\cmTC_2b547.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-dyuquh/Debug/cmTC_2b547.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-dyuquh/Debug/cmTC_2b547.lib" /MACHINE:X64  /machine:x64 cmTC_2b547.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_2b547.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\Debug\\cmTC_2b547.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_2b547.dir\\Debug\\cmTC_2b547.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_2b547.dir\\Debug\\cmTC_2b547.tlog\\cmTC_2b547.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-dyuquh\\cmTC_2b547.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.05
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:140 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckSymbolExists.cmake:66 (__CHECK_SYMBOL_EXISTS_IMPL)"
+      - "cmake/OpusConfig.cmake:50 (check_symbol_exists)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for lrint"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-2bdgj4"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-2bdgj4"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_LRINT"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-2bdgj4'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_18d64.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:56.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\cmTC_18d64.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_18d64.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\Debug\\".
+          Создание каталога "cmTC_18d64.dir\\Debug\\cmTC_18d64.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_18d64.dir\\Debug\\cmTC_18d64.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_18d64.dir\\Debug\\cmTC_18d64.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_18d64.dir\\Debug\\\\" /Fd"cmTC_18d64.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\CheckSymbolExists.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_18d64.dir\\Debug\\\\" /Fd"cmTC_18d64.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\CheckSymbolExists.c"
+          CheckSymbolExists.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\Debug\\cmTC_18d64.exe" /INCREMENTAL /ILK:"cmTC_18d64.dir\\Debug\\cmTC_18d64.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-2bdgj4/Debug/cmTC_18d64.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-2bdgj4/Debug/cmTC_18d64.lib" /MACHINE:X64  /machine:x64 cmTC_18d64.dir\\Debug\\CheckSymbolExists.obj
+          cmTC_18d64.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\Debug\\cmTC_18d64.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_18d64.dir\\Debug\\cmTC_18d64.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_18d64.dir\\Debug\\cmTC_18d64.tlog\\cmTC_18d64.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-2bdgj4\\cmTC_18d64.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.06
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusFunctions.cmake:148 (check_include_file)"
+      - "cmake/OpusConfig.cmake:64 (opus_supports_cpu_detection)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for intrin.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ilapqt"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ilapqt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_INTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ilapqt'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_7571f.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:58.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\cmTC_7571f.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_7571f.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\Debug\\".
+          Создание каталога "cmTC_7571f.dir\\Debug\\cmTC_7571f.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_7571f.dir\\Debug\\cmTC_7571f.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_7571f.dir\\Debug\\cmTC_7571f.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_7571f.dir\\Debug\\\\" /Fd"cmTC_7571f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_7571f.dir\\Debug\\\\" /Fd"cmTC_7571f.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\Debug\\cmTC_7571f.exe" /INCREMENTAL /ILK:"cmTC_7571f.dir\\Debug\\cmTC_7571f.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ilapqt/Debug/cmTC_7571f.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ilapqt/Debug/cmTC_7571f.lib" /MACHINE:X64  /machine:x64 cmTC_7571f.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_7571f.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\Debug\\cmTC_7571f.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_7571f.dir\\Debug\\cmTC_7571f.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_7571f.dir\\Debug\\cmTC_7571f.tlog\\cmTC_7571f.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ilapqt\\cmTC_7571f.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.05
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusFunctions.cmake:56 (check_include_file)"
+      - "cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for xmmintrin.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-qgwi8t"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-qgwi8t"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_XMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-qgwi8t'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_2f9de.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:45:59.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\cmTC_2f9de.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_2f9de.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\Debug\\".
+          Создание каталога "cmTC_2f9de.dir\\Debug\\cmTC_2f9de.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_2f9de.dir\\Debug\\cmTC_2f9de.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_2f9de.dir\\Debug\\cmTC_2f9de.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2f9de.dir\\Debug\\\\" /Fd"cmTC_2f9de.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_2f9de.dir\\Debug\\\\" /Fd"cmTC_2f9de.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\Debug\\cmTC_2f9de.exe" /INCREMENTAL /ILK:"cmTC_2f9de.dir\\Debug\\cmTC_2f9de.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-qgwi8t/Debug/cmTC_2f9de.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-qgwi8t/Debug/cmTC_2f9de.lib" /MACHINE:X64  /machine:x64 cmTC_2f9de.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_2f9de.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\Debug\\cmTC_2f9de.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_2f9de.dir\\Debug\\cmTC_2f9de.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_2f9de.dir\\Debug\\cmTC_2f9de.tlog\\cmTC_2f9de.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-qgwi8t\\cmTC_2f9de.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.05
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusFunctions.cmake:76 (check_include_file)"
+      - "cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for emmintrin.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-mkwy24"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-mkwy24"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_EMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-mkwy24'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_1c262.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:00.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\cmTC_1c262.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_1c262.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\Debug\\".
+          Создание каталога "cmTC_1c262.dir\\Debug\\cmTC_1c262.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_1c262.dir\\Debug\\cmTC_1c262.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_1c262.dir\\Debug\\cmTC_1c262.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1c262.dir\\Debug\\\\" /Fd"cmTC_1c262.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_1c262.dir\\Debug\\\\" /Fd"cmTC_1c262.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\Debug\\cmTC_1c262.exe" /INCREMENTAL /ILK:"cmTC_1c262.dir\\Debug\\cmTC_1c262.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-mkwy24/Debug/cmTC_1c262.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-mkwy24/Debug/cmTC_1c262.lib" /MACHINE:X64  /machine:x64 cmTC_1c262.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_1c262.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\Debug\\cmTC_1c262.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_1c262.dir\\Debug\\cmTC_1c262.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_1c262.dir\\Debug\\cmTC_1c262.tlog\\cmTC_1c262.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-mkwy24\\cmTC_1c262.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusFunctions.cmake:95 (check_include_file)"
+      - "cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for smmintrin.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ll81rf"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ll81rf"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_SMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ll81rf'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_36d29.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:02.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\cmTC_36d29.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_36d29.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\Debug\\".
+          Создание каталога "cmTC_36d29.dir\\Debug\\cmTC_36d29.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_36d29.dir\\Debug\\cmTC_36d29.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_36d29.dir\\Debug\\cmTC_36d29.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_36d29.dir\\Debug\\\\" /Fd"cmTC_36d29.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_36d29.dir\\Debug\\\\" /Fd"cmTC_36d29.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\Debug\\cmTC_36d29.exe" /INCREMENTAL /ILK:"cmTC_36d29.dir\\Debug\\cmTC_36d29.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ll81rf/Debug/cmTC_36d29.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-ll81rf/Debug/cmTC_36d29.lib" /MACHINE:X64  /machine:x64 cmTC_36d29.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_36d29.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\Debug\\cmTC_36d29.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_36d29.dir\\Debug\\cmTC_36d29.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_36d29.dir\\Debug\\cmTC_36d29.tlog\\cmTC_36d29.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-ll81rf\\cmTC_36d29.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.05
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckIncludeFile.cmake:90 (try_compile)"
+      - "cmake/OpusFunctions.cmake:114 (check_include_file)"
+      - "cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Looking for immintrin.h"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-1ft8xt"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-1ft8xt"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "HAVE_IMMINTRIN_H"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-1ft8xt'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_6a0dc.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:03.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\cmTC_6a0dc.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_6a0dc.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\Debug\\".
+          Создание каталога "cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6a0dc.dir\\Debug\\\\" /Fd"cmTC_6a0dc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\CheckIncludeFile.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_6a0dc.dir\\Debug\\\\" /Fd"cmTC_6a0dc.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\CheckIncludeFile.c"
+          CheckIncludeFile.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\Debug\\cmTC_6a0dc.exe" /INCREMENTAL /ILK:"cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-1ft8xt/Debug/cmTC_6a0dc.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-1ft8xt/Debug/cmTC_6a0dc.lib" /MACHINE:X64  /machine:x64 cmTC_6a0dc.dir\\Debug\\CheckIncludeFile.obj
+          cmTC_6a0dc.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\Debug\\cmTC_6a0dc.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_6a0dc.dir\\Debug\\cmTC_6a0dc.tlog\\cmTC_6a0dc.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-1ft8xt\\cmTC_6a0dc.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.06
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "cmake/OpusFunctions.cmake:117 (check_flag)"
+      - "cmake/OpusConfig.cmake:68 (opus_detect_sse)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test AVX_SUPPORTED"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-vymlh8"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-vymlh8"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "AVX_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-vymlh8'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_fe897.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:04.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\cmTC_fe897.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_fe897.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\Debug\\".
+          Создание каталога "cmTC_fe897.dir\\Debug\\cmTC_fe897.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_fe897.dir\\Debug\\cmTC_fe897.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_fe897.dir\\Debug\\cmTC_fe897.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D AVX_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /arch:AVX /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fe897.dir\\Debug\\\\" /Fd"cmTC_fe897.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\src.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D AVX_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /arch:AVX /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_fe897.dir\\Debug\\\\" /Fd"cmTC_fe897.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\Debug\\cmTC_fe897.exe" /INCREMENTAL /ILK:"cmTC_fe897.dir\\Debug\\cmTC_fe897.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-vymlh8/Debug/cmTC_fe897.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-vymlh8/Debug/cmTC_fe897.lib" /MACHINE:X64  /machine:x64 cmTC_fe897.dir\\Debug\\src.obj
+          cmTC_fe897.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\Debug\\cmTC_fe897.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_fe897.dir\\Debug\\cmTC_fe897.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_fe897.dir\\Debug\\cmTC_fe897.tlog\\cmTC_fe897.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-vymlh8\\cmTC_fe897.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "cmake/OpusConfig.cmake:84 (check_flag)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test FAST_MATH_SUPPORTED"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-r8hvga"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-r8hvga"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "FAST_MATH_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-r8hvga'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_e695a.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:06.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\cmTC_e695a.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_e695a.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\Debug\\".
+          Создание каталога "cmTC_e695a.dir\\Debug\\cmTC_e695a.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_e695a.dir\\Debug\\cmTC_e695a.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_e695a.dir\\Debug\\cmTC_e695a.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D FAST_MATH_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:fast /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e695a.dir\\Debug\\\\" /Fd"cmTC_e695a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\src.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D FAST_MATH_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:fast /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_e695a.dir\\Debug\\\\" /Fd"cmTC_e695a.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\Debug\\cmTC_e695a.exe" /INCREMENTAL /ILK:"cmTC_e695a.dir\\Debug\\cmTC_e695a.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-r8hvga/Debug/cmTC_e695a.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-r8hvga/Debug/cmTC_e695a.lib" /MACHINE:X64  /machine:x64 cmTC_e695a.dir\\Debug\\src.obj
+          cmTC_e695a.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\Debug\\cmTC_e695a.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_e695a.dir\\Debug\\cmTC_e695a.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_e695a.dir\\Debug\\cmTC_e695a.tlog\\cmTC_e695a.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-r8hvga\\cmTC_e695a.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "cmake/OpusConfig.cmake:85 (check_flag)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test STACK_PROTECTOR_SUPPORTED"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-uavw16"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-uavw16"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "STACK_PROTECTOR_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-uavw16'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_53976.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:07.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\cmTC_53976.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_53976.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\Debug\\".
+          Создание каталога "cmTC_53976.dir\\Debug\\cmTC_53976.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_53976.dir\\Debug\\cmTC_53976.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_53976.dir\\Debug\\cmTC_53976.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D STACK_PROTECTOR_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_53976.dir\\Debug\\\\" /Fd"cmTC_53976.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\src.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D STACK_PROTECTOR_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_53976.dir\\Debug\\\\" /Fd"cmTC_53976.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\Debug\\cmTC_53976.exe" /INCREMENTAL /ILK:"cmTC_53976.dir\\Debug\\cmTC_53976.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-uavw16/Debug/cmTC_53976.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-uavw16/Debug/cmTC_53976.lib" /MACHINE:X64  /machine:x64 cmTC_53976.dir\\Debug\\src.obj
+          cmTC_53976.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\Debug\\cmTC_53976.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_53976.dir\\Debug\\cmTC_53976.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_53976.dir\\Debug\\cmTC_53976.tlog\\cmTC_53976.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-uavw16\\cmTC_53976.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckSourceCompiles.cmake:101 (try_compile)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/Internal/CheckCompilerFlag.cmake:18 (cmake_check_source_compiles)"
+      - "C:/Program Files/Microsoft Visual Studio/2022/Preview/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.27/Modules/CheckCCompilerFlag.cmake:51 (cmake_check_compiler_flag)"
+      - "cmake/OpusFunctions.cmake:46 (check_c_compiler_flag)"
+      - "cmake/OpusConfig.cmake:86 (check_flag)"
+      - "CMakeLists.txt:11 (include)"
+    checks:
+      - "Performing Test STACK_PROTECTOR_DISABLED_SUPPORTED"
+    directories:
+      source: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-yj50xv"
+      binary: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-yj50xv"
+    cmakeVariables:
+      CMAKE_C_FLAGS: "/DWIN32 /D_WINDOWS /W3"
+      CMAKE_MODULE_PATH: "D:/GitHub/omp1.3/SDK/sources/opus-1.4/cmake"
+    buildResult:
+      variable: "STACK_PROTECTOR_DISABLED_SUPPORTED"
+      cached: true
+      stdout: |
+        Change Dir: 'D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-yj50xv'
+        
+        Run Build Command(s): "C:/Program Files/Microsoft Visual Studio/2022/Preview/MSBuild/Current/Bin/amd64/MSBuild.exe" cmTC_9a38b.vcxproj /p:Configuration=Debug /p:Platform=x64 /p:VisualStudioVersion=17.0 /v:n
+        Версия MSBuild 17.9.0-preview-23578-04+5fcddc790 для .NET Framework
+        Сборка начата 16.01.2024 19:46:09.
+        
+        Проект "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\cmTC_9a38b.vcxproj" в узле 1 (целевые объекты по умолчанию).
+        PrepareForBuild:
+          Создание каталога "cmTC_9a38b.dir\\Debug\\".
+          Структурированный вывод включен. Форматирование диагностики компилятора будет отражать иерархию ошибок. Подробнее см. https://aka.ms/cpp/structured-output.
+          Создание каталога "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\Debug\\".
+          Создание каталога "cmTC_9a38b.dir\\Debug\\cmTC_9a38b.tlog\\".
+        InitializeBuildStatus:
+          Создание "cmTC_9a38b.dir\\Debug\\cmTC_9a38b.tlog\\unsuccessfulbuild", так как было задано "AlwaysCreate".
+          Обращение к "cmTC_9a38b.dir\\Debug\\cmTC_9a38b.tlog\\unsuccessfulbuild".
+        ClCompile:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\CL.exe /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D STACK_PROTECTOR_DISABLED_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS- /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9a38b.dir\\Debug\\\\" /Fd"cmTC_9a38b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\src.c"
+          Оптимизирующий компилятор Microsoft (R) C/C++ версии 19.39.33321 для x64
+          (C) Корпорация Майкрософт (Microsoft Corporation).  Все права защищены.
+          cl /c /Zi /W3 /WX- /diagnostics:column /Od /Ob0 /D _MBCS /D WIN32 /D _WINDOWS /D STACK_PROTECTOR_DISABLED_SUPPORTED /D "CMAKE_INTDIR=\\"Debug\\"" /Gm- /RTC1 /MDd /GS- /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"cmTC_9a38b.dir\\Debug\\\\" /Fd"cmTC_9a38b.dir\\Debug\\vc143.pdb" /external:W3 /Gd /TC /errorReport:queue "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\src.c"
+          src.c
+        Link:
+          C:\\Program Files\\Microsoft Visual Studio\\2022\\Preview\\VC\\Tools\\MSVC\\14.39.33321\\bin\\HostX64\\x64\\link.exe /ERRORREPORT:QUEUE /OUT:"D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\Debug\\cmTC_9a38b.exe" /INCREMENTAL /ILK:"cmTC_9a38b.dir\\Debug\\cmTC_9a38b.ilk" /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-yj50xv/Debug/cmTC_9a38b.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:/GitHub/omp1.3/SDK/sources/opus-1.4/CMakeFiles/CMakeScratch/TryCompile-yj50xv/Debug/cmTC_9a38b.lib" /MACHINE:X64  /machine:x64 cmTC_9a38b.dir\\Debug\\src.obj
+          cmTC_9a38b.vcxproj -> D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\Debug\\cmTC_9a38b.exe
+        FinalizeBuildStatus:
+          Файл "cmTC_9a38b.dir\\Debug\\cmTC_9a38b.tlog\\unsuccessfulbuild" удаляется.
+          Обращение к "cmTC_9a38b.dir\\Debug\\cmTC_9a38b.tlog\\cmTC_9a38b.lastbuildstate".
+        Сборка проекта "D:\\GitHub\\omp1.3\\SDK\\sources\\opus-1.4\\CMakeFiles\\CMakeScratch\\TryCompile-yj50xv\\cmTC_9a38b.vcxproj" завершена (целевые объекты по умолчанию).
+        
+        Сборка успешно завершена.
+            Предупреждений: 0
+            Ошибок: 0
+        
+        Прошло времени 00:00:01.04
+        
+      exitCode: 0
+...

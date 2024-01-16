@@ -225,18 +225,27 @@ void CPhysicObject::RunStartupAnim(CSE_Abstract *D)
 		smart_cast<IKinematics*>(Visual())->CalculateBones	(TRUE);
 	}
 }
+
 IC	bool check_blend(CBlend * b, LPCSTR name, LPCSTR sect, LPCSTR visual)
 {
-#ifdef	DEBUG
-	if(!b)
-		Msg(" ! can not control anim - model is not animated name[%s] sect[%s] visual[%s]", name, sect, visual);
-#endif
+ 
+//	if(!b)
+//		Msg(" ! can not control anim - model is not animated name[%s] sect[%s] visual[%s]", name, sect, visual);
+ 
 	return !!b;
 }
 void	CPhysicObject::	run_anim_forward				()
 {
 	if( !check_blend( m_anim_blend, cName().c_str(), cNameSect().c_str(), cNameVisual().c_str() ) )
 		return;
+
+	IKinematicsAnimated* PKinematicsAnimated =  smart_cast<IKinematicsAnimated*>(Visual());
+
+	if (PKinematicsAnimated)
+	{
+		LPCSTR anim = PKinematicsAnimated->LL_MotionDefName_dbg(m_anim_blend->motionID).first;
+		Msg("Play Anim forward: %s, playing: %d, current: %f, total: %f, speed: %f, stopatend: %d", anim, m_anim_blend->playing, m_anim_blend->timeCurrent, m_anim_blend->timeTotal, m_anim_blend->speed, m_anim_blend->stop_at_end);
+	}
 	m_anim_blend->playing = TRUE;
 	m_anim_blend->stop_at_end_callback = TRUE;
 	if(m_anim_blend->speed < 0.f)
@@ -247,6 +256,15 @@ void	CPhysicObject::	run_anim_back					()
 {
 	if( !check_blend( m_anim_blend, cName().c_str(), cNameSect().c_str(), cNameVisual().c_str() ) )
 		return;
+
+	IKinematicsAnimated* PKinematicsAnimated = smart_cast<IKinematicsAnimated*>(Visual());
+
+	if (PKinematicsAnimated)
+	{
+		LPCSTR anim = PKinematicsAnimated->LL_MotionDefName_dbg(m_anim_blend->motionID).first;
+		Msg("Play Anim backward: %s, playing: %d, current: %f, total: %f, speed: %f, stopatend: %d", anim, m_anim_blend->playing, m_anim_blend->timeCurrent, m_anim_blend->timeTotal, m_anim_blend->speed, m_anim_blend->stop_at_end);
+	}
+
 	m_anim_blend->playing = TRUE;
 	m_anim_blend->stop_at_end_callback = TRUE;
 	if(m_anim_blend->speed > 0.f)
@@ -263,12 +281,14 @@ float	CPhysicObject::		anim_time_get					()
 {
 	if( !check_blend( m_anim_blend, cName().c_str(), cNameSect().c_str(), cNameVisual().c_str() ) )
 		return 0.f;
+
 	return m_anim_blend->timeCurrent;
 }
 void	CPhysicObject::		anim_time_set					( float time )
 {
 	if( !check_blend( m_anim_blend, cName().c_str(), cNameSect().c_str(), cNameVisual().c_str() ) )
 		return ;
+
 	if( time < 0.f || time > m_anim_blend->timeTotal )
 	{
 #ifdef	DEBUG	
@@ -276,6 +296,7 @@ void	CPhysicObject::		anim_time_set					( float time )
 #endif
 		return;
 	}
+
 	m_anim_blend->timeCurrent = time;
 	IKinematics *K = smart_cast<IKinematics*>(Visual());
 	VERIFY( K );

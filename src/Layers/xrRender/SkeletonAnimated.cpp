@@ -59,15 +59,17 @@ void	CKinematicsAnimated::Bone_Motion_Stop_IM	(CBoneData* bd, CBlend* handle)
 	LL_GetBlendInstance	(bd->GetSelfID()).blend_remove	(handle);
 }
 
-#if (defined DEBUG || defined _EDITOR)
 
-std::pair<LPCSTR,LPCSTR> CKinematicsAnimated::LL_MotionDefName_dbg	(MotionID ID)
+std::pair<LPCSTR, LPCSTR> CKinematicsAnimated::LL_MotionDefName_dbg(MotionID ID)
 {
-	shared_motions& s_mots	= m_Motions[ID.slot].motions;
-	accel_map::iterator _I, _E=s_mots.motion_map()->end();
-	for (_I	= s_mots.motion_map()->begin(); _I!=_E; ++_I)	if (_I->second==ID.idx) return std::make_pair(*_I->first,*s_mots.id());
-	return std::make_pair((LPCSTR)0,(LPCSTR)0);
+	shared_motions& s_mots = m_Motions[ID.slot].motions;
+	accel_map::iterator _I, _E = s_mots.motion_map()->end();
+	for (_I = s_mots.motion_map()->begin(); _I != _E; ++_I)	if (_I->second == ID.idx) return std::make_pair(*_I->first, *s_mots.id());
+	return std::make_pair((LPCSTR)0, (LPCSTR)0);
 }
+
+
+#if (defined DEBUG || defined _EDITOR)
 
 
 

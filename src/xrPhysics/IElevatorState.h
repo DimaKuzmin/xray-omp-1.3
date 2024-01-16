@@ -2,7 +2,7 @@
 
 enum Estate
 {
-	clbNone			=0	,				
+	clbNone			=	0,				
 	clbNearUp			,			
 	clbNearDown			,		
 	clbClimbingUp		,		
