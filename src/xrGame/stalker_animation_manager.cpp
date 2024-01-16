@@ -12,6 +12,7 @@
 #include "stalker_animation_data_storage.h"
 #include "stalker_animation_data.h"
 #include "stalker_movement_manager_smart_cover.h"
+#include "CharacterPhysicsSupport.h"
 
 // TODO:
 // stalker animation manager consists of 5 independent managers,
@@ -21,6 +22,20 @@
 //    * legs
 //    * globals
 //    * script
+
+bool CStalkerAnimationManager::standing() const
+{
+	CAI_Stalker& obj = object();
+	stalker_movement_manager_smart_cover& movement = obj.movement();
+
+	if (movement.speed(obj.character_physics_support()->movement()) < EPS_L)
+		return				(true);
+
+	if (eMovementTypeStand == movement.movement_type())
+		return				(true);
+
+	return					(false);
+}
 
 CStalkerAnimationManager::CStalkerAnimationManager	(CAI_Stalker *object) :
 	m_object					( object ),

@@ -1002,7 +1002,4 @@
       <Filter>Models\Visuals</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="Pipeline.txt" />
-  </ItemGroup>
 </Project>
