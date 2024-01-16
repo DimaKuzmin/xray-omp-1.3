@@ -479,6 +479,20 @@ void CStats::OnDeviceDestroy		()
 
 void CStats::OnRender				()
 {
+#ifndef DEDICATED_SERVER
+	CGameFont& F = *pSFont;
+	Fvector2 F_Int = { 1,0.2 };
+	F.SetInterval(F_Int);
+
+	{
+		pSFont->SizeOf_(1.5f);
+		F.SetColor(hex_color(208, 208, 208));
+		F.OutSet(5, 5);
+		F.OutNext("Deffense Project		Version 1.0");
+		pSFont->OnRender();
+	}
+#endif // !DEDICATED_SERVER
+
 #ifdef DEBUG
 	if (g_stats_flags.is(st_sound)){
 		CSound_stats_ext				snd_stat_ext;
