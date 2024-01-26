@@ -22,6 +22,9 @@ using namespace ALife;
 
 void CALifeSimulatorBase::register_object	(CSE_ALifeDynamicObject *object, bool add_object)
 {
+ 
+
+
 	object->on_before_register			();
 
 	if (add_object)

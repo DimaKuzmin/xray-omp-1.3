@@ -16,7 +16,7 @@ game_sv_freemp::~game_sv_freemp()
 void game_sv_freemp::Create(shared_str & options)
 {
 	inherited::Create(options);
-	R_ASSERT2(rpoints[0].size(), "rpoints for players not found");
+	//R_ASSERT2(rpoints[0].size(), "rpoints for players not found");
 
 	switch_Phase(GAME_PHASE_PENDING);
 

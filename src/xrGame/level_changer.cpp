@@ -206,7 +206,7 @@ void CLevelChanger::update_actor_invitation()
 		{
 			players_inside++;
 
-			if (players_inside > players)
+			if (players_inside >= players)
 			{
 				Msg("ChangeTo Level: GV:%u, LV:%u, POS[%f,%f,%f], ANGLE[%f,%f,%f]", m_game_vertex_id, m_level_vertex_id, VPUSH(m_position), VPUSH(m_angles));
 
@@ -218,6 +218,10 @@ void CLevelChanger::update_actor_invitation()
 				p.w_vec3(m_angles);
 				Level().Send(p, net_flags(TRUE));
 				return;
+			}
+			else
+			{
+				Msg("Players: %d", players_inside);
 			}
 
 			//CUIGameSP* pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());

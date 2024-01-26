@@ -42,5 +42,10 @@ public:
 
 	virtual		LPCSTR				get_alifespawn();
 
+	bool change_level(NET_Packet& net_packet, ClientID sender);
+
+	void  restart_simulator(LPCSTR saved_game_name);
+
+
  };
 

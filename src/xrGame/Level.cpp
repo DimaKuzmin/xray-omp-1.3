@@ -577,7 +577,8 @@ void CLevel::MakeReconnect()
 		if (m_caServerOptions.c_str())
 		{
 			server_options = xr_strdup(*m_caServerOptions);
-		} else
+		} 
+		else
 		{
 			server_options = xr_strdup("");
 		}

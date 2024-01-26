@@ -704,6 +704,7 @@ void CGamePersistent::OnFrame	()
 #include "UIGameCustom.h"
 #include "ui/UIMainIngameWnd.h"
 #include "ui/UIPdaWnd.h"
+#include "game_sv_mpalife.h"
 
 void CGamePersistent::OnEvent(EVENT E, u64 P1, u64 P2)
 {
@@ -728,12 +729,25 @@ void CGamePersistent::OnEvent(EVENT E, u64 P1, u64 P2)
 		LPSTR		saved_name	= (LPSTR)(P1);
 
 		Level().remove_objects	();
-		game_sv_Single			*game = smart_cast<game_sv_Single*>(Level().Server->game);
-		R_ASSERT				(game);
-		game->restart_simulator	(saved_name);
-		xr_free					(saved_name);
+	
+		if (IsGameTypeSingle())
+		{
+			game_sv_Single* game = smart_cast<game_sv_Single*>(Level().Server->game);
+			if (game)
+ 			game->restart_simulator(saved_name);
+		}
+		else
+		{
+			game_sv_mpalife * game = smart_cast<game_sv_mpalife*>(Level().Server->game);
+			if (game)
+ 			game->restart_simulator(saved_name);
+		}
+
+		xr_free(saved_name);
+		
 		return;
-	}else
+	}
+	else
 	if(E==eDemoStart)
 	{
 		string256			cmd;

@@ -9,6 +9,7 @@ struct GameDescriptionData
 	string128	map_version = "";
 	string512	download_url = "";
     string512   alifespawn = "";
+    u16         GameType = 0;
 };
     
 #define NET_MERGE_PACKETS               1

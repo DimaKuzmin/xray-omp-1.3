@@ -123,7 +123,7 @@ bool CLevel::net_start1				()
 			Server					= xr_new<xrGameSpyServer>();
 		}
 
-		if ( xr_strcmp(p.m_alife,"alife" ) )
+		if ( xr_strcmp(p.m_alife,"alife" ) ) // Нету ALife
 		{
 			shared_str l_ver			= game_sv_GameState::parse_level_version(m_caServerOptions);
 			
@@ -136,12 +136,9 @@ bool CLevel::net_start1				()
 
 			if (id<0) 
 			{
-				Log						("[ALIFE] Can't find level: ",map_data.m_name.c_str());
-				net_start_result_total	= FALSE;
+ 				net_start_result_total	= FALSE;
 				return true;
 			}
-
-			Msg("[Alife] Loaded");
 		}
 	} 
 	else

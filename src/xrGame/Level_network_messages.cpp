@@ -17,6 +17,8 @@
 #include "message_filter.h"
 #include "../xrphysics/iphworld.h"
 
+#include "GamePersistent.h"
+
 extern LPCSTR map_ver_string;
 LPSTR remove_version_option(LPCSTR opt_str, LPSTR new_opt_str, u32 new_opt_str_size)
 {
@@ -308,12 +310,27 @@ void CLevel::ClientReceive()
 						CSavedGameWrapper			wrapper(saved_name);
 						if (wrapper.level_id() == ai().level_graph().level_id()) 
 						{
+							Msg("QuickLoad: %s", saved_name);
 							Engine.Event.Defer	("Game:QuickLoad", size_t(xr_strdup(saved_name)), 0);
 
 							break;
 						}
 					}
 				}
+
+				typedef IGame_Persistent::params params;
+				params& p = g_pGamePersistent->m_game_params;
+
+				if (OnServer())
+				{
+					string256	server_parrams;
+					sprintf(server_parrams, "%s/%s/%s/%s", p.m_game_or_spawn, p.m_game_type, p.m_alife, p.m_new_or_load);
+					m_caServerOptions = server_parrams;
+
+					Msg("Server Params: %s", m_caServerOptions.c_str());
+				}
+
+				//if (OnClient())
 				MakeReconnect();
 			}break;
 		case M_SAVE_GAME:

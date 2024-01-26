@@ -12,6 +12,7 @@
 
 game_sv_coop::game_sv_coop()
 {
+	Msg("Set Coop");
 	m_type = eGameIDCoop;
 }
 
@@ -21,7 +22,6 @@ game_sv_coop::~game_sv_coop()
 
 shared_str game_sv_coop::level_name(const shared_str& server_options)
 {
-	Msg("Coop");
-	return ai().alife().level_name();
+ 	return ai().alife().level_name();
 }
   

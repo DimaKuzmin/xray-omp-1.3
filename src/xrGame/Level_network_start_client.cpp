@@ -132,7 +132,8 @@ bool	CLevel::net_start_client3				()
 
 bool	CLevel::net_start_client4				()
 {
-	if(connected_to_server){
+	if(connected_to_server)
+	{
 		// Begin spawn
 //		g_pGamePersistent->LoadTitle		("st_client_spawning");
 		g_pGamePersistent->LoadTitle		();
@@ -154,7 +155,7 @@ bool	CLevel::net_start_client4				()
 		VERIFY						( physics_world() );
 		physics_world()->set_step_time_callback( (PhysicsStepTimeCallback*) &PhisStepsCallback );
 
-
+		   
 		// Send network to single or multithreaded mode
 		// *note: release version always has "mt_*" enabled
 		Device.seqFrameMT.Remove			(g_pNetProcessor);

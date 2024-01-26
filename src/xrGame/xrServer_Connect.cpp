@@ -87,7 +87,7 @@ xrServer::EConnect xrServer::Connect(shared_str &session_name, GameDescriptionDa
 	xr_strcpy(game_descr.map_version, game_sv_GameState::parse_level_version(session_name.c_str()).c_str());
 	xr_strcpy(game_descr.download_url, get_map_download_url(game_descr.map_name, game_descr.map_version));
 	xr_strcpy(game_descr.alifespawn, game->get_alifespawn());
-
+	game_descr.GameType = game->Type();
 
 
 	return inherited::Connect(*session_name, game_descr);

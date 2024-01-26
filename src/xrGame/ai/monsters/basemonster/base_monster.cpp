@@ -406,7 +406,7 @@ void CBaseMonster::UpdateCL()
 	}
 #endif
 
-	if ((IsGameTypeSingle() || OnServer()) && EatedCorpse && !CorpseMemory.is_valid_corpse(EatedCorpse) )
+	if (OnServer() && EatedCorpse && !CorpseMemory.is_valid_corpse(EatedCorpse) )
 	{
 		EatedCorpse = NULL;
 	}
@@ -420,13 +420,16 @@ void CBaseMonster::UpdateCL()
 
 	if ( g_Alive() ) 
 	{
-		update_enemy_accessible_and_at_home_info();
+		if (OnServer())
+			update_enemy_accessible_and_at_home_info();
+		
 		CStepManager::update(false);
 
-		if (IsGameTypeSingle() || OnServer())
+		if ( OnServer())
 			update_pos_by_grouping_behaviour();
 	}
-	if(IsGameTypeSingle() || OnServer())
+	
+	if(OnServer())
 		control().update_frame();
 
 	m_pPhysics_support->in_UpdateCL();

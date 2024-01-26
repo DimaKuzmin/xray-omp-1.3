@@ -762,8 +762,10 @@ void CAI_Stalker::UpdateCL()
 		make_Interpolation();
 	}
 
-	if (g_Alive()) {
-		if (g_mt_config.test(mtObjectHandler) && CObjectHandler::planner().initialized()) {
+	if (g_Alive() && OnServer() )
+	{
+		if (g_mt_config.test(mtObjectHandler) && CObjectHandler::planner().initialized())
+		{
 			fastdelegate::FastDelegate0<>								f = fastdelegate::FastDelegate0<>(this,&CAI_Stalker::update_object_handler);
 #ifdef DEBUG
 			xr_vector<fastdelegate::FastDelegate0<> >::const_iterator	I;
@@ -772,13 +774,15 @@ void CAI_Stalker::UpdateCL()
 #endif
 			Device.seqParallel.push_back	(fastdelegate::FastDelegate0<>(this,&CAI_Stalker::update_object_handler));
 		}
-		else {
+		else
+		{
 			START_PROFILE("stalker/client_update/object_handler")
 			update_object_handler			();
 			STOP_PROFILE
 		}
 
-		if	(
+		if	
+			(
 				(movement().speed(character_physics_support()->movement()) > EPS_L)
 				&& 
 				(eMovementTypeStand != movement().movement_type())
@@ -792,7 +796,8 @@ void CAI_Stalker::UpdateCL()
 				) {
 				sound().play	(eStalkerSoundRunningInDanger);
 			}
-			else {
+			else
+			{
 //				sound().play	(eStalkerSoundWalkingInDanger);
 			}
 		}
@@ -806,7 +811,8 @@ void CAI_Stalker::UpdateCL()
 	m_pPhysics_support->in_UpdateCL	();
 	STOP_PROFILE
 
-	if (g_Alive()) {
+	if (g_Alive())
+	{
 		START_PROFILE("stalker/client_update/sight_manager")
 		VERIFY						(!m_pPhysicsShell);
 		try {

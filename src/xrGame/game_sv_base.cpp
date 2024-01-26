@@ -364,6 +364,10 @@ void game_sv_GameState::OnPlayerDisconnect		(ClientID id_who, LPSTR, u16 )
 }
 
 static float							rpoints_Dist [TEAM_COUNT] = {1000.f, 1000.f, 1000.f, 1000.f};
+
+#include "alife_simulator.h"
+#include "alife_graph_registry.h"
+
 void game_sv_GameState::Create(shared_str& options)
 {
 	string_path	fn_game;
@@ -380,7 +384,7 @@ void game_sv_GameState::Create(shared_str& options)
 
 	
 
-	if (FS.exist(fn_game, "$level$", "level.game")) 
+	if (FS.exist(fn_game, "$level$", "level.game") && !IsGameTypeCoop()) 
 	{
 		IReader *F = FS.r_open	(fn_game);
 		IReader *O = 0;
@@ -479,6 +483,26 @@ void game_sv_GameState::Create(shared_str& options)
 
 		FS.r_close	(F);
 	}
+
+	if (IsGameTypeCoop())
+	{
+		Fvector pos = { 0, 0, 0 };
+		Fvector angle = { 0, 0, 0 };
+		if (CSE_ALifeCreatureActor* a = ai().get_alife()->graph().actor())
+		{
+			pos = a->Position();
+			angle = a->angle();
+		}
+
+		for (auto i = 0; i < 32; i++)
+		{
+			RPoint p;
+			p.P = pos;
+			p.A = angle;
+			rpoints[0].push_back(p);
+		}
+	}
+
 
 	// loading scripts
 	ai().script_engine().remove_script_process(ScriptEngine::eScriptProcessorGame);
@@ -586,6 +610,7 @@ void	game_sv_GameState::assign_RP				(CSE_Abstract* E, game_PlayerState* ps_who)
 		if (rp[i].TimeToUnfreeze < Level().timeServer())
 			xrp.push_back(i);
 	}
+	
 	u32 rpoint = 0;
 	if (xrp.size() && !tpSpectator)
 	{

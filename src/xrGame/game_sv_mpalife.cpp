@@ -82,9 +82,13 @@ bool game_sv_mpalife::SpawnItemToPos(LPCSTR section, Fvector3 position)
 		}
 
 		u32 LV = ai().get_level_graph()->vertex_id(position);
+		
 
 		if (ai().get_level_graph()->valid_vertex_id(LV))
-			alife().spawn_item(section, position, ai().get_level_graph()->vertex_id(position), 0, 0xffff);
+		{
+			u32 GV = ai().get_cross_table()->vertex(LV).game_vertex_id();
+			alife().spawn_item(section, position, ai().get_level_graph()->vertex_id(position), GV, 0xffff);
+		}
 		else
 			Msg("! Level vertex incorrect");
 
@@ -174,6 +178,39 @@ LPCSTR game_sv_mpalife::get_alifespawn()
 
 	return p.m_game_or_spawn;
 }
-;
+
+bool game_sv_mpalife::change_level(NET_Packet& net_packet, ClientID sender)
+{
+	if (ai().get_alife())
+		return					(alife().change_level(net_packet));
+	else
+		return					(true);
+}
+
+#include "../xrEngine/x_ray.h"
+
+void game_sv_mpalife::restart_simulator(LPCSTR saved_game_name)
+{
+	Msg("Restart Simulator");
+	shared_str& options = *alife().server_command_line();
+
+	delete_data(m_alife_simulator);
+	server().clear_ids();
+
+	xr_strcpy(g_pGamePersistent->m_game_params.m_game_or_spawn, saved_game_name);
+	xr_strcpy(g_pGamePersistent->m_game_params.m_new_or_load, "load");
+
+	pApp->ls_header[0] = '\0';
+	pApp->ls_tip_number[0] = '\0';
+	pApp->ls_tip[0] = '\0';
+	pApp->LoadBegin();
+
+	m_alife_simulator = xr_new<CALifeSimulator>(&server(), &options);
+	//	g_pGamePersistent->LoadTitle		("st_client_synchronising");
+	g_pGamePersistent->LoadTitle();
+	Device.PreCache(60, true, true);
+	pApp->LoadEnd();
+}
+
 
 

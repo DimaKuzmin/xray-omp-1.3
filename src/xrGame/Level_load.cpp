@@ -25,26 +25,37 @@ BOOL CLevel::Load_GameSpecific_Before()
 	
 	if (OnClient())
 	{
-		if (GamePersistent().GameType() == eGameIDCoop && FS.exist(fn_game, "$game_spawn$", m_game_description.alifespawn))
+		
+		if (m_game_description.GameType == eGameIDCoop)
 		{
-			IReader* alifespawn = FS.r_open(fn_game);
+			if (FS.exist(fn_game, "$game_spawn$", m_game_description.alifespawn, ".spawn"))
+			{
+				IReader* alifespawn = FS.r_open(fn_game);
 
-			IReader* chunk;
+				IReader* chunk;
 
-			chunk = alifespawn->open_chunk(3);
-			R_ASSERT2(chunk, "Spawn version mismatch - REBUILD SPAWN!");
-			ai().patrol_path_storage(*chunk);
-			chunk->close();
 
-			//m_chunk						= spawn->open_chunk(4);
-			//R_ASSERT2					(m_chunk,"Spawn version mismatch - REBUILD SPAWN!");
-			//ai().game_graph				(xr_new<CGameGraph>(*m_chunk));
+				chunk = alifespawn->open_chunk(3);
+				R_ASSERT2(chunk, "Spawn version mismatch - REBUILD SPAWN!");
+				ai().patrol_path_storage(*chunk);
+				chunk->close();
 
-			xr_delete(alifespawn);
+				//m_chunk						= spawn->open_chunk(4);
+				//R_ASSERT2					(m_chunk,"Spawn version mismatch - REBUILD SPAWN!");
+				//ai().game_graph				(xr_new<CGameGraph>(*m_chunk));
+
+				xr_delete(alifespawn);
+
+				Msg("AILoading %s .spawn for OnClient", m_game_description.alifespawn);
+			}
+			else
+			{
+				Msg("Cant Find AILoading %s .spawn for OnClient", m_game_description.alifespawn);
+			}
 		}
-		else
-		if (GamePersistent().GameType() != eGameIDCoop)
-		if (FS.exist(fn_game, "$level$", "alife.spawn"))
+  
+		if (m_game_description.GameType != eGameIDCoop)
+		if (FS.exist(fn_game, "$level$", "alife", ".spawn"))
 		{
 			IReader* alifespawn = FS.r_open(fn_game);
 
@@ -79,7 +90,7 @@ BOOL CLevel::Load_GameSpecific_Before()
 	}
 	*/
 
-	if (GamePersistent().GameType() != eGameIDSingle && OnClient())
+	if (OnClient())
 	{
 		//Pavel: for server and single player the upgrade manager creates in OnAlifeSimulatorLoaded()
 		R_ASSERT(m_upgrade_manager == nullptr);
