@@ -1333,8 +1333,14 @@ void CApplication::Level_Set(u32 L)
 {
 	SECUROM_MARKER_PERFORMANCE_ON(9)
 
-	if (L>=Levels.size())	return;
+	if (L>=Levels.size())
+		return;
+
+//	Msg("Set LevelID:%d", L);
+
 	FS.get_path	("$level$")->_set	(Levels[L].folder);
+
+	//Msg("Set Folder: %s", FS.get_path("$level$")->m_Path);
 
 	static string_path			path;
 
@@ -1408,6 +1414,8 @@ int CApplication::Level_ID(LPCSTR name, LPCSTR ver, bool bSet)
 			break;
 		}
 	}
+
+///	Msg("Level[%d], [%d]", bSet, result != -1);
 
 	if(bSet && result!=-1)
 		Level_Set(result);

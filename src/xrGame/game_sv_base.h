@@ -101,6 +101,8 @@ public:
 	virtual		void				OnVoteStart				(LPCSTR VoteCommand, ClientID sender)			{};
 	virtual		void				OnVoteStop				()				{};
 
+	virtual		LPCSTR				get_alifespawn() { return "alife.spawn"; }
+
 public:
 									game_sv_GameState		();
 	virtual							~game_sv_GameState		();
@@ -183,7 +185,8 @@ public:
 	virtual		void				remove_all_restrictions	(NET_Packet &packet, u16 id);
 	virtual		bool				custom_sls_default		() {return false;};
 	virtual		void				sls_default				() {};
-	virtual		shared_str			level_name				(const shared_str &server_options) const;
+
+	virtual		shared_str			level_name				(const shared_str &server_options);
 	
 	static		shared_str			parse_level_name		(const shared_str &server_options);	
 	static		shared_str			parse_level_version		(const shared_str &server_options);

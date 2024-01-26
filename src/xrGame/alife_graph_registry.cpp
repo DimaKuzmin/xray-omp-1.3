@@ -86,6 +86,8 @@ void CALifeGraphRegistry::setup_current_level	()
 	GameGraph::LEVEL_MAP::const_iterator I = ai().game_graph().header().levels().find(ai().game_graph().vertex(actor()->m_tGraphID)->level_id());
 	R_ASSERT2					(ai().game_graph().header().levels().end() != I,"Graph point level ID not found!");
 
+	Msg("Set Level In CAIlifeGraphRegistry: %s", (*I).second.name().c_str());
+
 	int							id = pApp->Level_ID(*(*I).second.name(),"1.0", true);
 	VERIFY3						(id >= 0,"Level is corrupted or doesn't exist",*(*I).second.name());
 	ai().load					(*(*I).second.name());

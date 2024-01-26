@@ -23,31 +23,61 @@ BOOL CLevel::Load_GameSpecific_Before()
 	g_pGamePersistent->LoadTitle		();
 	string_path							fn_game;
 	
-	if (GamePersistent().GameType() != eGameIDSingle && OnClient() && FS.exist(fn_game, "$level$", "alife.spawn")) {
-		spawn = FS.r_open		(fn_game);
+	if (OnClient())
+	{
+		if (GamePersistent().GameType() == eGameIDCoop && FS.exist(fn_game, "$game_spawn$", m_game_description.alifespawn))
+		{
+			IReader* alifespawn = FS.r_open(fn_game);
 
-		IReader						*chunk;
+			IReader* chunk;
 
-		chunk						= spawn->open_chunk(3);
-		R_ASSERT2					(chunk,"Spawn version mismatch - REBUILD SPAWN!");
-		ai().patrol_path_storage    (*chunk);
-		chunk->close				();
+			chunk = alifespawn->open_chunk(3);
+			R_ASSERT2(chunk, "Spawn version mismatch - REBUILD SPAWN!");
+			ai().patrol_path_storage(*chunk);
+			chunk->close();
 
-		m_chunk						= spawn->open_chunk(4);
-		R_ASSERT2					(m_chunk,"Spawn version mismatch - REBUILD SPAWN!");
-		ai().game_graph				(xr_new<CGameGraph>(*m_chunk));
+			//m_chunk						= spawn->open_chunk(4);
+			//R_ASSERT2					(m_chunk,"Spawn version mismatch - REBUILD SPAWN!");
+			//ai().game_graph				(xr_new<CGameGraph>(*m_chunk));
+
+			xr_delete(alifespawn);
+		}
+		else
+		if (GamePersistent().GameType() != eGameIDCoop)
+		if (FS.exist(fn_game, "$level$", "alife.spawn"))
+		{
+			IReader* alifespawn = FS.r_open(fn_game);
+
+			IReader* chunk;
+
+			chunk = alifespawn->open_chunk(3);
+			R_ASSERT2(chunk, "Spawn version mismatch - REBUILD SPAWN!");
+			ai().patrol_path_storage(*chunk);
+			chunk->close();
+
+			//m_chunk						= spawn->open_chunk(4);
+			//R_ASSERT2					(m_chunk,"Spawn version mismatch - REBUILD SPAWN!");
+			//ai().game_graph				(xr_new<CGameGraph>(*m_chunk));
+
+			xr_delete(alifespawn);
+		}
+
 	}
 
+	/*
 	if (!ai().get_alife() && FS.exist(fn_game, "$level$", "level.ai") && HasSessionName())
 	{
 		ai().load(net_SessionName());
 	}
 
-	if (!g_dedicated_server && !ai().get_alife() && ai().get_game_graph() && FS.exist(fn_game, "$level$", "level.game")) {
+	
+	if (!g_dedicated_server && !ai().get_alife() && ai().get_game_graph() && FS.exist(fn_game, "$level$", "level.game"))
+	{
 		IReader							*stream = FS.r_open		(fn_game);
 		ai().patrol_path_storage_raw	(*stream);
 		FS.r_close						(stream);
 	}
+	*/
 
 	if (GamePersistent().GameType() != eGameIDSingle && OnClient())
 	{

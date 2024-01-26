@@ -26,11 +26,10 @@ game_sv_mpalife::~game_sv_mpalife()
 
 void game_sv_mpalife::Create(shared_str& options)
 {
-	base_class::Create(options);
 
 	string_path					file_name;
 
-	if (FS.exist(file_name, "$level$", "alife", ".spawn"))
+	if (strstr(*options, "/alife") && m_type == eGameIDCoop || FS.exist(file_name, "$level$", "alife", ".spawn"))
 	{
 		m_alife_simulator = xr_new<CALifeSimulator>(&server(), &options);
 	}
@@ -39,6 +38,8 @@ void game_sv_mpalife::Create(shared_str& options)
 		Msg("Multiplayer>> alife.spawn not found! No A-life");
 	}
 
+
+	base_class::Create(options);
 }
 
 /*void game_sv_mpalife::sls_default()
@@ -163,6 +164,16 @@ bool game_sv_mpalife::TeleportPlayerTo(ClientID id, Fvector3 P, Fvector3 A)
 	Level().Server->SendTo(CL->ID, MovePacket, net_flags(TRUE, TRUE));
 
 	return true;
-};
+}
+
+LPCSTR game_sv_mpalife::get_alifespawn()
+{
+
+	typedef IGame_Persistent::params params;
+	params& p = g_pGamePersistent->m_game_params;
+
+	return p.m_game_or_spawn;
+}
+;
 
 

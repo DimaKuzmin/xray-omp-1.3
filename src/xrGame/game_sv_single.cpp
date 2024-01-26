@@ -318,7 +318,7 @@ void game_sv_Single::sls_default				()
 	alife().update_switch	();
 }
 
-shared_str game_sv_Single::level_name			(const shared_str &server_options) const
+shared_str game_sv_Single::level_name			(const shared_str &server_options)
 {
 	if (!ai().get_alife())
 		return				(inherited::level_name(server_options));

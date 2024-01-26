@@ -63,7 +63,9 @@ BOOL CLevelChanger::net_Spawn	(CSE_Abstract* DC)
 	m_angles					= l_tpALifeLevelChanger->m_tAngles;
 
 	m_bSilentMode				= !!l_tpALifeLevelChanger->m_bSilentMode;
-	if (ai().get_level_graph()) {
+	
+	if (ai().get_level_graph()) 
+	{
 		//. this information should be computed in xrAI
 		ai_location().level_vertex	(ai().level_graph().vertex(u32(-1),Position()));
 		ai_location().game_vertex	(ai().cross_table().vertex(ai_location().level_vertex_id()).game_vertex_id());
@@ -107,16 +109,23 @@ void CLevelChanger::shedule_Update(u32 dt)
 
 	update_actor_invitation		();
 }
+
 #include "patrol_path.h"
 #include "patrol_path_storage.h"
 void CLevelChanger::feel_touch_new	(CObject *tpObject)
 {
+	/*if (OnClient())
+		return;
+
 	CActor*			l_tpActor = smart_cast<CActor*>(tpObject);
 	VERIFY			(l_tpActor);
 	if (!l_tpActor->g_Alive())
 		return;
 
-	if (m_bSilentMode) {
+	//if (m_bSilentMode)
+	{
+		Msg("ChangeTo Level: GV:%u, LV:%u, POS[%f,%f,%f], ANGLE[%f,%f,%f]", m_game_vertex_id, m_level_vertex_id, VPUSH(m_position), VPUSH(m_angles));
+
 		NET_Packet	p;
 		p.w_begin	(M_CHANGE_LEVEL);
 		p.w			(&m_game_vertex_id,sizeof(m_game_vertex_id));
@@ -126,44 +135,46 @@ void CLevelChanger::feel_touch_new	(CObject *tpObject)
 		Level().Send(p,net_flags(TRUE));
 		return;
 	}
-	Fvector			p,r;
-	bool			b = get_reject_pos(p,r);
-	CUIGameSP		*pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
-	if (pGameSP)
-        pGameSP->ChangeLevel	(m_game_vertex_id, m_level_vertex_id, m_position, m_angles, p, r, b, m_invite_str, m_b_enabled);
 
-	m_entrance_time	= Device.fTimeGlobal;
+	//Fvector			p,r;
+	//bool			b = get_reject_pos(p,r);
+	//CUIGameSP		*pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
+	//if (pGameSP)
+    //    pGameSP->ChangeLevel	(m_game_vertex_id, m_level_vertex_id, m_position, m_angles, p, r, b, m_invite_str, m_b_enabled);
+
+	//m_entrance_time	= Device.fTimeGlobal;
+	*/
 }
 
 bool CLevelChanger::get_reject_pos(Fvector& p, Fvector& r)
 {
-		p.set(0,0,0);
-		r.set(0,0,0);
-//--		db.actor:set_actor_position(patrol("t_way"):point(0))
-//--		local dir = patrol("t_look"):point(0):sub(patrol("t_way"):point(0))
-//--		db.actor:set_actor_direction(-dir:getH())
-
-		if(m_ini_file && m_ini_file->section_exist("pt_move_if_reject"))
-		{
-			LPCSTR p_name = m_ini_file->r_string("pt_move_if_reject", "path");
-			const CPatrolPath*		patrol_path = ai().patrol_paths().path(p_name);
-			VERIFY					(patrol_path);
+	p.set(0,0,0);
+	r.set(0,0,0);
+ 
+	if(m_ini_file && m_ini_file->section_exist("pt_move_if_reject"))
+	{
+		LPCSTR p_name = m_ini_file->r_string("pt_move_if_reject", "path");
+		const CPatrolPath*		patrol_path = ai().patrol_paths().path(p_name);
+		VERIFY					(patrol_path);
 			
-			const CPatrolPoint*		pt;
-			pt						= &patrol_path->vertex(0)->data();
-			p						= pt->position();
+		const CPatrolPoint*		pt;
+		pt						= &patrol_path->vertex(0)->data();
+		p						= pt->position();
 
-			Fvector tmp;
-			pt						= &patrol_path->vertex(1)->data();
-			tmp.sub					(pt->position(),p);
-			tmp.getHP				(r.y,r.x);
-			return true;
-		}
-		return false;
+		Fvector tmp;
+		pt						= &patrol_path->vertex(1)->data();
+		tmp.sub					(pt->position(),p);
+		tmp.getHP				(r.y,r.x);
+		return true;
+	}
+	return false;
 }
 
 BOOL CLevelChanger::feel_touch_contact	(CObject *object)
 {
+	if (OnClient())
+		return false;
+
 	BOOL bRes	= (((CCF_Shape*)CFORM())->Contact(object));
 	bRes		= bRes && smart_cast<CActor*>(object) && smart_cast<CActor*>(object)->g_Alive();
 	return		bRes;
@@ -171,26 +182,52 @@ BOOL CLevelChanger::feel_touch_contact	(CObject *object)
 
 void CLevelChanger::update_actor_invitation()
 {
-	if(m_bSilentMode)						return;
+	if (OnClient())
+		return;
+
+	if(m_bSilentMode)						
+		return;
 	xr_vector<CObject*>::iterator it		= feel_touch.begin();
 	xr_vector<CObject*>::iterator it_e		= feel_touch.end();
 
-	for(;it!=it_e;++it){
+	u8 players = Game().players.size() / 2;
+
+	int players_inside = 0;
+
+	for(;it!=it_e;++it)
+	{
 		CActor*			l_tpActor = smart_cast<CActor*>(*it);
 		VERIFY			(l_tpActor);
 		
 		if(!l_tpActor->g_Alive())
 			continue;
 
-		if(m_entrance_time+5.0f < Device.fTimeGlobal){
-			CUIGameSP* pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
-			Fvector p,r;
-			bool b = get_reject_pos(p,r);
-			
-			if(pGameSP)
-				pGameSP->ChangeLevel(m_game_vertex_id,m_level_vertex_id,m_position,m_angles,p,r,b, m_invite_str, m_b_enabled);
+		if(m_entrance_time+5.0f < Device.fTimeGlobal)
+		{
+			players_inside++;
 
-			m_entrance_time		= Device.fTimeGlobal;
+			if (players_inside > players)
+			{
+				Msg("ChangeTo Level: GV:%u, LV:%u, POS[%f,%f,%f], ANGLE[%f,%f,%f]", m_game_vertex_id, m_level_vertex_id, VPUSH(m_position), VPUSH(m_angles));
+
+ 				NET_Packet	p;
+				p.w_begin(M_CHANGE_LEVEL);
+				p.w(&m_game_vertex_id, sizeof(m_game_vertex_id));
+				p.w(&m_level_vertex_id, sizeof(m_level_vertex_id));
+				p.w_vec3(m_position);
+				p.w_vec3(m_angles);
+				Level().Send(p, net_flags(TRUE));
+				return;
+			}
+
+			//CUIGameSP* pGameSP = smart_cast<CUIGameSP*>(CurrentGameUI());
+			//Fvector p,r;
+			//bool b = get_reject_pos(p,r);
+			
+			//if(pGameSP)
+			//	pGameSP->ChangeLevel(m_game_vertex_id,m_level_vertex_id,m_position,m_angles,p,r,b, m_invite_str, m_b_enabled);
+
+			//m_entrance_time		= Device.fTimeGlobal;
 		}
 	}
 }

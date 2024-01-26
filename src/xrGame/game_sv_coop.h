@@ -10,6 +10,7 @@ class game_sv_coop : public game_sv_freemp
 public:
 										game_sv_coop();
 	virtual								~game_sv_coop();
+	virtual		shared_str				level_name(const shared_str& server_options);
 
 	virtual LPCSTR						type_name() const { return "coop"; };
  

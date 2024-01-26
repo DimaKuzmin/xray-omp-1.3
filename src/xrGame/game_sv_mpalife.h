@@ -39,5 +39,8 @@ public:
 
 	bool TeleportPlayerTo(ClientID id, Fvector3 P, Fvector3 A);
 
+
+	virtual		LPCSTR				get_alifespawn();
+
  };
 

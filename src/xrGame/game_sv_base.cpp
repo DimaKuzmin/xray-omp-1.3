@@ -364,18 +364,33 @@ void game_sv_GameState::OnPlayerDisconnect		(ClientID id_who, LPSTR, u16 )
 }
 
 static float							rpoints_Dist [TEAM_COUNT] = {1000.f, 1000.f, 1000.f, 1000.f};
-void game_sv_GameState::Create					(shared_str &options)
+void game_sv_GameState::Create(shared_str& options)
 {
 	string_path	fn_game;
 	m_item_respawner.clear_respawns();
+
+	if (FS.exist(fn_game, "$level$", "level.game"))
+	{
+		Msg("File Exist: %s", FS.get_path("$level$")->m_Path);
+	}
+	else
+	{
+		Msg("File Cant Find: %s", FS.get_path("$level$")->m_Path);
+	}
+
+	
+
 	if (FS.exist(fn_game, "$level$", "level.game")) 
 	{
 		IReader *F = FS.r_open	(fn_game);
 		IReader *O = 0;
 
+		Msg("Chunk level.game RPOINT_CHUNK: %d", F->find_chunk(RPOINT_CHUNK));
+
 		// Load RPoints
 		if (0!=(O = F->open_chunk	(RPOINT_CHUNK)))
 		{ 
+
 			for (int id=0; O->find_chunk(id); ++id)
 			{
 				RPoint					R;
@@ -408,6 +423,19 @@ void game_sv_GameState::Create					(shared_str &options)
 					//{
 						// HACK! WE CAN USE TDM RPOINT FOR FREEMP AND ROLEPLAY GAME TYPES
 					//}
+
+					Msg("Deathmatch: %d", GameType & eGameIDDeathmatch);
+					Msg("TeamDeathmatch: %d", GameType & eGameIDTeamDeathmatch);
+					Msg("ArtefactHunt: %d", GameType & eGameIDArtefactHunt);
+					Msg("CaptureTheArtefact: %d", GameType & eGameIDCaptureTheArtefact);
+					Msg("FreeMp: %d", GameType & eGameIDFreeMp);
+					Msg("RolePlay: %d", GameType & eGameIDRolePlay);
+
+					Msg("Coop: %d", GameType & eGameIDCoop);
+					Msg("Deffense: %d", GameType & eGameIDDeffense);
+
+					Msg("GameType : %u == %u", GameType, Type());
+
 					if (	
 						(!(GameType & eGameIDDeathmatch) && (Type() == eGameIDDeathmatch)) ||
 						(!(GameType & eGameIDTeamDeathmatch) && (Type() == eGameIDTeamDeathmatch)) ||
@@ -419,6 +447,7 @@ void game_sv_GameState::Create					(shared_str &options)
 						(!(GameType & eGameIDDeffense) && (Type() == eGameIDDeffense))
 					)
 					{
+
 						continue;
 					};
 				};
@@ -1110,7 +1139,7 @@ void game_sv_GameState::SaveMapList				()
 	FS.w_close				(fs);
 };
 
-shared_str game_sv_GameState::level_name		(const shared_str &server_options) const
+shared_str game_sv_GameState::level_name		(const shared_str &server_options)
 {
 	return parse_level_name(server_options);
 }

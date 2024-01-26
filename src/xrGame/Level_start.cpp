@@ -102,6 +102,7 @@ BOOL CLevel::net_Start	( LPCSTR op_server, LPCSTR op_client )
 
 shared_str level_version(const shared_str &server_options);
 shared_str level_name(const shared_str &server_options);
+
 bool CLevel::net_start1				()
 {
 	// Start client and server if need it
@@ -115,13 +116,14 @@ bool CLevel::net_start1				()
 		if (!xr_strcmp(p.m_game_type,"single"))
 		{
 			Server					= xr_new<xrServer>();
-		} else
+		}
+		else
 		{
 			g_allow_heap_min		= false;
 			Server					= xr_new<xrGameSpyServer>();
 		}
 
-		if (xr_strcmp(p.m_alife,"alife"))
+		if ( xr_strcmp(p.m_alife,"alife" ) )
 		{
 			shared_str l_ver			= game_sv_GameState::parse_level_version(m_caServerOptions);
 			
@@ -132,13 +134,17 @@ bool CLevel::net_start1				()
 
 			int							id = pApp->Level_ID(map_data.m_name.c_str(), l_ver.c_str(), true);
 
-			if (id<0) {
-				Log						("Can't find level: ",map_data.m_name.c_str());
+			if (id<0) 
+			{
+				Log						("[ALIFE] Can't find level: ",map_data.m_name.c_str());
 				net_start_result_total	= FALSE;
 				return true;
 			}
+
+			Msg("[Alife] Loaded");
 		}
-	} else
+	} 
+	else
 	{
 		g_allow_heap_min = false;
 	}

@@ -43,4 +43,6 @@ public:
 	virtual		void				OnPlayerRepairItem(NET_Packet& P, ClientID const& clientID);
 	virtual		void				OnPlayerInstallUpgrade(NET_Packet& P, ClientID const& clientID);
 	virtual		void				OnTransferMoney(NET_Packet &P, ClientID const & clientID);
+
+
 };
