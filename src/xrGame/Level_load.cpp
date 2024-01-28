@@ -28,7 +28,8 @@ BOOL CLevel::Load_GameSpecific_Before()
 		
 		if (m_game_description.GameType == eGameIDCoop)
 		{
-			if (FS.exist(fn_game, "$game_spawn$", m_game_description.alifespawn, ".spawn"))
+			 
+			if (FS.exist(fn_game, "$game_spawn$", "all", ".spawn")) //m_game_description.alifespawn
 			{
 				IReader* alifespawn = FS.r_open(fn_game);
 
@@ -52,6 +53,7 @@ BOOL CLevel::Load_GameSpecific_Before()
 			{
 				Msg("Cant Find AILoading %s .spawn for OnClient", m_game_description.alifespawn);
 			}
+			 
 		}
   
 		if (m_game_description.GameType != eGameIDCoop)

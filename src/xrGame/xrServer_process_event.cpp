@@ -58,9 +58,14 @@ void xrServer::Process_event	(NET_Packet& P, ClientID sender)
 	case GE_GRENADE_EXPLODE:
 	case GE_WPN_UNLOAD_AMMO:
 	case GE_WPN_UPDATE_AMMO:
-		{
+	{
 		SendBroadcast			(BroadcastCID,P,MODE);
-		}break;
+	}break;
+	case GE_AttachItem:
+	{
+		SendBroadcast(SV_Client->ID, P, MODE);
+	}break;
+
 	case GEG_PLAYER_ACTIVATEARTEFACT:
 		{
 			Process_event_activate	(P,sender,timestamp,destination,P.r_u16(), true);

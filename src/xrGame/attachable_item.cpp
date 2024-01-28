@@ -76,15 +76,28 @@ void CAttachableItem::OnH_A_Independent	()
 	enable							(false);
 }
 
+#include "Level.h"
+
 void CAttachableItem::enable			(bool value)
 {
+	if (OnServer())
+	{
+		NET_Packet P;
+		Level().game->u_EventGen(P, GE_AttachItem, object().ID() );
+		P.w_u32(object().ID());
+		P.w_u8(value);
+		Level().game->u_EventSend(P);
+	}
+
+
 	if (!object().H_Parent()) 
 	{
 		m_enabled			= value;
 		return;
 	}
 
-	if (value && !enabled() && object().H_Parent()) {
+	if (value && !enabled() && object().H_Parent()) 
+	{
 		CGameObject			*game_object = smart_cast<CGameObject*>(object().H_Parent());
 		CAttachmentOwner	*owner = smart_cast<CAttachmentOwner*>(game_object);
 		if (owner) {
@@ -94,7 +107,8 @@ void CAttachableItem::enable			(bool value)
 		}
 	}
 	
-	if (!value && enabled() && object().H_Parent()) {
+	if (!value && enabled() && object().H_Parent()) 
+	{
 		CGameObject			*game_object = smart_cast<CGameObject*>(object().H_Parent());
 		CAttachmentOwner	*owner = smart_cast<CAttachmentOwner*>(game_object);
 		if (owner) {

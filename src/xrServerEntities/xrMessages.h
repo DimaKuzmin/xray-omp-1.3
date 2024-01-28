@@ -177,6 +177,8 @@ enum {
 	GE_BLOODSUCKER_VAMPIRE_STOP,
 	GE_CONTROLLER_PSY_FIRE,
 
+	GE_AttachItem,
+
 	GE_FORCEDWORD				= u32(-1)
 };
 

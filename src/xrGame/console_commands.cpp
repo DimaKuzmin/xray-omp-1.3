@@ -1192,7 +1192,8 @@ public:
 
 #ifndef MASTER_GOLD
 #	include "game_graph.h"
-struct CCC_JumpToLevel : public IConsole_Command {
+struct CCC_JumpToLevel : public IConsole_Command
+{
 	CCC_JumpToLevel(LPCSTR N) : IConsole_Command(N)  {};
 
 	virtual void Execute(LPCSTR level)

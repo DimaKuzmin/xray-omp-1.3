@@ -69,11 +69,17 @@ void  CDialogScriptHelper::TransferInfo	(const CInventoryOwner* pOwner) const
 {
 	THROW(pOwner);
 
-	for(u32 i=0; i<m_GiveInfo.size(); ++i)
+ 
+	for (u32 i = 0; i < m_GiveInfo.size(); ++i)
+	{
 		Actor()->TransferInfo(m_GiveInfo[i], true);
+	}
 
-	for(i=0; i<m_DisableInfo.size(); ++i)
+	for (i = 0; i < m_DisableInfo.size(); ++i)
+	{
 		Actor()->TransferInfo(m_DisableInfo[i], false);
+	}
+
 }
 
 LPCSTR CDialogScriptHelper::GetScriptText(LPCSTR str_to_translate, const CGameObject* pSpeakerGO1, const CGameObject* pSpeakerGO2, LPCSTR dialog_id, LPCSTR phrase_id)

@@ -187,7 +187,8 @@ bool CALifeUpdateManager::change_level	(NET_Packet &net_packet)
 	graph().actor()->o_torso.pitch	= graph().actor()->o_Angle.x;
 	graph().actor()->o_torso.roll	= 0.f;
 
-	if (graph().actor()->m_holderID != 0xffff) {
+	if (graph().actor()->m_holderID != 0xffff)
+	{
 		holder						= objects().object(graph().actor()->m_holderID);
 
 		holder_safe_graph_vertex_id	= holder->m_tGraphID;
@@ -353,22 +354,25 @@ void CALifeUpdateManager::jump_to_level			(LPCSTR level_name) const
 	GameGraph::_GRAPH_ID				dest = GameGraph::_GRAPH_ID(-1);
 	GraphEngineSpace::CGameLevelParams	evaluator(level.id());
 	bool								failed = !ai().graph_engine().search(ai().game_graph(),graph().actor()->m_tGraphID,GameGraph::_GRAPH_ID(-1),0,evaluator);
-	if (failed) {
-#ifndef MASTER_GOLD
+	if (failed)
+	{
+ 
 		Msg								("! Cannot build path via game graph from the current level to the level %s!",level_name);
-#endif // #ifndef MASTER_GOLD
+ 
 		float							min_dist = flt_max;
 		Fvector							current = ai().game_graph().vertex(graph().actor()->m_tGraphID)->game_point();
 		GameGraph::_GRAPH_ID			n = ai().game_graph().header().vertex_count();
 		for (GameGraph::_GRAPH_ID i=0; i<n; ++i)
-			if (ai().game_graph().vertex(i)->level_id() == level.id()) {
-				float					distance = ai().game_graph().vertex(i)->game_point().distance_to_sqr(current);
-				if (distance < min_dist) {
-					min_dist			= distance;
-					dest				= i;
-				}
+		if (ai().game_graph().vertex(i)->level_id() == level.id()) {
+			float					distance = ai().game_graph().vertex(i)->game_point().distance_to_sqr(current);
+			if (distance < min_dist) {
+				min_dist			= distance;
+				dest				= i;
 			}
-		if (!ai().game_graph().vertex(dest)) {
+		}
+		
+		if (!ai().game_graph().vertex(dest)) 
+		{
 			Msg							("! There is no game vertices on the level %s, cannot jump to the specified level",level_name);
 			return;
 		}

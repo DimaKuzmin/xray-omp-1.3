@@ -208,6 +208,9 @@ u32 get_time_minutes()
 
 void change_game_time(u32 days, u32 hours, u32 mins)
 {
+	if (OnClient())
+		return;
+
 	game_sv_Single	*tpGame = smart_cast<game_sv_Single *>(Level().Server->game);
 	if(tpGame && ai().get_alife())
 	{

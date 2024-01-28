@@ -290,6 +290,33 @@ KNOWN_INFO_VECTOR *registry						(const CALifeSimulator *self, const ALife::_OBJ
 	return								(self->registry(info_portions).object(id, true));
 }
 
+void give_ainfo(const CALifeSimulator* self, const ALife::_OBJECT_ID& id, LPCSTR info_id)
+{
+	auto known_info = registry(self, id);
+	if (!known_info)
+		return;
+
+	if (std::find_if(known_info->begin(), known_info->end(), CFindByIDPred(info_id)) == known_info->end())
+	{
+		known_info->push_back(info_id);
+	}
+ 
+	return;
+}
+
+void disable_ainfo(const CALifeSimulator* self, const ALife::_OBJECT_ID& id, LPCSTR info_id)
+{
+	auto known_info = registry(self, id);
+	if (!known_info)
+		return;
+
+	auto idx = std::find_if(known_info->begin(), known_info->end(), CFindByIDPred(info_id));
+	if (idx != known_info->end())
+ 		known_info->erase(idx);
+ 
+	return;
+}
+
 bool has_info									(const CALifeSimulator *self, const ALife::_OBJECT_ID &id, LPCSTR info_id)
 {
 	const KNOWN_INFO_VECTOR				*known_info = registry(self,id);
@@ -351,6 +378,8 @@ void CALifeSimulator::script_register			(lua_State *L)
 			.def("actor",					&get_actor)
 			.def("has_info",				&has_info)
 			.def("dont_has_info",			&dont_has_info)
+			.def("give_alife_info", &give_ainfo)
+			.def("disable_alife_info", &disable_ainfo)
 			.def("switch_distance",			&CALifeSimulator::switch_distance)
 			.def("switch_distance",			&CALifeSimulator::set_switch_distance)
 

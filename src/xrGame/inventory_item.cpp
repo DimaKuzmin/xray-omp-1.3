@@ -280,6 +280,15 @@ void CInventoryItem::OnEvent (NET_Packet& P, u16 type)
 			pSyncObj->set_State(state);
 
 		}break;
+	case GE_AttachItem:
+	{
+		//Msg("GE_AttachItem");
+		u32 ID = P.r_u32();
+		u8 activate = P.r_u8();
+		enable(activate);
+	}break;
+
+
 	}
 }
 

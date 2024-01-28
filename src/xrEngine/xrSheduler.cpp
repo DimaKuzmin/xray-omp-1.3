@@ -343,6 +343,7 @@ void CSheduler::ProcessStep			()
 
 		m_current_step_obj = T.Object;
 //			try {
+		if (m_current_step_obj != nullptr)
 			T.Object->shedule_Update	(clampr(Elapsed,u32(1),u32(_max(u32(T.Object->shedule.t_max),u32(1000)))) );
 			if (!m_current_step_obj)
 			{
@@ -357,7 +358,7 @@ void CSheduler::ProcessStep			()
 //				throw	;
 #endif // DEBUG
 //			}
-		m_current_step_obj = NULL;
+		m_current_step_obj = nullptr;
 
 #ifdef DEBUG
 //		u32	execTime				= eTimer.GetElapsed_ms		();

@@ -80,7 +80,7 @@ bool CInventoryOwner::OnReceiveInfo(shared_str info_id) const
 
 	return true;
 }
-#ifdef DEBUG
+ 
 void CInventoryOwner::DumpInfo() const
 {
 	KNOWN_INFO_VECTOR& known_info = m_known_info_registry->registry().objects();
@@ -94,7 +94,7 @@ void CInventoryOwner::DumpInfo() const
 	Msg("------------------------------------------");	
 
 }
-#endif
+ 
 
 void CInventoryOwner::OnDisableInfo(shared_str info_id) const
 {
@@ -119,12 +119,17 @@ void CInventoryOwner::TransferInfo(shared_str info_id, bool add_info) const
 	const CObject* pThisObject = smart_cast<const CObject*>(this); VERIFY(pThisObject);
 
 	//отправляем от нашему PDA пакет информации с номером
+
+	//Msg("Transfer Info: %s, value: %d", info_id.c_str(), add_info);
+
 	NET_Packet		P;
 	CGameObject::u_EventGen(P, GE_INFO_TRANSFER, pThisObject->ID());
 	P.w_u16			(pThisObject->ID());					//отправитель
 	P.w_stringZ		(info_id);							//сообщение
 	P.w_u8			(add_info?1:0);							//добавить/удалить информацию
 	CGameObject::u_EventSend(P);
+	
+
 
 	CInfoPortion info_portion;
 	info_portion.Load(info_id);

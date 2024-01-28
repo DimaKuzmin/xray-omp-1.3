@@ -21,9 +21,15 @@ void CLevel::cl_Process_Spawn(NET_Packet& P)
 	R_ASSERT2(E, *s_name);
 
 
+	CSE_ALifeSmartZone* smart = smart_cast<CSE_ALifeSmartZone*>(E);
+
 	E->Spawn_Read		(P);
 	if (E->s_flags.is(M_SPAWN_UPDATE))
 		E->UPDATE_Read	(P);
+
+	if (smart && OnClient())
+		Msg("Smart: %s", smart->name_replace());
+
 
 	if (!E->match_configuration())
 	{

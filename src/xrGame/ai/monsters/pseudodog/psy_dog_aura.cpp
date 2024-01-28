@@ -57,11 +57,35 @@ void CPsyDogAura::reinit()
 
 void CPsyDogAura::update_schedule()
 {
+	if (!m_object)
+		return;
+
 	if (!m_object->g_Alive()) 
 		return;
 
 	m_time_phantom_saw_actor	= 0;
 
+	if (!m_actor || m_last_time_actors_check < Device.dwTimeGlobal)
+	{
+		float dist = 1000;
+
+ 		for (auto act : Game().players)
+		{
+			CActor* a =smart_cast<CActor*>( Level().Objects.net_Find(act.second->GameID) );
+			if (!a)
+				continue;
+
+			float d = a->Position().distance_to(m_object->Position());
+			if (d < dist)
+			{
+				dist = d;
+				m_actor = a;
+			}
+ 		}
+
+		m_last_time_actors_check = Device.dwTimeGlobal + 2500; 
+		return;
+	}
 	// check memory of actor and check memory of phantoms
 	CVisualMemoryManager::VISIBLES::const_iterator	I = m_actor->memory().visual().objects().begin();
 	CVisualMemoryManager::VISIBLES::const_iterator	E = m_actor->memory().visual().objects().end();

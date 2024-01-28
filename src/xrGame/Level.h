@@ -214,6 +214,7 @@ private:
 public:
 	void						PrefetchSound (LPCSTR name);
 	void						MakeReconnect();
+	LevelMapSyncData			map_data;
 
 protected:
 	BOOL						net_start_result_total;
@@ -225,7 +226,7 @@ protected:
 		
 	
 	
-	LevelMapSyncData			map_data;
+	
 	bool						synchronize_map_data	();
 	bool						synchronize_client		();
 

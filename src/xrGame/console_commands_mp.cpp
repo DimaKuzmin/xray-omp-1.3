@@ -2613,8 +2613,177 @@ public:
 	}
 };
 
+#include "alife_simulator.h"
+#include "alife_registry_wrappers.h"
+#include "alife_object_registry.h"
+
+
+class CCC_ActorDumpInfo : public IConsole_Command
+{
+public:
+	CCC_ActorDumpInfo(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = true; };
+
+	virtual void Execute(LPCSTR args)
+	{
+		if (Actor())
+		{
+			Actor()->DumpInfo();
+
+			if (OnServer())
+			{
+				for (auto pl : Game().players)
+				{
+ 					auto objects = ai().alife().registry(info_portions).objects();
+				 
+					for (auto obj : objects)
+					{
+						auto o = ai().alife().objects().object(obj.first);
+
+
+						Msg("------------------------------------------");
+						Msg("[Alife] [%d] Start KnownInfo dump for [%s]", obj.first, o != nullptr ? o->name_replace() : "object_null");
+						KNOWN_INFO_VECTOR_IT it = obj.second.begin();
+						
+						for (int i = 0; it != obj.second.end(); ++it, ++i) 
+						{
+							Msg("[Alife] ID[%d] known info[%d]:%s", obj.first, i, (*it).c_str());
+						}
+						Msg("------------------------------------------");
+					}
+
+
+ 					/* auto known_info = ai().alife().registry(info_portions).objects().at(pl.second->GameID);
+
+					Msg("------------------------------------------");
+					Msg("[Alife] [%d] Start KnownInfo dump for [%s]", pl.second->GameID, Name());
+					KNOWN_INFO_VECTOR_IT it = known_info.begin();
+					for (int i = 0; it != known_info.end(); ++it, ++i) {
+						Msg("[Alife] [%d] known info[%d]:%s", pl.second->GameID, i, (*it).c_str());
+					}
+					Msg("------------------------------------------");
+					*/
+				}
+			}
+		}
+	}
+};
+
+class CCC_GiveMoneySelf : public IConsole_Command
+{
+public:
+	CCC_GiveMoneySelf(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = false; };
+
+	virtual void Execute(LPCSTR args)
+	{
+		u32 money;
+		sscanf(args, "%u", &money);
+
+		NET_Packet P;
+		P.w_begin(M_REMOTE_CONTROL_CMD);
+		string128 str;
+		xr_sprintf(str, "sv_give_money %u %d", Game().local_svdpnid.value(), money);
+		P.w_stringZ(str);
+		Level().Send(P, net_flags(TRUE, TRUE));
+	}
+};
+
+#include "Level.h"
+
+class CCC_MAPTEST : public IConsole_Command
+{
+public:
+	CCC_MAPTEST(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = false; };
+
+	virtual void Execute(LPCSTR args)
+	{
+		Msg("Level: Name:%s, Ver:%s, URL:%s, L:%d",
+			Level().map_data.m_name.c_str(),
+			Level().map_data.m_map_version.c_str(),
+			Level().map_data.m_map_download_url.c_str(),
+			Level().map_data.m_map_loaded
+		);
+
+	}
+};
+
+
+#	include "game_graph.h"
+struct CCC_JumpToLevel : public IConsole_Command
+{
+	CCC_JumpToLevel(LPCSTR N) : IConsole_Command(N) {};
+
+	virtual void Execute(LPCSTR level)
+	{
+		if (OnClient())
+		{
+			NET_Packet P;
+			P.w_begin(M_REMOTE_CONTROL_CMD);
+
+			string128 str;
+			xr_sprintf(str, "adm_jump_level %s", level);
+			P.w_stringZ(str);
+
+			Level().Send(P, net_flags(TRUE, TRUE));
+
+			return;
+		}
+
+ 		if (!ai().get_alife())
+		{
+			Msg("! ALife simulator is needed to perform specified command!");
+			return;
+		}
+
+		GameGraph::LEVEL_MAP::const_iterator	I = ai().game_graph().header().levels().begin();
+		GameGraph::LEVEL_MAP::const_iterator	E = ai().game_graph().header().levels().end();
+		for (; I != E; ++I)
+		if (!xr_strcmp((*I).second.name(), level))
+		{
+			ai().alife().jump_to_level(level);
+			return;
+		}
+	
+		Msg("! There is no level \"%s\" in the game graph!", level);
+
+		for (; I != E; ++I)
+			Msg("Available: %s", (*I).second.name());
+	}
+
+	virtual void	Save(IWriter* F) {};
+	virtual void	fill_tips(vecTips& tips, u32 mode)
+	{
+		tips.push_back("zaton");
+		tips.push_back("jupiter");
+		tips.push_back("pripyat");
+		tips.push_back("labx8");
+		tips.push_back("jupiter_underground");
+
+		/*
+		if (!ai().get_alife())
+		{
+			Msg("! ALife simulator is needed to perform specified command!");
+			return;
+		}
+
+		GameGraph::LEVEL_MAP::const_iterator	itb = ai().game_graph().header().levels().begin();
+		GameGraph::LEVEL_MAP::const_iterator	ite = ai().game_graph().header().levels().end();
+		for (; itb != ite; ++itb)
+		{
+			tips.push_back((*itb).second.name());
+		}
+		*/
+	}
+
+};
+
+
 void register_mp_console_commands()
 {
+	CMD1(CCC_ActorDumpInfo, "g_dumpinfo");
+	CMD1(CCC_GiveMoneySelf, "g_money");
+	CMD1(CCC_MAPTEST, "g_testmap");
+	CMD1(CCC_JumpToLevel,"adm_jump_level");
+
 	CMD1(CCC_SpawnToInventory,		"sv_spawn_to_player_inv");
 	CMD1(CCC_SpawnToObjWithId,		"sv_spawn_to_obj_with_id");
 	CMD1(CCC_SpawnOnPosition,		"sv_spawn_on_position"	);

@@ -887,6 +887,7 @@ Fvector	CScriptGameObject::head_orientation		() const
 
 void CScriptGameObject::info_add(LPCSTR text)
 {
+//	Msg("Debug_text: %s", text);
 #ifdef DEBUG
 	DBG().object_info(&object(),this).add_item	(text, D3DCOLOR_XRGB(255,0,0), 0);
 #endif
