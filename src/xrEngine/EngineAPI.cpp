@@ -82,6 +82,7 @@ void CEngineAPI::InitializeNotDedicated()
 
 	}
 
+	/*
 	if (psDeviceFlags.test(rsR3))
 	{
 		// try to initialize R3
@@ -96,7 +97,7 @@ void CEngineAPI::InitializeNotDedicated()
 		else
 			g_current_renderer	= 3;
 	}
-
+	
 	if (psDeviceFlags.test(rsR2))	
 	{
 		// try to initialize R2
@@ -112,6 +113,7 @@ void CEngineAPI::InitializeNotDedicated()
 		else
 			g_current_renderer	= 2;
 	}
+	*/
 
 	SECUROM_MARKER_HIGH_SECURITY_OFF(2)
 }

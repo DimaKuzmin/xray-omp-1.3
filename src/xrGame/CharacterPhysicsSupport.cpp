@@ -344,7 +344,7 @@ void CCharacterPhysicsSupport::UpdateCollisionActivatingDellay( )
 void CCharacterPhysicsSupport::in_shedule_Update( u32 DT )
 {
 	if(m_collision_activating_delay)
-			UpdateCollisionActivatingDellay();
+		UpdateCollisionActivatingDellay();
 
 	if( !m_EntityAlife.use_simplified_visual	( ) )
 		CPHDestroyable::SheduleUpdate( DT );
@@ -548,10 +548,12 @@ bool CCharacterPhysicsSupport::DoCharacterShellCollide()
 	return true;
 }
 
-
+// ÏÐÎÂÅÐÈË ÒÎ×ÍÎ ÍÅ ÝÒÎ ÒÏ íà 0 0 0 â MPs
 bool CCharacterPhysicsSupport::CollisionCorrectObjPos(const Fvector& start_from,bool	character_create/*=false*/)
 {
- 	Fvector shift;shift.set(0,0,0);
+ 	Fvector shift;
+	shift.set(0,0,0);
+
 	Fbox box;
 	
 	if (character_create)
@@ -567,7 +569,8 @@ bool CCharacterPhysicsSupport::CollisionCorrectObjPos(const Fvector& start_from,
 			get_box( m_pPhysicsShell, mXFORM, sz, c );
 			box.setb( Fvector().sub( c, m_EntityAlife.Position() ), Fvector(sz).mul(0.5f) );
 			m_pPhysicsShell->DisableCollision();
-		}else
+		}
+		else
 			box.set( m_EntityAlife.BoundingBox() );
 	}
 
@@ -576,14 +579,21 @@ bool CCharacterPhysicsSupport::CollisionCorrectObjPos(const Fvector& start_from,
 	box.get_CD(activation_pos,vbox);
 	shift.add(activation_pos);
 	vbox.mul(2.f);
-	activation_pos.add(shift,m_EntityAlife.Position());
+	activation_pos.add(shift, m_EntityAlife.Position());
+
 	bool not_collide_characters =	!DoCharacterShellCollide() && !character_create;
 	bool set_rotation =				!character_create;
 	
 	Fvector activation_res = Fvector().set(0,0,0);
  	bool ret = ActivateShapeCharacterPhysicsSupport( activation_res, vbox, activation_pos, mXFORM, not_collide_characters, set_rotation, &m_EntityAlife );
   
+	//if (Level().CurrentControlEntity() == &this->m_EntityAlife)
+	//	Msg("[CCharacterPhysicsSupport] CorrectObjPos: from [%f][%f][%f] ", VPUSH(m_EntityAlife.Position()));
+
 	m_EntityAlife.Position().sub(activation_res,shift);
+
+	//if (Level().CurrentControlEntity() == &this->m_EntityAlife)
+	//	Msg("[CCharacterPhysicsSupport] CorrectObjPos: to [%f][%f][%f] ", VPUSH(m_EntityAlife.Position()));
 
 	if(m_pPhysicsShell)
 		m_pPhysicsShell->EnableCollision();
@@ -636,7 +646,7 @@ void CCharacterPhysicsSupport::update_animation_collision		( )
 		animation_collision( )->update( mXFORM );
 			 
 		if( Device.dwTimeGlobal > m_physics_shell_animated_time_destroy )
-					destroy_animation_collision		( );
+			destroy_animation_collision		( );
 	}
 }
  

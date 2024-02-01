@@ -35,7 +35,7 @@
 #define def_Y_SIZE_2	0.8f
 #define def_Z_SIZE_2	0.35f
 
-const u64 after_creation_collision_hit_block_steps_number=100;
+const u64 after_creation_collision_hit_block_steps_number=100;	// Se7kills Нигде не задано 
 
 CPHMovementControl::CPHMovementControl(CObject* parent)
 {
@@ -100,11 +100,13 @@ void CPHMovementControl::AddControlVel	(const Fvector& vel)
 	vExternalImpulse.add(vel);
 	bExernalImpulse=true;
 }
+
 void CPHMovementControl::ApplyImpulse(const Fvector& dir,const float P)
 {
 	VERIFY( m_character );
 	if(fis_zero(P))
 		return;
+
 	Fvector force;
 	force.set(dir);
 	force.mul(P/fixed_step);
@@ -112,11 +114,13 @@ void CPHMovementControl::ApplyImpulse(const Fvector& dir,const float P)
 	AddControlVel(force);
  	m_character->ApplyImpulse(dir,P);
 }
+
 void CPHMovementControl::SetVelocityLimit(float val)
 {
 	if(m_character)
 		m_character->SetMaximumVelocity(val);
 }
+
 float CPHMovementControl::VelocityLimit()
 {
 	if(!m_character || !m_character->b_exist) return 0.f;
@@ -125,11 +129,10 @@ float CPHMovementControl::VelocityLimit()
 
 void CPHMovementControl::in_shedule_Update(u32 DT)
 {
-	
 	if(!m_capture)
 		return;
 	if(m_capture->Failed())
-				phcapture_destroy(m_capture);
+		phcapture_destroy(m_capture);
 }
 
 // Ращет Плзиции для игрока (увидел только в игроке)
@@ -162,15 +165,11 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
  
 	gcontact_Was=m_character->ContactWas();
 
-//////
-
 	UpdateCollisionDamage( );
   
 	ICollisionDamageInfo	*cdi=CollisionDamageInfo();
 	if(cdi->HitCallback())
 		cdi->HitCallback()->call((m_character->PhysicsRefObject()),fMinCrashSpeed,fMaxCrashSpeed,fContactSpeed,gcontact_HealthLost,CollisionDamageInfo());
-		
-////////
 
 	TraceBorder(previous_position);
 	CheckEnvironment(vPosition);
@@ -201,10 +200,9 @@ void CPHMovementControl::UpdateCollisionDamage( )
 	gcontact_Power				= fContactSpeed/fMaxCrashSpeed;
 	if (fContactSpeed>fMinCrashSpeed) 
 	{
-			gcontact_HealthLost = 
-			((fContactSpeed-fMinCrashSpeed))/(fMaxCrashSpeed-fMinCrashSpeed);
-			VERIFY( m_character );
-			m_character->SetHitType( DefineCollisionHitType( m_character->LastMaterialIDX() ) );
+		gcontact_HealthLost = ((fContactSpeed-fMinCrashSpeed))/(fMaxCrashSpeed-fMinCrashSpeed);
+		VERIFY( m_character );
+		m_character->SetHitType( DefineCollisionHitType( m_character->LastMaterialIDX() ) );
 	}
 }
 
@@ -295,8 +293,8 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 	Fvector new_position;
 	m_character->IPosition(new_position);
 
-	int index=0;//nearest point
-	//float distance;//distance
+	int index=0;
+	//nearest point
 
 	bool  near_line;
 	m_path_size=path.size();
@@ -307,7 +305,8 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 		speed=0;
 		vPosition.set(new_position);
 	}
-	else if(b_exect_position)
+	else
+	if(b_exect_position)
 	{
 		m_start_index=travel_point;
 
@@ -324,8 +323,6 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 		m_path_distance=0;
 		SetPathDir	(dir);
 		vPathPoint.set(vPosition);
-
-
 	}
 	else {
 		Fvector dif;
@@ -364,20 +361,24 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 				m_start_index=0;
 				PathNearestPoint(path,new_position,index,near_line);
 			}
-			vPosition.set(new_position);//for PathDirLine && PathDirPoint
-			if(near_line) PathDIrLine(path,index,m_path_distance,precision,dir);
-			else		  PathDIrPoint(path,index,m_path_distance,precision,dir);
+			vPosition.set(new_position); 
+			
+			if(near_line)
+				PathDIrLine(path,index,m_path_distance,precision,dir);
+			else
+				PathDIrPoint(path,index,m_path_distance,precision,dir);
 			
 	
 			travel_point=(u32)index;
 			m_start_index=index;
-			if(fis_zero(speed)) dir.set(0,0,0);
+			
+			if(fis_zero(speed))
+				dir.set(0,0,0);
 		}
 
 	}
 	
 	dir.y=0.f;
-	//VERIFY(!(fis_zero(dir.magnitude())&&!fis_zero(speed)));
 	dir.normalize_safe();
 	
 	/////////////////////////////////////////////////////////////////
@@ -396,6 +397,7 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 			dir.set(V);
 			dir.mul(1.f/speed);
 		}
+
 		speed/=10.f;
 		vExternalImpulse.set(0.f,0.f,0.f);
 		bExernalImpulse=false;
@@ -876,18 +878,17 @@ void	CPHMovementControl::SetPosition(const Fvector &P)
 
 bool		CPHMovementControl::		TryPosition				(Fvector& pos)															
 {
+ 	VERIFY_BOUNDARIES2(pos,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::TryPosition	arqument pos");
 
-		VERIFY_BOUNDARIES2(pos,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::TryPosition	arqument pos");
+	if (m_character->b_exist) 
+	{	
+		bool					ret = m_character->TryPosition(pos,b_exect_position)&&!bExernalImpulse;
+		m_character->GetPosition(vPosition);
+		return					(ret);
+	}
 
-		if (m_character->b_exist) 
-		{	
-			bool					ret = m_character->TryPosition(pos,b_exect_position)&&!bExernalImpulse;
-			m_character->GetPosition(vPosition);
-			return					(ret);
-		}
-
-		vPosition.set	(pos);
-		return			(true);
+	vPosition.set	(pos);
+	return			(true);
 }
 
 
@@ -991,8 +992,7 @@ void CPHMovementControl::JumpV(const Fvector &jump_velocity)
 
 void CPHMovementControl::Jump(const Fvector &end_point, float time)
 {
-	//vPosition
-	Jump(smart_cast<CGameObject*>(m_character->PhysicsRefObject())->Position(),end_point,time);
+ 	Jump(smart_cast<CGameObject*>(m_character->PhysicsRefObject())->Position(),end_point,time);
 }
 
 

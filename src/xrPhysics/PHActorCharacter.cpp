@@ -2,27 +2,16 @@
 #include "phactorcharacter.h"
 #include "Extendedgeom.h"
 #include "PhysicsCommon.h"
-//#include "GameObject.h"
 #include "IPhysicsShellHolder.h"
-//#include "ai/stalker/ai_stalker.h"
-//#include "Actor.h"
 #include "../xrEngine/gamemtllib.h"
-//#include "level.h"
 
-//const float JUMP_HIGHT=0.5;
-const float JUMP_UP_VELOCITY=6.0f;//5.6f;
+const float JUMP_UP_VELOCITY=6.0f;
 const float JUMP_INCREASE_VELOCITY_RATE=1.2f;
-//#ifdef DEBUG
-//XRPHYSICS_API BOOL use_controllers_separation = TRUE;
-//#endif
+
 CPHActorCharacter::CPHActorCharacter( bool single_game ): b_single_game(single_game)
 {
 	SetRestrictionType(rtActor);
 
-	//std::fill(m_restrictors_index,m_restrictors_index+CPHCharacter::rtNone,end(m_restrictors));
-	//m_restrictors_index[CPHCharacter::rtStalker]		=begin(m_restrictors)+0;
-	//m_restrictors_index[CPHCharacter::rtMonsterMedium]	=begin(m_restrictors)+1;
-	
 	{
 		m_restrictors.resize(3);
 		m_restrictors[0]=(xr_new<stalker_restrictor>());
@@ -40,10 +29,7 @@ void CPHActorCharacter::Create(dVector3 sizes)
 {
 	if(b_exist) return;
 	inherited::Create(sizes);
-	//if(!b_single_game)
-	//{
-	//	ClearRestrictors();
-	//}
+
 	RESTRICTOR_I i=begin(m_restrictors),e=end(m_restrictors);
 	for(;e!=i;++i)
 	{
@@ -59,7 +45,6 @@ void CPHActorCharacter::Create(dVector3 sizes)
 		GameMtlIt mi = GMLibrary().GetMaterialIt("materials\\earth_slide");
 		if( mi != GMLibrary().LastMaterial	())
 			slide_material_index =u16( mi - GMLibrary().FirstMaterial() );
-		//slide_material_index = GMLibrary().GetMaterialIdx("earth_slide");
 	}
 }
 void	CPHActorCharacter::	ValidateWalkOn						()
@@ -87,7 +72,8 @@ void SPHCharacterRestrictor::Create(CPHCharacter* ch,dVector3 sizes)
 	dGeomSetBody(m_restrictor_transform,m_character->get_body());
 	dSpaceAdd(m_character->dSpace(),m_restrictor_transform);
 	dGeomUserDataSetPhObject(m_restrictor,(CPHObject*)m_character);
-	switch(m_type) {
+	switch(m_type)
+	{
 		case rtStalker:static_cast<CPHActorCharacter::stalker_restrictor*>(this)->Create(ch,sizes);
 		break;
 		case rtStalkerSmall:static_cast<CPHActorCharacter::stalker_small_restrictor*>(this)->Create(ch,sizes);
@@ -141,7 +127,8 @@ void CPHActorCharacter::ClearRestrictors()
 }
 void SPHCharacterRestrictor::Destroy()
 {
-	if(m_restrictor) {
+	if(m_restrictor) 
+	{
 		dGeomDestroyUserData(m_restrictor);
 		dGeomDestroy(m_restrictor);
 		m_restrictor=NULL;
@@ -212,7 +199,6 @@ void CPHActorCharacter::Jump(const Fvector& accel)
 		{
 			m_elevator_state.GetJumpDir(m_acceleration,m_jump_accel);
 			m_jump_accel.mul(JUMP_UP_VELOCITY/2.f);
- 			//if(accel.square_magnitude()>EPS_L)m_jump_accel.mul(4.f);
 		}
 		else{
 			m_jump_accel.set(vel[0]*JUMP_INCREASE_VELOCITY_RATE+m_acceleration.x/amag*0.2f,jump_up_velocity,vel[2]*JUMP_INCREASE_VELOCITY_RATE +m_acceleration.z/amag*0.2f);
@@ -250,13 +236,9 @@ struct SFindPredicate
 
 static void BigVelSeparate(dContact* c,bool &do_collide)
 {
-	VERIFY( c );
-#ifdef DEBUG
-	//if( !use_controllers_separation )
-		//return;
-#endif
 	if(!do_collide)
 		return;
+
 	dxGeomUserData* dat1 = retrieveGeomUserData(c->geom.g1);
 	dxGeomUserData* dat2 = retrieveGeomUserData(c->geom.g2);
 
@@ -266,16 +248,9 @@ static void BigVelSeparate(dContact* c,bool &do_collide)
 		dat2->ph_object->CastType() != CPHObject::tpCharacter 
 		) 
 		return;
-	
-	//float spr	= Spring( c->surface.soft_cfm,c->surface.soft_erp);
-	//float dmp	= Damping( c->surface.soft_cfm,c->surface.soft_erp);
-	//spr *=0.001f;
-	//dmp *=10.f;
-	//float cfm	= Cfm( spr, dmp );
-	//float e		= Erp( spr, dmp );
+
 	c->surface.soft_cfm *= 100.f;
 	c->surface.soft_erp *=0.1f;
-	//MulSprDmp(c->surface.soft_cfm,c->surface.soft_erp ,0.1f,10);
 
 	CPHCharacter* ch1 = static_cast<CPHCharacter*>(dat1->ph_object);
 	CPHCharacter* ch2 = static_cast<CPHCharacter*>(dat2->ph_object);
@@ -286,7 +261,7 @@ static void BigVelSeparate(dContact* c,bool &do_collide)
 		v2.square_magnitude()<4.f
 	)
 		return;
-	c->surface.mu		=1.00f;
+	c->surface.mu		= 1.00f;
 
 	dJointID contact_joint1	= dJointCreateContactSpecial(0, ContactGroup, c);
 	dJointID contact_joint2	= dJointCreateContactSpecial(0, ContactGroup, c);
@@ -322,7 +297,6 @@ void CPHActorCharacter::InitContact(dContact* c,bool &do_collide,u16 material_id
 		if(b_restrictor)
 		{
 			b_side_contact=true;
-			//MulSprDmp(c->surface.soft_cfm,c->surface.soft_erp,def_spring_rate,def_dumping_rate);
 			c->surface.mu		=0.00f;
 		}
 		else
@@ -343,7 +317,6 @@ void CPHActorCharacter::InitContact(dContact* c,bool &do_collide,u16 material_id
 			m_friction_factor*=0.1f;
 			
 		}
-		//BigVelSeparate( c, do_collide );
 	}
 	else
 	{
@@ -376,23 +349,13 @@ switch(ch->RestrictionType())
 case rtStalkerSmall:
 	if( ch->ObjectRadius() > checkR )
 	{
-		//if(my_depth>0.05f)
 		ch->SetNewRestrictionType(rtStalker);
 		Enable();
-		//else ch->SetRestrictionType(rtStalker);
-#ifdef DEBUG
-		if(debug_output().ph_dbg_draw_mask1().test(ph_m1_DbgActorRestriction))
-				Msg("restriction ready to change small -> large");
-#endif
 	}
 	break;
 case rtStalker:
 	if( ch->ObjectRadius() < checkR )
 	{
-#ifdef DEBUG
-		if(debug_output().ph_dbg_draw_mask1().test(ph_m1_DbgActorRestriction))
-						Msg("restriction  change large ->  small");
-#endif
 		ch->SetRestrictionType(rtStalkerSmall);
 		Enable();
 	}

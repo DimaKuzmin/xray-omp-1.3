@@ -300,49 +300,14 @@ bool ActivateBoxDynamic( IPHMovementControl* mov_control, bool character_exist, 
 
 	mov_control->character()->CPHObject::activate();
 	ph_world->Freeze();
-	//UnFreeze(); //if(m_character) m_character->UnFreeze();
 	mov_control->character()->UnFreeze();
 
-	//saved_callback=ObjectContactCallback();
-
-	/*	ObjectContactCallbackFun* CPHMovementControl::ObjectContactCallback()			
-	{
-		if(m_character)
-			return m_character->ObjectContactCallBack();
-		else return NULL; 
-	}*/
-			
-	saved_callback=		mov_control->character()->ObjectContactCallBack();
-
-
-//	SetOjectContactCallback(TestDepthCallback);
-
-	//	void		CPHMovementControl::		SetOjectContactCallback (ObjectContactCallbackFun* callback)
-	//{
-	//	if(m_character)
-	//		m_character->SetObjectContactCallback(callback);
-	//}
+	saved_callback =		mov_control->character()->ObjectContactCallBack();
 	mov_control->character()->SetObjectContactCallback(TestDepthCallback);
-
-
-	//SetFootCallBack(TestFootDepthCallback);
-	//void		CPHMovementControl::		SetFootCallBack			(ObjectContactCallbackFun* callback)
-	//{
-	//	VERIFY(m_character);
-	//	m_character->SetWheelContactCallback(callback);
-	//}
 	mov_control->character()->SetWheelContactCallback(TestFootDepthCallback);
-
-
 	max_depth=0.f;
 
-
-
 	//////////////////////////////////pars///////////////////////////////////////////
-//	int		num_it=8;
-//	int		num_steps=5;
-//	float	resolve_depth=0.01f;
-
 	
 	if(!character_exist)
 	{
@@ -350,6 +315,7 @@ bool ActivateBoxDynamic( IPHMovementControl* mov_control, bool character_exist, 
 		num_steps=1;		
 		resolve_depth=0.1f;
 	}
+
 	///////////////////////////////////////////////////////////////////////
 	float	fnum_it=float(num_it);
 	float	fnum_steps=float(num_steps);
