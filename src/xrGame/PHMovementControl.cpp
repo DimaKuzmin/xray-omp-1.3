@@ -3,14 +3,7 @@
 
 #include "../xrEngine/cl_intersect.h"
 #include "../xrserverentities/alife_space.h"
-
-//#include "entity.h"
-//#include "PHDynamicData.h"
-//#include "Physics.h"
-
-//#include "PHAICharacter.h"
-//#include "PHActorCharacter.h"
-
+ 
 #include "../xrphysics/phCharacter.h"
 #include "../xrphysics/IPHCapture.h"
 #include "../xrphysics/iphysicsshellholder.h"
@@ -20,7 +13,7 @@
 #include "../xrphysics/phvalide.h"
 #include "../xrphysics/physicsshell.h"
 #include "../xrphysics/iphworld.h"
-//#include "../xrserverentities/ai_space.h"
+ 
 #include "detail_path_manager.h"
 #include "../xrEngine/gamemtllib.h"
 #include "../xrEngine/xr_object.h"
@@ -30,8 +23,7 @@
 #ifdef DEBUG
 #include "phdebug.h"
 #endif
-
-//#include	"../Include/xrRender/KinematicsAnimated.h"
+ 
 #include "../Include/xrRender/Kinematics.h"
 
 #define GROUND_FRICTION	10.0f
@@ -49,14 +41,6 @@ CPHMovementControl::CPHMovementControl(CObject* parent)
 {
 	pObject=parent;
 
-#ifdef DEBUG
-	if(debug_output().ph_dbg_draw_mask1().test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(debug_output().PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::CPHMovementControl %s (constructor) %f,%f,%pObjectf",debug_output().PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-	}
-
-#endif
-
 	m_material			=0;
 	m_capture			=NULL;
 	b_exect_position	=true;
@@ -64,8 +48,7 @@ CPHMovementControl::CPHMovementControl(CObject* parent)
 	eOldEnvironment =	peInAir;
 	eEnvironment =		peInAir;
 	aabb.set			(-def_X_SIZE_2,0,-def_Z_SIZE_2, def_X_SIZE_2, def_Y_SIZE_2*2, def_Z_SIZE_2);
-	///vFootCenter.set		(0,0,0);
-	//vFootExt.set		(0,0,0);
+ 
 	fMass				= 100;
 	fMinCrashSpeed		= 12.0f;
 	fMaxCrashSpeed		= 25.0f;
@@ -75,10 +58,7 @@ CPHMovementControl::CPHMovementControl(CObject* parent)
 	bExernalImpulse		=false;
 	fLastMotionMag		= 1.f;
 	SetPathDir			(Fvector().set(0,0,1));
-	//fAirFriction		= AIR_FRICTION;
-	//fWallFriction		= WALL_FRICTION;
-	//fGroundFriction		= GROUND_FRICTION;
-	//fFriction			= fAirFriction;
+ 
 	bIsAffectedByGravity= TRUE;
 	fActualVelocity		= 0;
 	m_fGroundDelayFactor= 1.f;
@@ -112,12 +92,9 @@ static ALife::EHitType	 DefineCollisionHitType	( u16 material_idx )
 		return ALife::eHitTypeRadiation;
 	else									
 		return ALife::eHitTypeStrike;
-//	return (GameID() == eGameIDSingle) ? ALife::eHitTypeStrike : ALife::eHitTypePhysicStrike;
-}//
-
-
-//static Fvector old_pos={0,0,0};
-//static bool bFirst=true;
+ 
+} 
+ 
 void CPHMovementControl::AddControlVel	(const Fvector& vel)
 {
 	vExternalImpulse.add(vel);
@@ -157,57 +134,41 @@ void CPHMovementControl::in_shedule_Update(u32 DT)
 
 void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /**ang_speed/**/,float jump,float /**dt/**/,bool /**bLight/**/)
 {
-	Fvector previous_position;previous_position.set(vPosition);
+	Fvector previous_position;
+	previous_position.set(vPosition);
+
 	m_character->IPosition(vPosition);
+	
 	if(bExernalImpulse)
 	{
-		
-		vAccel.add(vExternalImpulse);
+ 		vAccel.add(vExternalImpulse);
 		m_character->ApplyForce(vExternalImpulse);
 		vExternalImpulse.set(0.f,0.f,0.f);
 		
 		bExernalImpulse=false;
 	}
+
 	//vAccel.y=jump;
 	float mAccel=vAccel.magnitude();
 	m_character->SetCamDir(camDir);
 	m_character->SetMaximumVelocity(mAccel/10.f);
 	//if(!fis_zero(mAccel))vAccel.mul(1.f/mAccel);
 	m_character->SetAcceleration(vAccel);
-	if(!fis_zero(jump)) m_character->Jump(vAccel);
+	if(!fis_zero(jump))
+		m_character->Jump(vAccel);
 	
 	m_character->GetSavedVelocity(vVelocity); 
 	fActualVelocity=vVelocity.magnitude();
-	//Msg("saved avel %f", fActualVelocity);
+ 
 	gcontact_Was=m_character->ContactWas();
 
 //////
 
 	UpdateCollisionDamage( );
-
-/*
-	u16 mat_injurios = m_character->InjuriousMaterialIDX();
-
-	if(m_character->LastMaterialIDX()!=GAMEMTL_NONE_IDX)
-	{
-		const SGameMtl *last_material=GMLib.GetMaterialByIdx(m_character->LastMaterialIDX());
-		if( last_material->Flags.test(SGameMtl::flInjurious) )
-			mat_injurios = m_character->LastMaterialIDX();
-	}
-
-	if( mat_injurios!=GAMEMTL_NONE_IDX)
-	{
-		if( fis_zero(gcontact_HealthLost) )
-				m_character->SetHitType( DefineCollisionHitType( mat_injurios ) );
-		gcontact_HealthLost+=Device.fTimeDelta*GMLib.GetMaterialByIdx( mat_injurios )->fInjuriousSpeed;
-	}
-
-*/
-	//IPhysicsShellHolder * O=di->DamageObject();
-	//SCollisionHitCallback* cc= O ? O->get_collision_hit_callback() : NULL;
+  
 	ICollisionDamageInfo	*cdi=CollisionDamageInfo();
 	if(cdi->HitCallback())
-			cdi->HitCallback()->call((m_character->PhysicsRefObject()),fMinCrashSpeed,fMaxCrashSpeed,fContactSpeed,gcontact_HealthLost,CollisionDamageInfo());
+		cdi->HitCallback()->call((m_character->PhysicsRefObject()),fMinCrashSpeed,fMaxCrashSpeed,fContactSpeed,gcontact_HealthLost,CollisionDamageInfo());
 		
 ////////
 
@@ -244,22 +205,6 @@ void CPHMovementControl::UpdateCollisionDamage( )
 			VERIFY( m_character );
 			m_character->SetHitType( DefineCollisionHitType( m_character->LastMaterialIDX() ) );
 	}
-
-
-
-	//const ICollisionDamageInfo* di=m_character->CollisionDamageInfo();
-	//fContactSpeed=0.f;
-	//{
-	//	fContactSpeed=di->ContactVelocity();
-	//	gcontact_Power				= fContactSpeed/fMaxCrashSpeed;
-	//	gcontact_HealthLost			= 0;
-	//	if (fContactSpeed>fMinCrashSpeed) 
-	//	{
-	//		gcontact_HealthLost = 
-	//			((fContactSpeed-fMinCrashSpeed))/(fMaxCrashSpeed-fMinCrashSpeed);
-	//		m_character->SetHitType( DefineCollisionHitType( m_character->LastMaterialIDX() ) );
-	//	}
-	//}
 }
 
 #include <ai/monsters/basemonster/base_monster.h>
@@ -326,15 +271,6 @@ bool CPHMovementControl::MakeJumpPath(xr_vector<DetailPathManager::STravelPathPo
 
 void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPathPoint>& in_path,float speed,  u32& travel_point,  float& precision  )
 {
-#ifdef DEBUG
-	if(	debug_output().ph_dbg_draw_mask1().test(ph_m1_DbgTrackObject)&&
-		( !!pObject->cName() ) && stricmp(debug_output().PH_DBG_ObjectTrackName(), *pObject->cName() )==0)
-	{
-		Msg("CPHMovementControl::Calculate in %s (Object Position) %f,%f,%f",debug_output().PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::Calculate in %s (CPHMovementControl::vPosition) %f,%f,%f",debug_output().PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
-
  	xr_vector<DetailPathManager::STravelPathPoint>	replacing_path;
 	Fvector		deviation		=	{ 0, 0, 0 };
  	bool const	add_deviation	=	MakeJumpPath(replacing_path, travel_point, deviation);
@@ -446,11 +382,9 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 	/////////////////////////////////////////////////////////////////
 	if(bExernalImpulse)
 	{
-
-		//vAccel.add(vExternalImpulse);
 		Fvector V;
 		V.set(dir);
-		//V.mul(speed*fMass/fixed_step);
+ 
 		V.mul(speed*10.f);
 		V.add(vExternalImpulse);
 		m_character->ApplyForce(vExternalImpulse);
@@ -465,14 +399,7 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 		vExternalImpulse.set(0.f,0.f,0.f);
 		bExernalImpulse=false;
 	}
-	/////////////////////////
-	//if(!PhysicsOnlyMode()){
-	//	Fvector	v;//m_character->GetVelocity(v);
-	//	v.mul(dir,speed);
-	//	SetVelocity(v);//hk
-	//	
-	//}
-	/////////////////////////
+ 
 	m_character->SetMaximumVelocity(speed);
 
 	if ( add_deviation )
@@ -488,24 +415,11 @@ void CPHMovementControl::Calculate(const xr_vector<DetailPathManager::STravelPat
 
 	gcontact_Was=m_character->ContactWas();
 	UpdateCollisionDamage( );
-	//const ICollisionDamageInfo* di=m_character->CollisionDamageInfo();
-	//fContactSpeed=0.f;
-	//{
-	//	fContactSpeed=di->ContactVelocity();
-	//	gcontact_Power				= fContactSpeed/fMaxCrashSpeed;
-	//	gcontact_HealthLost			= 0;
-	//	if (fContactSpeed>fMinCrashSpeed) 
-	//	{
-	//		gcontact_HealthLost = 
-	//			((fContactSpeed-fMinCrashSpeed))/(fMaxCrashSpeed-fMinCrashSpeed);
-	//		m_character->SetHitType( DefineCollisionHitType( m_character->LastMaterialIDX() ) );
-	//	}
-	//}
-
+ 
 	CheckEnvironment(vPosition);
 	bSleep=false;
 	b_exect_position=false;
-	//m_character->Reinit();
+ 
 }
 
 void CPHMovementControl::PathNearestPoint(const xr_vector<DetailPathManager::STravelPathPoint>  &path,			//in path
@@ -586,13 +500,7 @@ void CPHMovementControl::PathNearestPoint(const xr_vector<DetailPathManager::STr
 		index=i;
 		near_line=false;
 	}
-#ifdef DEBUG
-	if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::Calculate out %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::Calculate out %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
+ 
 	return;
 }
 
@@ -877,14 +785,10 @@ void CPHMovementControl::SetActorRestrictorRadius(ERestrictionType rt,float r)
 {
 	if(m_character&&eCharacterType==actor)
 		(m_character)->SetRestrictorRadius(rt,r);
-		//static_cast<CPHActorCharacter*>(m_character)->SetRestrictorRadius(rt,r);
 }
 void CPHMovementControl::Load					(LPCSTR section){
 
 	//capture
-	
-	//xr_strcpy(m_capture_bone,pSettings->r_string(section,"capture_bone"));
-	
 	Fbox	bb;
 
 	// m_PhysicMovementControl: BOX
@@ -898,12 +802,6 @@ void CPHMovementControl::Load					(LPCSTR section){
 	Fvector	vBOX0_size	= pSettings->r_fvector3	(section,"ph_box0_size"		);
 	bb.set	(vBOX0_center,vBOX0_center); bb.grow(vBOX0_size);
 	SetBox		(0,bb);
-
-	//// m_PhysicMovementControl: Foots
-	//Fvector	vFOOT_center= pSettings->r_fvector3	(section,"ph_foot_center"	);
-	//Fvector	vFOOT_size	= pSettings->r_fvector3	(section,"ph_foot_size"		);
-	//bb.set	(vFOOT_center,vFOOT_center); bb.grow(vFOOT_size);
-	//SetFoots	(vFOOT_center,vFOOT_size);
 
 	// m_PhysicMovementControl: Crash speed and mass
 	float	cs_min		= pSettings->r_float	(section,"ph_crash_speed_min"	);
@@ -919,36 +817,37 @@ void CPHMovementControl::Load					(LPCSTR section){
 
 	if(pSettings->line_exist(section,"actor_restrictor"))
 		SetRestrictionType(ERestrictionType(pSettings->r_token(section,"actor_restrictor",retrictor_types)));
+
 	fCollisionDamageFactor=READ_IF_EXISTS(pSettings,r_float,section,"ph_collision_damage_factor",fCollisionDamageFactor);
 	R_ASSERT3(fCollisionDamageFactor<=1.f,"ph_collision_damage_factor >1.",section);
 	SetCrashSpeeds	(cs_min,cs_max);
 	SetMass		(mass);
 
-
-	// m_PhysicMovementControl: Frictions
-	//float af, gf, wf;
-	//af					= pSettings->r_float	(section,"ph_friction_air"	);
-	//gf					= pSettings->r_float	(section,"ph_friction_ground");
-	//wf					= pSettings->r_float	(section,"ph_friction_wall"	);
-	//SetFriction	(af,wf,gf);
-
-	// BOX activate
-//	ActivateBox	(0);
 }
 
-void CPHMovementControl::CheckEnvironment(const Fvector &/**V/**/){
+void CPHMovementControl::CheckEnvironment(const Fvector &/**V/**/)
+{
 	eOldEnvironment=eEnvironment;
-	switch (m_character->CheckInvironment()){
-case peOnGround : eEnvironment=peOnGround;break;
-case peInAir :		eEnvironment=peInAir		;break;
-case peAtWall : eEnvironment=peAtWall		;break;
+	switch (m_character->CheckInvironment())
+	{
+		case peOnGround :
+			eEnvironment=peOnGround;
+			break;
+		case peInAir :		
+			eEnvironment=peInAir;
+			break;
+		case peAtWall : 
+			eEnvironment=peAtWall;
+			break;
 	}
 }
 
 void CPHMovementControl::GroundNormal(Fvector & norm)		
 {
-if(m_character&&m_character->b_exist)m_character->GroundNormal(norm);
-else norm.set(0.f,1.f,0.f);
+	if(m_character&&m_character->b_exist)
+		m_character->GroundNormal(norm);
+	else 
+		norm.set(0.f,1.f,0.f);
 
 }
 
@@ -968,30 +867,19 @@ void	CPHMovementControl::SetEnvironment( int enviroment,int old_enviroment){
 	case 2: eOldEnvironment=peInAir;
 	}
 }
-void	CPHMovementControl::SetPosition(const Fvector &P){	
-#ifdef DEBUG
-	if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::SetPosition %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::SetPosition %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
-	vPosition.set	(P);  VERIFY( m_character ) ;m_character->SetPosition(vPosition);
 
+void	CPHMovementControl::SetPosition(const Fvector &P)
+{	
+	vPosition.set	(P);  VERIFY( m_character ) ;m_character->SetPosition(vPosition);
 }
+
 bool		CPHMovementControl::		TryPosition				(Fvector& pos)															
 {
 
-VERIFY_BOUNDARIES2(pos,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::TryPosition	arqument pos");
+		VERIFY_BOUNDARIES2(pos,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::TryPosition	arqument pos");
 
-#ifdef DEBUG
-		if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-		{
-			Msg("CPHMovementControl::TryPosition %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-			Msg("CPHMovementControl::TryPosition %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-		}
-#endif
-		if (m_character->b_exist) {	
+		if (m_character->b_exist) 
+		{	
 			bool					ret = m_character->TryPosition(pos,b_exect_position)&&!bExernalImpulse;
 			m_character->GetPosition(vPosition);
 			return					(ret);
@@ -1004,17 +892,10 @@ VERIFY_BOUNDARIES2(pos,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovem
 
 void		CPHMovementControl::GetPosition		(Fvector &P)
 {	
-VERIFY_BOUNDARIES2(P,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::GetPosition	arqument pos");
+	VERIFY_BOUNDARIES2(P,ph_boundaries(),m_character->PhysicsRefObject(),"CPHMovementControl::GetPosition	arqument pos");
 
-#ifdef DEBUG
-	if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::GetPosition %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::GetPosition %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
 	P.set			(vPosition); 
-VERIFY_BOUNDARIES2(vPosition, ph_boundaries(), m_character->PhysicsRefObject(),"CPHMovementControl::GetPosition	out pos");
+	VERIFY_BOUNDARIES2(vPosition, ph_boundaries(), m_character->PhysicsRefObject(),"CPHMovementControl::GetPosition	out pos");
 }
 
 void	CPHMovementControl::AllocateCharacterObject(CharacterType type)
@@ -1022,39 +903,27 @@ void	CPHMovementControl::AllocateCharacterObject(CharacterType type)
 	switch(type)
 	{
 		case actor:		m_character = create_actor_character( IsGameTypeSingle() )				;	break;
-		//case actor:	m_character = xr_new<CPHActorCharacter>	()					;	break;
-		//case ai:		m_character = xr_new<CPHAICharacter>	()					;	break;
 		case ai:		m_character = create_ai_character()							;	break;
 		default:		NODEFAULT;
 	}
 	eCharacterType=type;
 	m_character->SetMas(fMass);
 	m_character->SetPosition(vPosition);
-#ifdef DEBUG
-	if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::AllocateCharacterObject %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::AllocateCharacterObject %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
 }
 
 void	CPHMovementControl::PHCaptureObject(CPhysicsShellHolder* object, CPHCaptureBoneCallback* cb /*=0*/ )
 {
-if(m_capture)
+	if(m_capture)
 		return;
-if( !object||
-	!object->PPhysicsShell()||
-	!object->m_pPhysicsShell->isActive()
-	)
-	return;
+	
+	if( !object||
+		!object->PPhysicsShell()||
+		!object->m_pPhysicsShell->isActive()
+		)
+		return;
 
-m_capture = phcapture_create( m_character, object,static_cast<NearestToPointCallback*>( cb ) );
+	m_capture = phcapture_create( m_character, object,static_cast<NearestToPointCallback*>( cb ) );
 
-//m_capture=xr_new<CPHCapture>(m_character,
-//							 object,
-//							 cb
-//							 );
 }
 
 void	CPHMovementControl::PHCaptureObject(CPhysicsShellHolder* object,u16 element)
@@ -1067,11 +936,7 @@ void	CPHMovementControl::PHCaptureObject(CPhysicsShellHolder* object,u16 element
 		!object->PPhysicsShell()->isActive()
 		)
 		return;
-
-	//m_capture=xr_new<CPHCapture>(m_character,
-	//	object,
-	//	element
-	//	);
+ 
 	m_capture = phcapture_create( m_character, object, element ); 
 }
 
@@ -1109,8 +974,6 @@ void	CPHMovementControl::DestroyCharacter()
 	VERIFY( m_character );
 	m_character->Destroy();
 	phcapture_destroy(m_capture);
-	//xr_delete(m_capture);
-	//xr_delete<CPHSimpleCharacter>(m_character);
 }
 
 void	CPHMovementControl::DeleteCharacterObject()
@@ -1196,13 +1059,7 @@ void CPHMovementControl::CreateCharacter()
 	m_character->Create(size);
 	m_character->SetMaterial(m_material);
 	m_character->SetAirControlFactor(fAirControlParam);
-#ifdef DEBUG
-	if(ph_dbg_draw_mask1.test(ph_m1_DbgTrackObject)&&(!!pObject->cName())&&stricmp(PH_DBG_ObjectTrackName(),*pObject->cName())==0)
-	{
-		Msg("CPHMovementControl::CreateCharacter %s (Object Position) %f,%f,%f",PH_DBG_ObjectTrackName(),pObject->Position().x,pObject->Position().y,pObject->Position().z);
-		Msg("CPHMovementControl::CreateCharacter %s (CPHMovementControl::vPosition) %f,%f,%f",PH_DBG_ObjectTrackName(),vPosition.x,vPosition.y,vPosition.z);
-	}
-#endif
+
 	m_character->SetPosition(vPosition);
 	m_character->SetCollisionDamageFactor(fCollisionDamageFactor*fCollisionDamageFactor);
 	trying_times[0]=trying_times[1]=trying_times[2]=trying_times[3]=u32(-1);
@@ -1233,13 +1090,8 @@ void CPHMovementControl::ActivateBox		(DWORD id, BOOL Check/*false*/)
 	if(!m_character||!m_character->b_exist) return;
 	dVector3 size={aabb.x2-aabb.x1,aabb.y2-aabb.y1,aabb.z2-aabb.z1};
 	m_character->SetBox(size);
-	//Fvector v;
-	//m_character->GetVelocity(v);
-	//m_character->Destroy();
-	//CreateCharacter();	
-	//m_character->SetVelocity(v);
-	//m_character->SetPosition(vPosition);	
 }
+
 void CPHMovementControl::InterpolateBox		(DWORD id, float k)
 { 
 	if (m_dwCurBox == id) return;
@@ -1297,9 +1149,10 @@ void CPHMovementControl::MulFrictionFactor(float f)
 
 IElevatorState	*CPHMovementControl::ElevatorState()
 {
-	if(!m_character || !m_character->b_exist)return NULL;
+	if(!m_character || !m_character->b_exist)
+		return NULL;
+
 	return m_character->ElevatorState();
-	//m_character->SetElevator()
 }
 
 
@@ -1364,9 +1217,7 @@ void	CPHMovementControl::				UpdateObjectBox(CPHCharacter *ach)
 	Fvector cbox;
 	PKinematics(pObject->Visual())->CalculateBones();
 	pObject->BoundingBox().getradius(cbox);
-
-	//const Fvector &pa	=cast_fv(dBodyGetPosition(ach->get_body()));
-	//const Fvector &p	=cast_fv(dBodyGetPosition(m_character->get_body()));
+ 
 	const Fvector &pa	=ach->BodyPosition();
 	const Fvector &p	=m_character->BodyPosition();
 	Fvector2 poses_dir;poses_dir.set(p.x-pa.x,p.z-pa.z);float plane_dist=poses_dir.magnitude(); 
@@ -1480,80 +1331,28 @@ void CPHMovementControl::VirtualMoveTo( const Fvector	&in_pos, Fvector &out_pos 
 	m_character->GetPosition( out_pos );
 	VERIFY( _valid(out_pos) );
 }
-
-
-
-
-//static void	non_interactive_collide_callback( bool& do_collide, bool bo1, dContact& c, SGameMtl* material_1, SGameMtl* material_2 )
-//{
-//	if( !do_collide )
-//		return;
-//	
-//	SGameMtl* oposite_matrial	= bo1 ? material_1 : material_2 ;
-//	if(oposite_matrial->Flags.test(SGameMtl::flPassable))
-//		return;
-//
-//	dxGeomUserData	*my_data			=	PHRetrieveGeomUserData(	bo1 ? c.geom.g1 : c.geom.g2 );
-//	//dxGeomUserData	*oposite_data		=	PHRetrieveGeomUserData( bo1 ? c.geom.g2 : c.geom.g1 ) ;
-//	VERIFY( my_data );
-//	
-//	dBodyID b_oposite = bo1 ? dGeomGetBody(c.geom.g2) : dGeomGetBody(c.geom.g1);
-//	//dBodyID b_mine = bo1 ? dGeomGetBody(c.geom.g2) : dGeomGetBody(c.geom.g1);
-//	if(!b_oposite)
-//	{
-//		do_collide = false;
-//		return;
-//	}
-//	if(bo1)
-//		dGeomSetBody(c.geom.g1,0);
-//	else
-//		dGeomSetBody(c.geom.g2,0);
-//
-//	//c.surface.mu = 0;
-//	//c.surface.soft_cfm =0.01f;
-//	/*
-//	dJointID contact_joint	=dJointCreateContactSpecial(0, ContactGroup, &c);// dJointCreateContact(0, ContactGroup, &c);//
-//	CPHObject* obj = (CPHObject*)my_data->ph_object;
-//	VERIFY( obj );
-//	VERIFY( obj->Island().DActiveIsland() != &(obj->Island()) );
-//	VERIFY( !obj->Island().IsActive() );
-//	obj->Island().DActiveIsland()->ConnectJoint(contact_joint);
-//
-//	obj->EnableObject(0);
-//	if(bo1)
-//		dJointAttach			(contact_joint, 0, b );
-//	else
-//		dJointAttach			(contact_joint, b , 0);
-//		
-//	*/
-//}
-
+ 
 void	CPHMovementControl::SetNonInteractive(bool v)
 {
 	VERIFY(m_character);
 	if( !m_character->b_exist )
 		return;
+
 	if(bNonInteractiveMode == v) 
 		return;
+	
 	if( v )
 	{
 		m_character->SetNonInteractive( v );
-		//m_character->SetObjectContactCallback( non_interactive_collide_callback );
-		m_character->Disable();
+ 		m_character->Disable();
 	}
 	else
 	{
-		//m_character->SetObjectContactCallback( 0 );
-		m_character->SetNonInteractive( v );
+ 		m_character->SetNonInteractive( v );
 	}
 	bNonInteractiveMode =v;
 
 }
-
-//dBodyID		CPHMovementControl::	GetBody						( )		
-//{
-//	if(m_character) return m_character->get_body(); else return NULL;
-//}
 
 void		CPHMovementControl::		GetCharacterVelocity		(Fvector& velocity )	
 {
@@ -1771,7 +1570,8 @@ void	CPHMovementControl::			actor_calculate			(Fvector& vAccel,const Fvector& ca
 void			CPHMovementControl::BlockDamageSet		( u64 steps_num )
 {
 	block_damage_step_end = physics_world()->StepsNum() + steps_num;
-	UpdateCollisionDamage();//reset all saved values
+	UpdateCollisionDamage();
+	//reset all saved values
 }
 
 void	CPHMovementControl::NetRelcase	( CObject* O )
