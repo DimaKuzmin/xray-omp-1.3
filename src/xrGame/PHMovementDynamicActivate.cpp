@@ -3,14 +3,6 @@
 
 #include "phmovementcontrol.h"
 
-//#include "ExtendedGeom.h"
-//#include "MathUtils.h"
-//#include "Physics.h"
-//#include "Level.h"
-//#include "../xrEngine/gamemtllib.h"
-//#include "IPhysicsShellHolder.h"
-//#include "../xrphysics/IPHWorld.h"
-//extern	class CPHWorld	*ph_world;
 #include "../xrphysics/phcharacter.h"
 #include "../xrphysics/iphysicsshellholder.h"
 bool CPHMovementControl:: ActivateBoxDynamic(DWORD id,int num_it/*=8*/,int num_steps/*5*/,float resolve_depth/*=0.01f*/)
@@ -18,16 +10,16 @@ bool CPHMovementControl:: ActivateBoxDynamic(DWORD id,int num_it/*=8*/,int num_s
 	bool  character_exist=CharacterExist();
 	if(character_exist&&trying_times[id]!=u32(-1))
 	{
-		
-		//Fvector dif;dif.sub(trying_poses[id],cast_fv(dBodyGetPosition(m_character->get_body())));
 		Fvector character_body_pos;
 		m_character->get_body_position( character_body_pos );
 		Fvector dif;dif.sub(trying_poses[id],character_body_pos);
 		if(Device.dwTimeGlobal-trying_times[id]<500&&dif.magnitude()<0.05f)
 																	return false;
 	}
+
 	if(!m_character||m_character->PhysicsRefObject()->ObjectPPhysicsShell())
 		return false;
+
 	DWORD old_id=BoxID();
 
 	bool  character_disabled=character_exist && !m_character->IsEnabled();
@@ -60,35 +52,20 @@ bool CPHMovementControl:: ActivateBoxDynamic(DWORD id,int num_it/*=8*/,int num_s
 		SetVelocity(vel);
 		if(m_character)
 			m_character->fix_body_rotation();
-		//dBodyID b= !m_character ? 0 : m_character->get_body();//GetBody();
-		//if(b)
-		//{
-		//	dMatrix3 R;
-		//	dRSetIdentity (R);
-		//	dBodySetAngularVel(b,0.f,0.f,0.f);
-		//	dBodySetRotation(b,R);
-		//}
 
 		SetPosition(pos);
-		
-		//Msg("can not activate!");
 	}
 	else
 	{
 		ActivateBox(id);
-		//Msg("activate!");
-	}
-
-//	SetOjectContactCallback(saved_callback);
-//	saved_callback=0;
+ 	}
+ 
 	SetVelocity(vel);
 
 
 	if(!ret&&character_exist)
 	{
 		trying_times[id]=Device.dwTimeGlobal;
-
-		//trying_poses[id].set(cast_fv(dBodyGetPosition(m_character->get_body())));
 		m_character->GetBodyPosition(trying_poses[id]);//.set(cast_fv(dBodyGetPosition(m_character->get_body())));
 	}
 	else
