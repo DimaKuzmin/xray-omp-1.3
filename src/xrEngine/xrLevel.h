@@ -95,7 +95,7 @@ struct	hdrNODES
 #pragma pack(1)
 
 
-//#define _USE_NODE_POSITION_11
+#define _USE_NODE_POSITION_11
 
 #ifndef _EDITOR
 
@@ -103,7 +103,8 @@ struct	hdrNODES
 #ifndef _USE_NODE_POSITION_11
 class NodePosition
 {
-	u8	data[5];
+ 	u8	data[5];
+
 public:
 	ICF	void xz(u32 value) { CopyMemory(data, &value, 3); }
 	ICF	void y(u16 value) { CopyMemory(data + 3, &value, 2); }

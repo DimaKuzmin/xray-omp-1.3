@@ -191,6 +191,9 @@ void CAI_Stalker::reinit			()
 	}
 
 	m_update_rotation_on_frame						= false;
+
+
+	stalker_network_state = new aistalker_state_net(this);
 }
 
 void CAI_Stalker::LoadSounds		(LPCSTR section)

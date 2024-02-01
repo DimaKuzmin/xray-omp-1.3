@@ -34,7 +34,9 @@ BOOL CAI_Stalker::net_SaveRelevant()
 void CAI_Stalker::net_Export(NET_Packet& P)
 {
 	R_ASSERT(Local());
-	if (IsGameTypeSingle()) {
+	
+	if (IsGameTypeSingle()) 
+	{
 		// export last known packet
 		R_ASSERT(!NET.empty());
 		net_update& N = NET.back();
@@ -76,51 +78,8 @@ void CAI_Stalker::net_Export(NET_Packet& P)
 	}
 	else
 	{
-		CPHSynchronize* sync = PHGetSyncItem(0);
-		
-		if (sync)
-		{
-			P.w_u8(1);
-			SPHNetState state;
-			sync->get_State(state);
-
-			net_physics_state physics_state;
-			physics_state.fill(state, Level().timeServer());
-			physics_state.write(P);
-		}
-		else
-		{
-			P.w_u8(0);
-			P.w_vec3(Position());
-		}
-
-		// health
-		P.w_float(GetfHealth());
-
-		// agnles
-		P.w_angle8(movement().m_body.current.pitch);
-		//P.w_angle8(movement().m_body.current.roll);
-		P.w_angle8(movement().m_body.current.yaw);
-		P.w_angle8(movement().m_head.current.pitch);
-		P.w_angle8(movement().m_head.current.yaw);
-
-		// inventory
-		CWeapon	*weapon = smart_cast<CWeapon*>(inventory().ActiveItem());
-		if (weapon && !weapon->strapped_mode())
-			P.w_u16(inventory().ActiveItem()->CurrSlot());
-		else
-			P.w_u16(NO_ACTIVE_SLOT);
-
-		// animation
-		P.w_u16(m_animation_manager->torso().animation().idx);
-		P.w_u8(m_animation_manager->torso().animation().slot);
-		P.w_u16(m_animation_manager->legs().animation().idx);
-		P.w_u8(m_animation_manager->legs().animation().slot);
-		P.w_u16(m_animation_manager->head().animation().idx);
-		P.w_u8(m_animation_manager->head().animation().slot);
-
-		P.w_u16(m_animation_manager->script().animation().idx);
-		P.w_u8(m_animation_manager->script().animation().slot);
+		stalker_network_state->FillState();
+		stalker_network_state->CSE_StateWrite(P);
 	}
 }
 
@@ -173,95 +132,8 @@ void CAI_Stalker::net_Import(NET_Packet& P)
 	}
 	else
 	{
-		net_physics_state physics_state;
-
-		SRotation fv_direction;
-		SRotation fv_head_orientation;
-		Fvector fv_position;
-
-		float f_health;
-
-		u16	u_active_weapon_slot;
-
-		u16 u_torso_motion_idx;
-		u16 u_legs_motion_idx;
-		u16 u_head_motion_idx;
-		u16 u_script_motion_idx;
-
-		u8 u_torso_motion_slot;
-		u8 u_legs_motion_slot;
-		u8 u_head_motion_slot;
-		u8 u_script_motion_slot;
-		
-		u8 phSyncFlag;
-		P.r_u8(phSyncFlag);
-
-		if (phSyncFlag)
-		{
-			physics_state.read(P);
-			fv_position.set(physics_state.physics_position);
-		}
-		else
-		{
-			P.r_vec3(fv_position);
-		}
-		
-		P.r_float(f_health);
-		
-		P.r_angle8(fv_direction.pitch);
-		//P.r_angle8(fv_direction.roll);
-		P.r_angle8(fv_direction.yaw);
-		P.r_angle8(fv_head_orientation.pitch);
-		P.r_angle8(fv_head_orientation.yaw);
-
-		P.r_u16(u_active_weapon_slot);
-
-		P.r_u16(u_torso_motion_idx);
-		P.r_u8(u_torso_motion_slot);
-		P.r_u16(u_legs_motion_idx);
-		P.r_u8(u_legs_motion_slot);
-		P.r_u16(u_head_motion_idx);
-		P.r_u8(u_head_motion_slot);
-
-		P.r_u16(u_script_motion_idx);
-		P.r_u8(u_script_motion_slot);
-
-		SetfHealth(f_health);
-		inventory().SetActiveSlot(u_active_weapon_slot);
-		
-		if (phSyncFlag)
-		{
-			stalker_interpolation::net_update_A N_A;
-			N_A.State.enabled = physics_state.physics_state_enabled;
-			N_A.State.linear_vel = physics_state.physics_linear_velocity;
-			N_A.State.position = physics_state.physics_position;
-			N_A.o_torso = fv_direction;
-			N_A.head = fv_head_orientation;
-			N_A.dwTimeStamp = physics_state.dwTimeStamp;
-
-			// interpolation
-			postprocess_packet(N_A);
-		}
-		else
-		{
-			movement().m_body.current.pitch = fv_direction.pitch;
-			movement().m_body.current.yaw = fv_direction.yaw;
-			movement().m_head.current.pitch = fv_head_orientation.pitch;
-			movement().m_head.current.yaw = fv_head_orientation.yaw;
-
-			Position().set(fv_position);
-
-			NET_A.clear();
-			//TODO: disable interpolation?
-		}
-		
-		// Pavel: create structure for animation?
-		ApplyAnimation(
-			u_torso_motion_idx, u_torso_motion_slot,
-			u_legs_motion_idx, u_legs_motion_slot,
-			u_head_motion_idx, u_head_motion_slot,
-			u_script_motion_idx, u_script_motion_slot
-		);
+		stalker_network_state->CSE_StateRead(P);
+		stalker_network_state->GetState();
 
 		setVisible(TRUE);
 		setEnabled(TRUE);

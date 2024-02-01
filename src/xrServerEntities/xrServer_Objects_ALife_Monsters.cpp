@@ -2174,6 +2174,8 @@ void CSE_ALifeHumanAbstract::FillProps		(LPCSTR pref, PropItemVec& items)
 }
 #endif // #ifndef XRGAME_EXPORTS
 
+#include "../xrGame/aistalker_state_net.h"
+
 //////////////////////////////////////////////////////////////////////////
 // CSE_ALifeHumanStalker
 //////////////////////////////////////////////////////////////////////////
@@ -2214,38 +2216,7 @@ void CSE_ALifeHumanStalker::UPDATE_Write	(NET_Packet &tNetPacket)
 	}
 	else
 	{
-		tNetPacket.w_u8(phSyncFlag);
-		if (phSyncFlag)
-		{
-			physics_state.write(tNetPacket);
-		}
-		else
-		{
-			tNetPacket.w_vec3(o_Position);
-		}
-
-		tNetPacket.w_float(get_health());
-
-		tNetPacket.w_angle8(o_torso.pitch);
-		// tNetPacket.w_angle8(o_torso.roll);
-		tNetPacket.w_angle8(o_torso.yaw);
-
-		tNetPacket.w_angle8(f_head_dir_pitch);
-		tNetPacket.w_angle8(f_head_dir_yaw);
-
-		tNetPacket.w_u16(u_active_slot);
-
-		tNetPacket.w_u16(u_torso_anm_idx);
-		tNetPacket.w_u8(u_torso_anm_slot);
-
-		tNetPacket.w_u16(u_legs_anm_idx);
-		tNetPacket.w_u8(u_legs_anm_slot);
-
-		tNetPacket.w_u16(u_head_anm_idx);
-		tNetPacket.w_u8(u_head_anm_slot);
-
-		tNetPacket.w_u16(u_script_anm_idx);
-		tNetPacket.w_u8(u_script_anm_slot);
+ 		stalker_state.CSE_StateWrite(tNetPacket);
 	}
 }
 
@@ -2259,43 +2230,12 @@ void CSE_ALifeHumanStalker::UPDATE_Read		(NET_Packet &tNetPacket)
 	}
 	else
 	{
-		tNetPacket.r_u8(phSyncFlag);
-		if (phSyncFlag)
-		{
-			physics_state.read(tNetPacket);
-			o_Position.set(physics_state.physics_position);
-		}
-		else
-		{			
-			o_Position.set(tNetPacket.r_vec3());
-		}
+		stalker_state.CSE_StateRead(tNetPacket);
 
-		float health;
-		tNetPacket.r_float(health);
+		o_model = stalker_state.o_torso.yaw;
+		o_Position = stalker_state.Position;
 
-		tNetPacket.r_angle8(o_torso.pitch);
-		//tNetPacket.r_angle8(o_torso.roll);
-		tNetPacket.r_angle8(o_torso.yaw);
-
-		tNetPacket.r_angle8(f_head_dir_pitch);
-		tNetPacket.r_angle8(f_head_dir_yaw);
-
-		tNetPacket.r_u16(u_active_slot);
-
-		tNetPacket.r_u16(u_torso_anm_idx);
-		tNetPacket.r_u8(u_torso_anm_slot);
-
-		tNetPacket.r_u16(u_legs_anm_idx);
-		tNetPacket.r_u8(u_legs_anm_slot);
-
-		tNetPacket.r_u16(u_head_anm_idx);
-		tNetPacket.r_u8(u_head_anm_slot);
-
-		tNetPacket.r_u16(u_script_anm_idx);
-		tNetPacket.r_u8(u_script_anm_slot);
-
-		set_health(health);
-		o_model = o_torso.yaw;
+		set_health(stalker_state.health);
 	}
 }
 

@@ -2533,6 +2533,12 @@
     <Filter Include="UI\GameTypes\Coop">
       <UniqueIdentifier>{9c2d63ce-8987-42a3-9f6f-988624bb8835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI\AMonsters\humans\stalker\NETWORK">
+      <UniqueIdentifier>{82978951-509e-4b2e-8862-4a047006f929}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\AMonsters\humans\stalker\NETWORK\state">
+      <UniqueIdentifier>{065d17e9-751d-4b98-a1d3-98d71a8edb71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="mt_config.h">
@@ -7474,6 +7480,9 @@
     <ClInclude Include="UIGameCoop.h">
       <Filter>UI\GameTypes\Coop</Filter>
     </ClInclude>
+    <ClInclude Include="aistalker_state_net.h">
+      <Filter>AI\AMonsters\humans\stalker\NETWORK\state</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="damage_manager.cpp">
@@ -11118,9 +11127,6 @@
     <ClCompile Include="physics_world_scripted.cpp">
       <Filter>Physics\scripts</Filter>
     </ClCompile>
-    <ClCompile Include="ai\stalker\ai_stalker_net.cpp">
-      <Filter>AI\AMonsters\humans\stalker</Filter>
-    </ClCompile>
     <ClCompile Include="game_sv_freemp.cpp">
       <Filter>Core\Server\Games\server\freemp</Filter>
     </ClCompile>
@@ -11199,6 +11205,12 @@
     </ClCompile>
     <ClCompile Include="UIGameCoop.cpp">
       <Filter>UI\GameTypes\Coop</Filter>
+    </ClCompile>
+    <ClCompile Include="ai\stalker\ai_stalker_net.cpp">
+      <Filter>AI\AMonsters\humans\stalker\NETWORK</Filter>
+    </ClCompile>
+    <ClCompile Include="aistalker_state_net.cpp">
+      <Filter>AI\AMonsters\humans\stalker\NETWORK\state</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

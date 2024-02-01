@@ -15,6 +15,7 @@
 #include "../../../xrServerEntities/script_export_space.h"
 
 #include "../../../xrServerEntities/PHNetState.h"
+#include "aistalker_state_net.h"
 
 #ifdef DEBUG
 	template <typename _object_type>
@@ -103,6 +104,7 @@ class CWeaponShotEffector;
 struct SBoneProtections;
 class CDangerLocation;
 class CRestrictedObject;
+class Motions_NUM;
 
 class CAI_Stalker : 
 	public CCustomMonster, 
@@ -144,21 +146,27 @@ private:
 
 private:
 	float							m_power_fx_factor;
+public:
+	Motions_NUM num_torso_sv;
+	Motions_NUM num_head_sv;
+	Motions_NUM num_legs_sv;
+
+	xr_deque<stalker_interpolation::net_update_A>	NET_A;
+
+	stalker_interpolation::net_update_A				NET_A_Last;
 
 private:
 	// for interpolation
 	SPHNetState						LastState;
 	SPHNetState						RecalculatedState;
 	SPHNetState						PredictedState;
+
 	
 	float							SCoeff[3][4];			//коэффициэнты для сплайна Бизье
 	float							HCoeff[3][4];			//коэффициэнты для сплайна Эрмита
 	Fvector							IPosS, IPosH, IPosL;	//положение актера после интерполяции Бизье, Эрмита, линейной
 
-
-	xr_deque<stalker_interpolation::net_update_A>	NET_A;
-
-	stalker_interpolation::net_update_A				NET_A_Last;
+	aistalker_state_net*				stalker_network_state;
 
 	stalker_interpolation::InterpData		IStart;
 	//stalker_interpolation::InterpData		IRec;

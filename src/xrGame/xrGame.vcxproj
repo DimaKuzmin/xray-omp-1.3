@@ -355,6 +355,7 @@
     <ClInclude Include="aimers_bone_inline.h" />
     <ClInclude Include="aimers_weapon.h" />
     <ClInclude Include="aimers_weapon_inline.h" />
+    <ClInclude Include="aistalker_state_net.h" />
     <ClInclude Include="AI\ai_monsters_anims.h" />
     <ClInclude Include="AI\ai_monsters_misc.h" />
     <ClInclude Include="AI\Crow\ai_crow.h" />
@@ -2216,6 +2217,7 @@
     <ClCompile Include="agent_memory_manager.cpp" />
     <ClCompile Include="aimers_base.cpp" />
     <ClCompile Include="aimers_weapon.cpp" />
+    <ClCompile Include="aistalker_state_net.cpp" />
     <ClCompile Include="AI\ai_monsters_misc.cpp">
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pch_script.h</PrecompiledHeaderFile>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">pch_script.h</PrecompiledHeaderFile>

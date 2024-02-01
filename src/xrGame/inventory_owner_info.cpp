@@ -50,6 +50,9 @@ void  CInventoryOwner::OnEvent (NET_Packet& P, u16 type)
 			P.r_stringZ		(info_id);		//номер полученной информации
 			P.r_u8			(add_info);			//добавление или убирание информации
 
+			Msg("[%d] Transfer Info: %s, value: %d", id, info_id.c_str(), add_info);
+
+
 			if(add_info)
 				OnReceiveInfo	(info_id);
 			else
@@ -120,7 +123,6 @@ void CInventoryOwner::TransferInfo(shared_str info_id, bool add_info) const
 
 	//отправляем от нашему PDA пакет информации с номером
 
-	//Msg("Transfer Info: %s, value: %d", info_id.c_str(), add_info);
 
 	NET_Packet		P;
 	CGameObject::u_EventGen(P, GE_INFO_TRANSFER, pThisObject->ID());
@@ -129,7 +131,6 @@ void CInventoryOwner::TransferInfo(shared_str info_id, bool add_info) const
 	P.w_u8			(add_info?1:0);							//добавить/удалить информацию
 	CGameObject::u_EventSend(P);
 	
-
 
 	CInfoPortion info_portion;
 	info_portion.Load(info_id);
