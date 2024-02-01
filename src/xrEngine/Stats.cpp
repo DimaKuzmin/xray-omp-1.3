@@ -480,16 +480,16 @@ void CStats::OnDeviceDestroy		()
 void CStats::OnRender				()
 {
 #ifndef DEDICATED_SERVER
-	CGameFont& F = *pSFont;
+	CGameFont& F = *pFont;
 	Fvector2 F_Int = { 1,0.2 };
 	F.SetInterval(F_Int);
 
 	{
-		pSFont->SizeOf_(1.5f);
-		F.SetColor(hex_color(208, 208, 208));
+		pFont->SizeOf_(1.5f);
+		F.SetColor(RGB(208, 208, 208));
 		F.OutSet(5, 5);
 		F.OutNext("Deffense Project		Version 1.0");
-		pSFont->OnRender();
+		pFont->OnRender();
 	}
 #endif // !DEDICATED_SERVER
 

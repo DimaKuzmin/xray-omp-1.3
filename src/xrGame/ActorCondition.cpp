@@ -221,8 +221,7 @@ void CActorCondition::UpdateCondition()
 		float k_max_power = 1.0f;
 		if( true )
 		{
-			k_max_power = 1.0f + _min(cur_weight, base_weight) / base_weight
-				+ _max(0.0f, (cur_weight - base_weight) / 10.0f);
+			k_max_power = 1.0f + _min(cur_weight, base_weight) / base_weight + _max(0.0f, (cur_weight - base_weight) / 10.0f);
 		}
 		else
 		{
@@ -288,6 +287,7 @@ void CActorCondition::UpdateCondition()
 		if(pSettings->section_exist("actor_death_effector"))
 			m_death_effector = xr_new<CActorDeathEffector>(this, "actor_death_effector");
 	}
+
 	if(m_death_effector && m_death_effector->IsActual())
 	{
 		m_death_effector->UpdateCL	();
@@ -306,7 +306,7 @@ void CActorCondition::UpdateBoosters()
 		BOOSTER_MAP::iterator it = m_booster_influences.find((EBoostParams)i);
 		if(it!=m_booster_influences.end())
 		{
-			it->second.fBoostTime -= m_fDeltaTime/(IsGameTypeSingle()?Level().GetGameTimeFactor():1.0f);
+			it->second.fBoostTime -= m_fDeltaTime /  Level().GetGameTimeFactor();
 			if(it->second.fBoostTime<=0.0f)
 			{
 				DisableBoostParameters(it->second);

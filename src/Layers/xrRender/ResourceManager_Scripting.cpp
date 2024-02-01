@@ -240,7 +240,8 @@ void	CResourceManager::LS_Load			()
 	// load shaders
 	xr_vector<char*>*	folder			= FS.file_list_open	("$game_shaders$",::Render->getShaderPath(),FS_ListFiles|FS_RootOnly);
 	VERIFY								(folder);
-	for (u32 it=0; it<folder->size(); it++)	{
+	for (u32 it=0; it<folder->size(); it++)
+	{
 		string_path						namesp,fn;
 		xr_strcpy							(namesp,(*folder)[it]);
 		if	(0==strext(namesp) || 0!=xr_strcmp(strext(namesp),".s"))	continue;

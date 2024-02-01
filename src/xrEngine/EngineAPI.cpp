@@ -67,7 +67,7 @@ void CEngineAPI::InitializeNotDedicated()
 	LPCSTR			r3_name	= "xrRender_R3.dll";
 	LPCSTR			r4_name	= "xrRender_R4.dll";
 
-	if (psDeviceFlags.test(rsR4))
+//	if (psDeviceFlags.test(rsR4))
 	{
 		// try to initialize R4
 		Log				("Loading DLL:",	r4_name);
@@ -78,6 +78,8 @@ void CEngineAPI::InitializeNotDedicated()
 			Msg			("! ...Failed - incompatible hardware/pre-Vista OS.");
 			psDeviceFlags.set	(rsR2,TRUE);
 		}
+
+
 	}
 
 	if (psDeviceFlags.test(rsR3))
@@ -136,7 +138,9 @@ void CEngineAPI::Initialize(void)
 
 		Log				("Loading DLL:",	r1_name);
 		hRender			= LoadLibrary		(r1_name);
-		if (0==hRender)	R_CHK				(GetLastError());
+		if (0==hRender)
+			R_CHK				(GetLastError());
+	
 		R_ASSERT		(hRender);
 		g_current_renderer	= 1;
 	}
