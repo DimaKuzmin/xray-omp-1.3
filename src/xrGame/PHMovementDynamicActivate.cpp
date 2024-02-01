@@ -66,7 +66,7 @@ bool CPHMovementControl:: ActivateBoxDynamic(DWORD id,int num_it/*=8*/,int num_s
 	if(!ret&&character_exist)
 	{
 		trying_times[id]=Device.dwTimeGlobal;
-		m_character->GetBodyPosition(trying_poses[id]);//.set(cast_fv(dBodyGetPosition(m_character->get_body())));
+		m_character->GetBodyPosition(trying_poses[id]);
 	}
 	else
 	{

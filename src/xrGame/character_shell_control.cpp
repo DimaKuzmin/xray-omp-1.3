@@ -4,11 +4,10 @@
 
 #include "../Include/xrRender/Kinematics.h"
 #include "../xrEngine/bone.h"
-
-//#include "Physics.h"
+ 
 #include "../xrphysics/ExtendedGeom.h"
 #include "../xrphysics/PhysicsShell.h"
-//#include "hit.h"
+ 
 #include "level.h"
 #include "CustomZone.h"
 
@@ -44,8 +43,12 @@ void	character_shell_control::Load( LPCSTR section )
 	skeleton_skin_ddelay_after_wound= pSettings->r_float(section,"ph_skeleton_skin_ddelay_after_wound");
 	skeleton_skin_remain_time_after_wound= skeleton_skin_ddelay_after_wound;
 	pelvis_factor_low_pose_detect= pSettings->r_float(section,"ph_pelvis_factor_low_pose_detect");
-	if(pSettings->line_exist(section,"ph_skel_shot_up_factor")) m_shot_up_factor=pSettings->r_float(section,"ph_skel_shot_up_factor");
-	if(pSettings->line_exist(section,"ph_after_death_velocity_factor")) m_after_death_velocity_factor=pSettings->r_float(section,"ph_after_death_velocity_factor");
+
+	if(pSettings->line_exist(section,"ph_skel_shot_up_factor"))
+		m_shot_up_factor=pSettings->r_float(section,"ph_skel_shot_up_factor");
+
+	if(pSettings->line_exist(section,"ph_after_death_velocity_factor"))
+		m_after_death_velocity_factor=pSettings->r_float(section,"ph_after_death_velocity_factor");
 }
 
 void		character_shell_control::set_kill_hit				( SHit &H ) const
@@ -65,6 +68,7 @@ void	character_shell_control::set_fatal_impulse			( SHit &H ) const
 		H.impulse*=(H.type() == ALife::eHitTypeExplosion ? 1.f : skel_fatal_impulse_factor);
 	}
 }
+
 void  OnCharacterContactInDeath(bool& do_colide,bool bo1,dContact& c,SGameMtl * /*material_1*/,SGameMtl * /*material_2*/)
 {
 	dSurfaceParameters		&surface=c.surface;
@@ -93,6 +97,7 @@ void character_shell_control:: apply_start_velocity_factor	( CObject* who, Fvect
 {
 	velocity.mul( 1.3f );
 	velocity.mul( 1.25f*m_after_death_velocity_factor );
+	
 	//set shell params
 	if( !smart_cast<CCustomZone*>( who ) )
 	{
@@ -108,8 +113,7 @@ void character_shell_control::TestForWounded(const Fmatrix& xform,  IKinematics*
 		return;
 	}
 	
-	//IKinematics* CKA=smart_cast<IKinematics*>(m_EntityAlife.Visual());
-	CKA->CalculateBones( );
+ 	CKA->CalculateBones( );
 	CBoneInstance CBI=CKA->LL_GetBoneInstance( CKA->LL_BoneID("bip01_pelvis") );
 	Fmatrix position_matrix;
 	position_matrix.mul( xform, CBI.mTransform );
@@ -122,13 +126,7 @@ void character_shell_control::TestForWounded(const Fmatrix& xform,  IKinematics*
 	{
 		m_was_wounded=true;
 	}
-#ifdef	DEBUG
-		if( death_anim_debug )
-		{
-			Msg( "death anim: test for wounded %s ", m_was_wounded ? "true" : "false" );
-			
-		}
-#endif
+ 
 };
 
 void character_shell_control::CalculateTimeDelta()

@@ -7,11 +7,7 @@
 #include "PHMovementControl.h"
 #include "CustomMonster.h"
 
-
-
 #include "../Include/xrRender/KinematicsAnimated.h"
-
-
 
 #include "../xrphysics/PhysicsShell.h"
 #include "../xrphysics/iActivationShape.h"
@@ -33,6 +29,10 @@
 #include "inventory.h"
 #include "activatingcharcollisiondelay.h"
 #include "stalker_movement_manager_smart_cover.h"
+
+
+/** SE7KILLS ПЕРЕСМОТРЕЛ КЛАСС **/
+
  
 #ifdef DEBUG
 #	include "PHDebug.h"
@@ -585,7 +585,6 @@ bool CCharacterPhysicsSupport::CollisionCorrectObjPos(const Fvector& start_from,
   
 	m_EntityAlife.Position().sub(activation_res,shift);
 
-
 	if(m_pPhysicsShell)
 		m_pPhysicsShell->EnableCollision();
 	return ret;
@@ -599,6 +598,7 @@ void CCharacterPhysicsSupport::set_movement_position( const Fvector &pos)
 	
 	movement()->SetPosition( m_EntityAlife.Position() );
 }
+
 void CCharacterPhysicsSupport::ForceTransform( const Fmatrix &m )
 {
 	if( !m_EntityAlife.g_Alive() )
@@ -613,11 +613,14 @@ void CCharacterPhysicsSupport::ForceTransform( const Fmatrix &m )
 }
 
 static const u32 physics_shell_animated_destroy_delay = 3000;
+
 void	CCharacterPhysicsSupport::	destroy_animation_collision		( )
 {
  	xr_delete( m_physics_shell_animated );
 	m_physics_shell_animated_time_destroy = u32(-1);
 }
+
+
 void CCharacterPhysicsSupport::create_animation_collision		( )
 {
 	m_physics_shell_animated_time_destroy = Device.dwTimeGlobal + physics_shell_animated_destroy_delay;
@@ -649,11 +652,14 @@ void CCharacterPhysicsSupport::ActivateShell			( CObject* who )
 	m_pPhysicsShell->Enable();
 	m_pPhysicsShell->set_LinearVel( Fvector().set(0,-1,0) );
 }
- 
+
+
 bool	CCharacterPhysicsSupport::has_shell_collision_place		( const CPhysicsShellHolder* obj ) const
 {
 	return m_active_item_obj && obj == m_active_item_obj;
 }
+
+
 void		CCharacterPhysicsSupport::on_child_shell_activate	( CPhysicsShellHolder* obj )
 {
 	if( !has_shell_collision_place( obj ) )
@@ -663,6 +669,7 @@ void		CCharacterPhysicsSupport::on_child_shell_activate	( CPhysicsShellHolder* o
 	RemoveActiveWeaponCollision	();
 }
 
+// Уберает колизию оружия 
 void	CCharacterPhysicsSupport::	RemoveActiveWeaponCollision		()
 {
 	VERIFY( m_pPhysicsShell );
@@ -708,6 +715,8 @@ void	CCharacterPhysicsSupport::	RemoveActiveWeaponCollision		()
 
 	bone_fix_clear();
 }
+
+
 void CCharacterPhysicsSupport::bone_fix_clear()
 {
 	xr_vector<anim_bone_fix*>::iterator i = m_weapon_bone_fixes.begin(), e = m_weapon_bone_fixes.end();
@@ -720,6 +729,7 @@ void CCharacterPhysicsSupport::bone_fix_clear()
 }
 
 
+// 
 void CCharacterPhysicsSupport::bone_chain_disable(u16 bone, u16 r_bone, IKinematics &K)
 {
 	VERIFY(&K);
@@ -738,6 +748,7 @@ void CCharacterPhysicsSupport::bone_chain_disable(u16 bone, u16 r_bone, IKinemat
 	
 }
 
+// Чет С колизией Оружия
 void	CCharacterPhysicsSupport::	AddActiveWeaponCollision		()
 {
 	if( m_eType!=etStalker )
@@ -798,6 +809,8 @@ void	CCharacterPhysicsSupport::	AddActiveWeaponCollision		()
 
 	destroy_physics_shell( weapon_shell );
 }
+
+// Создает Ragdoll Shell
 
 void	CCharacterPhysicsSupport::	CreateShell						( CObject* who, Fvector& dp, Fvector & velocity  )
 {
@@ -911,6 +924,9 @@ void	CCharacterPhysicsSupport::	CreateShell						( CObject* who, Fvector& dp, Fv
 	m_pPhysicsShell->SetIgnoreSmall();
 	AddActiveWeaponCollision();
 }
+
+
+// Второе в вызове
 void	CCharacterPhysicsSupport::	EndActivateFreeShell			( CObject* who, const Fvector& inital_entity_position, const Fvector& dp, const Fvector & velocity )
 {
 	VERIFY ( m_pPhysicsShell );
@@ -920,7 +936,7 @@ void	CCharacterPhysicsSupport::	EndActivateFreeShell			( CObject* who, const Fve
 	m_pPhysicsShell->SetGlTransformDynamic(mXFORM);
 
 	//fly back after correction
-	FlyTo(Fvector().sub(inital_entity_position,m_EntityAlife.Position()));
+	FlyTo(Fvector().sub(inital_entity_position, m_EntityAlife.Position()));
 
 	Fvector v = velocity;
 	m_character_shell_control.apply_start_velocity_factor( who, v );
@@ -937,6 +953,8 @@ void	CCharacterPhysicsSupport::	EndActivateFreeShell			( CObject* who, const Fve
 	K->CalculateBones	(TRUE);
 }
 
+
+// Смена Визуала
 void CCharacterPhysicsSupport::in_ChangeVisual()
 {
 	
@@ -980,6 +998,7 @@ void CCharacterPhysicsSupport::in_ChangeVisual()
 
 }
 
+// На технике стоит связано с удалением походу контролера
 bool CCharacterPhysicsSupport::CanRemoveObject()
 {
 	if(m_eType==etActor)
@@ -992,6 +1011,7 @@ bool CCharacterPhysicsSupport::CanRemoveObject()
 	}
 }
 
+
 void CCharacterPhysicsSupport::PHGetLinearVell(Fvector &velocity)
 {
 	if(m_pPhysicsShell&&m_pPhysicsShell->isActive())
@@ -1003,6 +1023,7 @@ void CCharacterPhysicsSupport::PHGetLinearVell(Fvector &velocity)
 		
 }
 
+// Создает кинематику
 void CCharacterPhysicsSupport::CreateIKController()
 {
 
@@ -1011,6 +1032,8 @@ void CCharacterPhysicsSupport::CreateIKController()
 	m_ik_controller->Create(&m_EntityAlife);
 	
 }
+
+// Удаляет
 void CCharacterPhysicsSupport::DestroyIKController()
 {
 	if(!m_ik_controller)return;
@@ -1018,6 +1041,8 @@ void CCharacterPhysicsSupport::DestroyIKController()
 	xr_delete(m_ik_controller);
 }
 
+
+// При переходе в офлайн иле удалении с карты
 void		 CCharacterPhysicsSupport::in_NetRelcase(CObject* O)																													
 {
 	m_PhysicMovementControl->NetRelcase( O );
@@ -1039,37 +1064,44 @@ ICollisionHitCallback * CCharacterPhysicsSupport::get_collision_hit_callback()
 }
 
 
-
+// Полет куда то 
 void	CCharacterPhysicsSupport::FlyTo(const	Fvector &disp)
 {
-		R_ASSERT(m_pPhysicsShell);
-		float ammount=disp.magnitude();
-		if(fis_zero(ammount,EPS_L))	return;
-		physics_world()->Freeze();
-		bool g=m_pPhysicsShell->get_ApplyByGravity();
-		m_pPhysicsShell->set_ApplyByGravity(false);
-		m_pPhysicsShell->add_ObjectContactCallback(StaticEnvironmentCB);
-		void*	cd=m_pPhysicsShell->get_CallbackData();
-		m_pPhysicsShell->set_CallbackData(m_pPhysicsShell->PIsland());
-		m_pPhysicsShell->UnFreeze();
-		Fvector vel;vel.set(disp);
-		const	u16	steps_num=10;
-		const	float	fsteps_num=steps_num;
-		vel.mul(1.f/fsteps_num/fixed_step);
+	if (Level().CurrentControlEntity() == (CObject*) (&m_EntityAlife) )
+		Msg("~~~ [CCharacterPhysicsSupport] FlyTo called: %s", m_EntityAlife.Name());
 
 
-		for(u16	i=0;steps_num>i;++i)
-		{
-			m_pPhysicsShell->set_LinearVel(vel);
-			physics_world()->Step();
-		}
+	R_ASSERT(m_pPhysicsShell);
+	float ammount=disp.magnitude();
+	if(fis_zero(ammount,EPS_L))	
+		return;
 
-		m_pPhysicsShell->set_ApplyByGravity(g);
-		m_pPhysicsShell->set_CallbackData(cd);
-		m_pPhysicsShell->remove_ObjectContactCallback(StaticEnvironmentCB);
-		physics_world()->UnFreeze();
+	physics_world()->Freeze();
+	bool g=m_pPhysicsShell->get_ApplyByGravity();
+	m_pPhysicsShell->set_ApplyByGravity(false);
+	m_pPhysicsShell->add_ObjectContactCallback(StaticEnvironmentCB);
+	void*	cd=m_pPhysicsShell->get_CallbackData();
+	m_pPhysicsShell->set_CallbackData(m_pPhysicsShell->PIsland());
+	m_pPhysicsShell->UnFreeze();
+	Fvector vel;vel.set(disp);
+	const	u16	steps_num=10;
+	const	float	fsteps_num=steps_num;
+	vel.mul(1.f/fsteps_num/fixed_step);
+
+
+	for(u16	i=0;steps_num>i;++i)
+	{
+		m_pPhysicsShell->set_LinearVel(vel);
+		physics_world()->Step();
+	}
+
+	m_pPhysicsShell->set_ApplyByGravity(g);
+	m_pPhysicsShell->set_CallbackData(cd);
+	m_pPhysicsShell->remove_ObjectContactCallback(StaticEnvironmentCB);
+	physics_world()->UnFreeze();
 }
 
+// Контролер Движения поидее отключает Интерактивность (TODO глянуть) (в ai_stalker точно юзается)
 void CCharacterPhysicsSupport::on_create_anim_mov_ctrl	()
 {
 	VERIFY( !anim_mov_state.active );
@@ -1078,6 +1110,7 @@ void CCharacterPhysicsSupport::on_create_anim_mov_ctrl	()
 	anim_mov_state.active = true;
 }
 
+// Дестрой контролера (в ai_stalker точно юзается)
 void CCharacterPhysicsSupport::on_destroy_anim_mov_ctrl	()
 {
 	VERIFY( anim_mov_state.active );
@@ -1086,15 +1119,19 @@ void CCharacterPhysicsSupport::on_destroy_anim_mov_ctrl	()
 	anim_mov_state.active = false;
 }
 
+// Провиряется в ai_stalker
 bool CCharacterPhysicsSupport::interactive_motion( ) 
 {
 	return is_imotion( m_interactive_motion ) ;
 }
+
+// Провиряется в ai_stalker
 bool	CCharacterPhysicsSupport::	can_drop_active_weapon	( )
 {
 	return !interactive_motion() && m_flags.test(fl_death_anim_on);
 };
 
+// Вызов при смерти  
 void		CCharacterPhysicsSupport::in_Die( )
 {
 	if( m_hit_valide_time < Device.dwTimeGlobal || !m_sv_hit.is_valide() )
@@ -1108,6 +1145,7 @@ void		CCharacterPhysicsSupport::in_Die( )
 	in_Hit( m_sv_hit, true );
 }
 
+
 u16	CCharacterPhysicsSupport::PHGetSyncItemsNumber( )
 {
 	if(movement()->CharacterExist())
@@ -1115,6 +1153,7 @@ u16	CCharacterPhysicsSupport::PHGetSyncItemsNumber( )
 	else 
 		return m_EntityAlife.CPhysicsShellHolder::PHGetSyncItemsNumber();
 }
+
 CPHSynchronize*	CCharacterPhysicsSupport::PHGetSyncItem	(u16 item)
 {
 	if(movement()->CharacterExist()) 
