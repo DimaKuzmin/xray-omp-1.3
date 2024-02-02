@@ -33,8 +33,6 @@
 #include "../xrphysics/IPHWorld.h"
 BONE_P_MAP CCar::bone_map=BONE_P_MAP();
 
-//extern CPHWorld*	ph_world;
-
 CCar::CCar()
 {
 	m_memory		= NULL;
@@ -88,9 +86,6 @@ CCar::CCar()
 	m_car_weapon=NULL;
 	m_power_neutral_factor=0.25f;
 	m_steer_angle=0.f;
-#ifdef DEBUG
-	InitDebug();
-#endif
 }
 
 CCar::~CCar(void)
@@ -103,7 +98,6 @@ CCar::~CCar(void)
 	xr_delete			(inventory);
 	xr_delete			(m_car_weapon);
 	xr_delete			(m_memory);
- //	xr_delete			(l_tpEntityAction);
 }
 
 void CCar::reinit		()
@@ -126,18 +120,8 @@ void CCar::cb_Steer			(CBoneInstance* B)
 	VERIFY2(fsimilar(DET(B->mTransform),1.f,DET_CHECK_EPS),"Bones receive returns 0 matrix");
 	CCar*	C			= static_cast<CCar*>(B->callback_param());
 	Fmatrix m;
-
-
-	m.rotateZ(C->m_steer_angle);
-
+ 	m.rotateZ(C->m_steer_angle);
 	B->mTransform.mulB_43	(m);
-#ifdef DEBUG
-	if( !fsimilar(DET(B->mTransform),1.f,DET_CHECK_EPS) ){
-	
-		Log("RotatingZ angle=",C->m_steer_angle);	
-		VERIFY2(0,"Bones callback returns BAD!!! matrix");
-	}
-#endif
 }
 
 // Core events
@@ -151,9 +135,6 @@ void	CCar::Load					( LPCSTR section )
 
 BOOL	CCar::net_Spawn				(CSE_Abstract* DC)
 {
-#ifdef DEBUG
-	InitDebug();
-#endif
 	CSE_Abstract					*e = (CSE_Abstract*)(DC);
 	CSE_ALifeCar					*co=smart_cast<CSE_ALifeCar*>(e);
 	BOOL							R = inherited::net_Spawn(DC);
@@ -169,8 +150,10 @@ BOOL	CCar::net_Spawn				(CSE_Abstract* DC)
 	m_fSaveMaxRPM					= m_max_rpm;
 	SetfHealth						(co->health);
 
-	if(!g_Alive())					b_exploded=true;
-	else							b_exploded=false;
+	if(!g_Alive())				
+		b_exploded=true;
+	else					
+		b_exploded=false;
 									
 	CDamagableItem::RestoreEffect();
 	
@@ -207,29 +190,24 @@ void CCar::SpawnInitPhysics	(CSE_Abstract	*D)
 	ParseDefinitions				();//parse ini filling in m_driving_wheels,m_steering_wheels,m_breaking_wheels
 	CreateSkeleton					(D);//creates m_pPhysicsShell & fill in bone_map
 	IKinematics *K					=smart_cast<IKinematics*>(Visual());
-	K->CalculateBones_Invalidate();//this need to call callbacks
+	K->CalculateBones_Invalidate();		//this need to call callbacks
 	K->CalculateBones	(TRUE);
 	Init							();//inits m_driving_wheels,m_steering_wheels,m_breaking_wheels values using recieved in ParceDefinitions & from bone_map
-	//PPhysicsShell()->add_ObjectContactCallback(ActorObstacleCallback);
+ 
 	SetDefaultNetState				(so);
 	CPHUpdateObject::Activate       ();
 }
 
 void	CCar::net_Destroy()
 {
-#ifdef DEBUG
-	DBgClearPlots();
-#endif
-	IKinematics* pKinematics=smart_cast<IKinematics*>(Visual());
+ 	IKinematics* pKinematics=smart_cast<IKinematics*>(Visual());
 	if(m_bone_steer!=BI_NONE)
-	{
-
-		pKinematics->LL_GetBoneInstance(m_bone_steer).reset_callback();
-
-	}
+  		pKinematics->LL_GetBoneInstance(m_bone_steer).reset_callback();
+ 
 	CScriptEntity::net_Destroy();
 	inherited::net_Destroy();
 	CExplosive::net_Destroy();
+
 	if(m_pPhysicsShell)
 	{
 		m_pPhysicsShell->Deactivate();
@@ -258,8 +236,6 @@ void CCar::net_Save(NET_Packet& P)
 {
 	inherited::net_Save(P);
 	SaveNetState(P);
-
-	
 }
 
 
@@ -272,8 +248,7 @@ BOOL CCar::net_SaveRelevant()
 
 void CCar::SaveNetState(NET_Packet& P)
 {
-
-	CPHSkeleton::SaveNetState	   (P);
+ 	CPHSkeleton::SaveNetState	   (P);
 	P.w_vec3(Position());
 	Fvector Angle;
 	XFORM().getXYZ(Angle);
@@ -302,10 +277,12 @@ void CCar::SaveNetState(NET_Packet& P)
 
 void CCar::RestoreNetState(CSE_PHSkeleton* po)
 {
-	if(!po->_flags.test(CSE_PHSkeleton::flSavedData))return;
+	if(!po->_flags.test(CSE_PHSkeleton::flSavedData))
+		return;
+
 	CPHSkeleton::RestoreNetState(po);
 	
-	CSE_ALifeCar* co=smart_cast<CSE_ALifeCar*>(po);
+	CSE_ALifeCar* co = smart_cast<CSE_ALifeCar*>(po);
 
 	{
 		xr_map<u16,SDoor>::iterator i,e;
@@ -383,37 +360,30 @@ void CCar::SetDefaultNetState(CSE_PHSkeleton* po)
 void CCar::shedule_Update(u32 dt)
 {
 	inherited::shedule_Update(dt);
-	if(CPHDestroyable::Destroyed())CPHDestroyable::SheduleUpdate(dt);
-	else	CPHSkeleton::Update(dt);
+	if(CPHDestroyable::Destroyed())
+		CPHDestroyable::SheduleUpdate(dt);
+	else
+		CPHSkeleton::Update(dt);
 	
-	if(CDelayedActionFuse::isActive()&&CDelayedActionFuse::Update(GetfHealth()))
+	if(CDelayedActionFuse::isActive() && CDelayedActionFuse::Update(GetfHealth()))
 	{
 		//CarExplode();
 	}
-	if(b_exploded&&!m_explosion_flags.test(flExploding)&&!getEnabled())//!m_bExploding
-										setEnabled(TRUE);
-#ifdef DEBUG
-	DbgSheduleUpdate();
-#endif
+
+	if(b_exploded&&!m_explosion_flags.test(flExploding)&&!getEnabled()) 
+		setEnabled(TRUE);
+ 
 }
 
 void CCar::UpdateEx			(float fov) 
 {
-	#ifdef DEBUG
-	DbgUbdateCl();
-	#endif
-
-	//	Log("UpdateCL",Device.dwFrame);
-	//XFORM().set(m_pPhysicsShell->mXFORM);
 	VisualUpdate(fov);
-	if(OwnerActor() && OwnerActor()->IsMyCamera()) 
+	if (OwnerActor() && OwnerActor()->IsMyCamera())
 	{
 		cam_Update(Device.fTimeDelta, fov);
 		OwnerActor()->Cameras().UpdateFromCamera(Camera());
 		OwnerActor()->Cameras().ApplyDevice(VIEWPORT_NEAR);
 	}
-
-	
 }
 
 BOOL CCar::AlwaysTheCrow()
@@ -431,9 +401,11 @@ void CCar::UpdateCL				( )
 		if(m_memory)
 			m_memory->set_camera(m_car_weapon->ViewCameraPos(), m_car_weapon->ViewCameraDir(), m_car_weapon->ViewCameraNorm());
 	}
+ 
 	ASCUpdate			();
-	if(Owner()) return;
-//	UpdateEx			(g_fov);
+	if(Owner())
+		return;
+ 
 	VisualUpdate(90);
 	if (GetScriptControl())
 			ProcessScripts();
@@ -491,17 +463,11 @@ void	CCar::renderable_Render				( )
 void	CCar::net_Export			(NET_Packet& P)
 {
 	inherited::net_Export(P);
-//	P.w_u32 (Level().timeServer());
-//	P.w_u16 (0);
 }
 
 void	CCar::net_Import			(NET_Packet& P)
 {
 	inherited::net_Import(P);
-//	u32 TimeStamp = 0;
-//	P.w_u32 (TimeStamp);
-//	u16 NumItems = 0;
-//	P.w_u32 (NumItems);
 }
 
 void	CCar::OnHUDDraw				(CCustomHUD* /**hud*/)
@@ -518,20 +484,11 @@ void	CCar::OnHUDDraw				(CCustomHUD* /**hud*/)
 #endif
 }
 
-//void CCar::Hit(float P,Fvector &dir,CObject * who,s16 element,Fvector p_in_object_space, float impulse, ALife::EHitType hit_type)
 void	CCar::Hit							(SHit* pHDS)
 {
 
 	SHit	HDS = *pHDS;
-	//if(CDelayedActionFuse::isActive()||Initiator()==u16(-1)&&HDS.hit_type==ALife::eHitTypeStrike)
-	//{
-	//	HDS.power=0.f;
-	//}
-
-	//if(HDS.who->ID()!=ID())
-	//{
-	//	CExplosive::SetInitiator(HDS.who->ID());
-	//}
+ 
 	WheelHit(HDS.damage(),HDS.bone(),HDS.hit_type);
 	DoorHit(HDS.damage(),HDS.bone(),HDS.hit_type);
 	float hitScale=1.f,woundScale=1.f;
@@ -543,7 +500,9 @@ void	CCar::Hit							(SHit* pHDS)
 	{
 		CDelayedActionFuse::CheckCondition(GetfHealth());
 	}
+
 	CDamagableItem::HitEffect();
+
 //	if(Owner()&&Owner()->ID()==Level().CurrentEntity()->ID())
 //		CurrentGameUI()->UIMainIngameWnd->CarPanel().SetCarHealth(GetfHealth());
 }
@@ -629,14 +588,18 @@ bool CCar::attach_Actor(CGameObject* actor)
 
 	IKinematics* K	= smart_cast<IKinematics*>(Visual());
 	CInifile* ini	= K->LL_UserData();
+	
 	int id;
-	if(ini->line_exist("car_definition","driver_place"))
-		id=K->LL_BoneID(ini->r_string("car_definition","driver_place"));
+	if (ini->line_exist("car_definition", "driver_place"))
+	{
+		id = K->LL_BoneID(ini->r_string("car_definition", "driver_place"));
+	}
 	else
 	{	
 		Owner()->setVisible(0);
 		id=K->LL_GetBoneRoot();
 	}
+
 	CBoneInstance& instance=K->LL_GetBoneInstance				(u16(id));
 	m_sits_transforms.push_back(instance.mTransform);
 	OnCameraChange(ectFirst);
@@ -645,6 +608,7 @@ bool CCar::attach_Actor(CGameObject* actor)
 //	VisualUpdate();
 	processing_activate();
 	ReleaseHandBreak();
+
 //	CurrentGameUI()->UIMainIngameWnd->CarPanel().Show(true);
 //	CurrentGameUI()->UIMainIngameWnd->CarPanel().SetCarHealth(fEntityHealth/100.f);
 	//CurrentGameUI()->UIMainIngameWnd.ShowBattery(true);
@@ -719,8 +683,6 @@ bool CCar::Exit(const Fvector& pos,const Fvector& dir)
 
 void CCar::ParseDefinitions()
 {
-	 
-	
 	bone_map.clear();
 
 	IKinematics* pKinematics=smart_cast<IKinematics*>(Visual());
@@ -837,14 +799,10 @@ void CCar::CreateSkeleton(CSE_Abstract	*po)
 		pKA->PlayCycle		("idle");
 		pK->CalculateBones	(TRUE);
 	}
+	// Create PH SHELL
 	phys_shell_verify_object_model ( *this );
-#pragma todo(" replace below by P_build_Shell or call inherited")
-	m_pPhysicsShell		= P_create_Shell();
-	m_pPhysicsShell->build_FromKinematics(pK,&bone_map);
-	m_pPhysicsShell->set_PhysicsRefObject(this);
-	m_pPhysicsShell->mXFORM.set(XFORM());
-	m_pPhysicsShell->Activate(true);
-	m_pPhysicsShell->SetAirResistance(0.f,0.f);
+ 
+	m_pPhysicsShell = P_build_Shell(this, false, &bone_map);
 	m_pPhysicsShell->SetPrefereExactIntegration();
 
 	ApplySpawnIniToPhysicShell(&po->spawn_ini(),m_pPhysicsShell,false);
@@ -867,9 +825,7 @@ void CCar::Init()
 		PPhysicsShell()->SetAirResistance(default_k_l*ini->r_float("air_resistance","linear_factor"),default_k_w*ini->r_float("air_resistance","angular_factor"));
 	}
 	if(ini->line_exist("car_definition","steer"))
-	{
-		
-		
+	{	
 		m_bone_steer=pKinematics->LL_BoneID(ini->r_string("car_definition","steer"));
 		VERIFY2(fsimilar(DET(pKinematics->LL_GetTransform(m_bone_steer)),1.f,EPS_L),"BBADD MTX");
 		pKinematics->LL_GetBoneInstance(m_bone_steer).set_callback(bctPhysics,cb_Steer,this);

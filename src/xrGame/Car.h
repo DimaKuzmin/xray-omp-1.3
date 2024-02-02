@@ -148,8 +148,7 @@ public:
 	float	m_power_neutral_factor;//multiplier for power when accelerator is not pressed (0-1,0.25)
 	bool	b_exploded;
 
-	struct SWheel: 
-	public CDamagableHealthItem
+	struct SWheel : public CDamagableHealthItem
 	{
 		typedef		CDamagableHealthItem inherited;
 		u16									bone_id				;
@@ -157,6 +156,7 @@ public:
 		float								radius				;
 		CPhysicsJoint						*joint				;
 		CCar								*car				;
+		
 		struct			SWheelCollisionParams
 		{
 			float							spring_factor		;
@@ -203,6 +203,7 @@ virtual void ApplyDamage			(u16 level);
 		float	ASpeed		()						;
 		void	Load		(LPCSTR /*section*/){}	;
 	};
+
 	struct SWheelSteer 
 	{
 		SWheel* pwheel;
@@ -221,6 +222,7 @@ virtual void ApplyDamage			(u16 level);
 		void	 Limit		()						;
 		void	 Load		(LPCSTR /*section*/){}	;
 	};
+
 	struct SWheelBreak 
 	{
 		SWheel			*pwheel							;
