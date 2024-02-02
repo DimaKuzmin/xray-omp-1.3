@@ -57,9 +57,11 @@ void	CCar::OnCameraChange		(int type)
 		}
 	}
 	
-	if (!active_camera||active_camera->tag!=type){
+	if (!active_camera||active_camera->tag!=type)
+	{
 		active_camera	= camera[type];
-		if (ectFree==type){
+		if (ectFree==type)
+		{
 			Fvector xyz;
 			XFORM().getXYZi(xyz);
 			active_camera->yaw		= xyz.y;

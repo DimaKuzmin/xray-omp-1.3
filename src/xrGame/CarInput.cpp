@@ -19,15 +19,19 @@
 
 void	CCar::OnMouseMove(int dx, int dy)
 {
-	if (Remote())					return;
+	if (Remote())			
+		return;
 
 	CCameraBase* C	= active_camera;
 	float scale		= (C->f_fov/g_fov)*psMouseSens * psMouseSensScale/50.f;
-	if (dx){
+	if (dx)
+	{
 		float d		= float(dx)*scale;
 		C->Move		((d<0)?kLEFT:kRIGHT, _abs(d));
 	}
-	if (dy){
+
+	if (dy)
+	{
 		float d		= ((psMouseInvert.test(1))?-1:1)*float(dy)*scale*3.f/4.f;
 		C->Move		((d>0)?kUP:kDOWN, _abs(d));
 	}
@@ -49,9 +53,6 @@ bool CCar::bfAssignMovement(CScriptEntityAction *tpEntityAction)
 	vfProcessInputKey(kJUMP		,	!!(l_tInput & CScriptMovementAction::eInputKeyBreaks		));
 	if (!!(l_tInput & CScriptMovementAction::eInputKeyEngineOn))	StartEngine();
 	if (!!(l_tInput & CScriptMovementAction::eInputKeyEngineOff)) StopEngine();
-
-	//if (_abs(tpEntityAction->m_tMovementAction.m_fSpeed) > EPS_L)
-		//m_current_rpm = _abs(tpEntityAction->m_tMovementAction.m_fSpeed*m_current_gear_ratio);
 
 	return	(true);
 }
@@ -119,96 +120,90 @@ void CCar::vfProcessInputKey	(int iCommand, bool bPressed)
 
 void CCar::OnKeyboardPress(int cmd)
 {
-	if (Remote())								return;
+	if (Remote())					
+		return;
 
 	switch (cmd)	
 	{
-	case kCAM_1:	OnCameraChange(ectFirst);	break;
-	case kCAM_2:	OnCameraChange(ectChase);	break;
-	case kCAM_3:	OnCameraChange(ectFree);	break;
-	case kACCEL:	TransmissionUp();			break;
-	case kCROUCH:	TransmissionDown();			break;
-	case kFWD:		PressForward();				break;
-	case kBACK:		PressBack();				break;
-	case kR_STRAFE:	PressRight();				if (OwnerActor()) OwnerActor()->steer_Vehicle(1);	break;
-	case kL_STRAFE:	PressLeft();				if (OwnerActor()) OwnerActor()->steer_Vehicle(-1);break;
-	case kJUMP:		PressBreaks();				break;
-	case kDETECTOR:	SwitchEngine();				break;
-	case kTORCH:	m_lights.SwitchHeadLights();break;
-	case kUSE:									break;
+		case kCAM_1:	OnCameraChange(ectFirst);	break;
+		case kCAM_2:	OnCameraChange(ectChase);	break;
+		case kCAM_3:	OnCameraChange(ectFree);	break;
+		case kACCEL:	TransmissionUp();			break;
+		case kCROUCH:	TransmissionDown();			break;
+		case kFWD:		PressForward();				break;
+		case kBACK:		PressBack();				break;
+		case kR_STRAFE:	PressRight();				if (OwnerActor()) OwnerActor()->steer_Vehicle(1);	break;
+		case kL_STRAFE:	PressLeft();				if (OwnerActor()) OwnerActor()->steer_Vehicle(-1);break;
+		case kJUMP:		PressBreaks();				break;
+		case kDETECTOR:	SwitchEngine();				break;
+		case kTORCH:	m_lights.SwitchHeadLights();break;
+		case kUSE:									break;
 	};
 
 }
 
 void	CCar::OnKeyboardRelease(int cmd)
 {
-	if (Remote())								return;
+	if (Remote())						
+		return;
 	switch (cmd)	
 	{
-	case kACCEL:break;
-	case kFWD:		ReleaseForward();			break;
-	case kBACK:		ReleaseBack();				break;
-	case kL_STRAFE:	ReleaseLeft();				if (OwnerActor()) OwnerActor()->steer_Vehicle(0);	break;
-	case kR_STRAFE:	ReleaseRight();				if (OwnerActor()) OwnerActor()->steer_Vehicle(0);	break;
-	case kJUMP:		ReleaseBreaks();			break;
+		case kACCEL:break;
+		case kFWD:		ReleaseForward();			break;
+		case kBACK:		ReleaseBack();				break;
+		case kL_STRAFE:	ReleaseLeft();				if (OwnerActor()) OwnerActor()->steer_Vehicle(0);	break;
+		case kR_STRAFE:	ReleaseRight();				if (OwnerActor()) OwnerActor()->steer_Vehicle(0);	break;
+		case kJUMP:		ReleaseBreaks();			break;
 	};
 }
 
 void	CCar::OnKeyboardHold(int cmd)
 {
-	if (Remote())								return;
+	if (Remote())	
+		return;
 
 	switch(cmd)
 	{
-	case kCAM_ZOOM_IN: 
-	case kCAM_ZOOM_OUT: 
-	case kUP:
-	case kDOWN:
-	case kLEFT:
-	case kRIGHT:	active_camera->Move(cmd);	break;
-/*
-	case kFWD:		
-		if (ectFree==active_camera->tag)	active_camera->Move(kUP);
-		else								m_vCamDeltaHP.y += active_camera->rot_speed.y*Device.fTimeDelta;
-		break;
-	case kBACK:		
-		if (ectFree==active_camera->tag)	active_camera->Move(kDOWN);
-		else								m_vCamDeltaHP.y -= active_camera->rot_speed.y*Device.fTimeDelta;
-		break;
-	case kL_STRAFE: 
-		if (ectFree==active_camera->tag)	active_camera->Move(kLEFT);
-		else								m_vCamDeltaHP.x -= active_camera->rot_speed.x*Device.fTimeDelta;
-		break;
-	case kR_STRAFE: 
-		if (ectFree==active_camera->tag)	active_camera->Move(kRIGHT);
-		else								m_vCamDeltaHP.x += active_camera->rot_speed.x*Device.fTimeDelta;
-		break;
-*/
+		case kCAM_ZOOM_IN: 
+		case kCAM_ZOOM_OUT: 
+		case kUP:
+		case kDOWN:
+		case kLEFT:
+		case kRIGHT:	
+			active_camera->Move(cmd);
+			break;
 	}
-//	clamp(m_vCamDeltaHP.x, -PI_DIV_2,	PI_DIV_2);
-//	clamp(m_vCamDeltaHP.y, active_camera->lim_pitch.x,	active_camera->lim_pitch.y);
+
 }
 void CCar::Action(u16 id, u32 flags)
 {
-	if(m_car_weapon)m_car_weapon->Action(id,flags);
+	if(m_car_weapon)
+		m_car_weapon->Action(id,flags);
 }
+
 void CCar::SetParam(int id, Fvector2 val)
 {
-	if(m_car_weapon)m_car_weapon->SetParam(id,val);
+	if(m_car_weapon)
+		m_car_weapon->SetParam(id,val);
 }
+
 void CCar::SetParam			(int id, Fvector val)
 {
-	if(m_car_weapon)m_car_weapon->SetParam(id,val);
+	if(m_car_weapon)
+		m_car_weapon->SetParam(id,val);
 }
+
 bool CCar::WpnCanHit()
 {
-	if(m_car_weapon) return m_car_weapon->AllowFire();
+	if(m_car_weapon) 
+		return m_car_weapon->AllowFire();
 	return false;
 }
 
 float CCar::FireDirDiff()
 {
-	if(m_car_weapon) return m_car_weapon->FireDirDiff();
+	if(m_car_weapon) 
+		return m_car_weapon->FireDirDiff();
 	return 0.0f;
 }
 #include "script_game_object.h"
@@ -220,14 +215,15 @@ bool CCar::isObjectVisible			(CScriptGameObject* O_)
 	if(m_memory)
 	{
 		return m_memory->visual().visible_now(&O_->object());
-	}else
+	}
+	else
 	{
-
 		if(!O_)
 		{
 			Msg("Attempt to call CCar::isObjectVisible method wihth passed NULL parameter");
 			return false;
 		}
+
 		CObject* O = &O_->object();
 		Fvector dir_to_object;
 		Fvector to_point;

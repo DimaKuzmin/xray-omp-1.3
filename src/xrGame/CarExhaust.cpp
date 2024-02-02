@@ -26,11 +26,7 @@ void CCar::SExhaust::Init()
 	IKinematics* K=smart_cast<IKinematics*>(pcar->Visual());
 	CBoneData&	bone_data=K->LL_GetData(u16(bone_id));
 	transform.set(bone_data.bind_transform);
-	///transform.mulA(pcar->XFORM());
-	//Fmatrix element_transform;
-	//pelement->InterpolateGlobalTransform(&element_transform);
-	//element_transform.invert();
-	//transform.mulA(element_transform);
+
 	p_pgobject=CParticlesObject::Create(*pcar->m_exhaust_particles,FALSE);
 	Fvector zero_vector;
 	zero_vector.set(0.f,0.f,0.f);
@@ -45,15 +41,8 @@ void CCar::SExhaust::Update()
 	pelement->InterpolateGlobalTransform(&global_transform);
 	global_transform.mulB_43(transform);
 
-	//dVector3 res;
-	//Fvector	 res_vel;
-	//dBodyGetPointVel(pelement->get_body(),global_transform.c.x,global_transform.c.y,global_transform.c.z,res);
-	//CopyMemory (&res_vel,res,sizeof(Fvector));
 	Fvector	 res_vel;
 	pelement->GetPointVel( res_vel, global_transform.c );
-	//velocity.mul(0.95f);
-	//res_vel.mul(0.05f);
-	//velocity.add(res_vel);
 	p_pgobject->UpdateParent(global_transform,res_vel);
 }
 

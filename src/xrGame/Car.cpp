@@ -128,7 +128,7 @@ void CCar::cb_Steer			(CBoneInstance* B)
 void	CCar::Load					( LPCSTR section )
 {
 	inherited::Load					(section);
-	//CPHSkeleton::Load(section);
+ 
 	ISpatial*		self				=	smart_cast<ISpatial*> (this);
 	if (self)		self->spatial.type	|=	STYPE_VISIBLEFORAI;	
 }
@@ -563,7 +563,9 @@ void CCar::ApplyDamage(u16 level)
 }
 void CCar::detach_Actor()
 {
-	if(!Owner()) return;
+	if(!Owner())
+		return;
+	
 	Owner()->setVisible(1);
 	CHolderCustom::detach_Actor();
 	PPhysicsShell()->remove_ObjectContactCallback(ActorObstacleCallback);
@@ -572,13 +574,10 @@ void CCar::detach_Actor()
 	ResetKeys();
 	m_current_rpm=m_min_rpm;
 //	CurrentGameUI()->UIMainIngameWnd->CarPanel().Show(false);
-	///Break();
-	//H_SetParent(NULL);
+ 
 	HandBreak();
 	processing_deactivate();
-#ifdef DEBUG
-	DBgClearPlots();
-#endif
+ 
 }
 
 bool CCar::attach_Actor(CGameObject* actor)
@@ -611,13 +610,7 @@ bool CCar::attach_Actor(CGameObject* actor)
 
 //	CurrentGameUI()->UIMainIngameWnd->CarPanel().Show(true);
 //	CurrentGameUI()->UIMainIngameWnd->CarPanel().SetCarHealth(fEntityHealth/100.f);
-	//CurrentGameUI()->UIMainIngameWnd.ShowBattery(true);
-	//CBoneData&	bone_data=K->LL_GetData(id);
-	//Fmatrix driver_pos_tranform;
-	//driver_pos_tranform.setHPB(bone_data.bind_hpb.x,bone_data.bind_hpb.y,bone_data.bind_hpb.z);
-	//driver_pos_tranform.c.set(bone_data.bind_translate);
-	//m_sits_transforms.push_back(driver_pos_tranform);
-	//H_SetParent(actor);
+//	CurrentGameUI()->UIMainIngameWnd.ShowBattery(true);
 
 	return true;
 }
@@ -811,8 +804,7 @@ void CCar::CreateSkeleton(CSE_Abstract	*po)
 
 void CCar::Init()
 {
-
-	CPHCollisionDamageReceiver::Init();
+ 	CPHCollisionDamageReceiver::Init();
 
 	//get reference wheel radius
 	IKinematics* pKinematics=smart_cast<IKinematics*>(Visual());
@@ -949,6 +941,7 @@ void CCar::NeutralDrive()
 		i->Neutral();
 	e_state_drive=neutral;
 }
+
 void CCar::ReleaseHandBreak()
 {
 	xr_vector<SWheelBreak>::iterator i,e;
@@ -959,10 +952,11 @@ void CCar::ReleaseHandBreak()
 	if(e_state_drive==drive) 
 		Drive();
 }
+
 void CCar::Drive()
 {
-
-	if(!b_clutch||!b_engine_on) return;
+ 	if(!b_clutch||!b_engine_on) 
+		return;
 	m_pPhysicsShell->Enable();
 	m_current_rpm=EngineDriveSpeed();
 	m_current_engine_power=EnginePower();
@@ -972,13 +966,12 @@ void CCar::Drive()
 	for(;i!=e;++i)
 		i->Drive();
 	e_state_drive=drive;
-
 }
 
 void CCar::StartEngine()
 {
-	
-	if(m_fuel<EPS||b_engine_on) return;
+ 	if(m_fuel<EPS||b_engine_on) 
+		return;
 	PlayExhausts();
 	m_car_sound->Start();
 	b_engine_on=true;
@@ -987,7 +980,8 @@ void CCar::StartEngine()
 }
 void CCar::StopEngine()
 {
-	if(!b_engine_on) return;
+	if(!b_engine_on)
+		return;
 	//m_car_sound->Stop();
 	//StopExhausts();
 	AscCall(ascSndStall);
@@ -1067,6 +1061,7 @@ void CCar::SteerRight()
 	e_state_steer=right;
 
 }
+
 void CCar::SteerLeft()
 {
 	b_wheels_limited=true; //no need to limit wheels when stiring
@@ -1101,6 +1096,7 @@ void CCar::LimitWheels()
 	for(;i!=e;++i)
 		i->Limit();
 }
+
 void CCar::HandBreak()
 {
 	xr_vector<SWheelBreak>::iterator i,e;
@@ -1118,6 +1114,7 @@ void CCar::StartBreaking()
 		m_break_start=Device.fTimeGlobal;
 	}
 }
+
 void CCar::StopBreaking()
 {
 	xr_vector<SWheelBreak>::iterator i,e;
@@ -1129,6 +1126,7 @@ void CCar::StopBreaking()
 		Drive();
 	b_breaks=false;
 }
+
 void CCar::PressRight()
 {
 	if(lsp)
@@ -1139,6 +1137,7 @@ void CCar::PressRight()
 		SteerRight();
 	rsp=true;
 }
+
 void CCar::PressLeft()
 {
 	if(rsp)
@@ -1149,6 +1148,7 @@ void CCar::PressLeft()
 		SteerLeft();
 	lsp=true;
 }
+
 void CCar::PressForward()
 {
 	if(bkp) 
@@ -1162,6 +1162,7 @@ void CCar::PressForward()
 	}
 	fwp=true;
 }
+
 void CCar::PressBack()
 {
 	if(fwp) 
@@ -1171,13 +1172,13 @@ void CCar::PressBack()
 	}
 	else 
 	{
-		//DriveBack();
-		Unclutch();
+ 		Unclutch();
 		NeutralDrive();
 		StartBreaking();
 	}
 	bkp=true;
 }
+
 void CCar::PressBreaks()
 {
 	HandBreak();
@@ -1191,6 +1192,7 @@ void CCar::DriveBack()
 	if(1==CurrentTransmission()||0==CurrentTransmission())Starter();
 	Drive();
 }
+
 void CCar::DriveForward()
 {
 	Clutch();
@@ -1198,6 +1200,7 @@ void CCar::DriveForward()
 	if(1==CurrentTransmission()||0==CurrentTransmission())Starter();
 	Drive();
 }
+
 void CCar::ReleaseRight()
 {
 	if(lsp)
@@ -1206,6 +1209,7 @@ void CCar::ReleaseRight()
 		SteerIdle();
 	rsp=false;
 }
+
 void CCar::ReleaseLeft()
 {
 	if(rsp)
@@ -1214,6 +1218,7 @@ void CCar::ReleaseLeft()
 		SteerIdle();
 	lsp=false;
 }
+
 void CCar::ReleaseForward()
 {
 	if(bkp)
@@ -1231,6 +1236,7 @@ void CCar::ReleaseForward()
 
 	fwp=false;
 }
+
 void CCar::ReleaseBack()
 {
 	if(b_breaks)
@@ -1261,8 +1267,7 @@ void CCar::ReleaseBreaks()
 
 void CCar::Transmission(size_t num)
 {
-
-	if(num<m_gear_ratious.size())
+ 	if(num<m_gear_ratious.size())
 	{
 		if(CurrentTransmission()!=num)
 		{
@@ -1274,9 +1279,6 @@ void CCar::Transmission(size_t num)
 			Drive						()							;
 		}
 	}
-#ifdef DEBUG
-	//Log("Transmission switch %d",(u32)num);
-#endif
 }
 void CCar::CircleSwitchTransmission()
 {
@@ -1306,36 +1308,35 @@ void CCar::TransmissionDown()
 	Transmission(transmission);
 
 }
-
-
-
+ 
 void CCar::PhTune(float step)
 {
-	
-
-
 	for(u16 i=PPhysicsShell()->get_ElementsNumber();i!=0;i--)	
 	{
 		CPhysicsElement* e=PPhysicsShell()->get_ElementByStoreOrder(i-1);
 		if(e->isActive()&&e->isEnabled())
-			e->applyForce( 0, e->getMass()*AntiGravityAccel(), 0 );
-			//dBodyAddForce(e->get_body(),0,e->getMass()*AntiGravityAccel(),0);
-	}
+			e->applyForce( 0, e->getMass() * AntiGravityAccel(), 0 );
+ 	}
+
 }
+
 float CCar::EffectiveGravity()
 {
 	float g= physics_world()->Gravity();
 	if(CPHUpdateObject::IsActive())g*=0.5f;
 	return g;
 }
+
 float CCar::AntiGravityAccel()
 {
 	return physics_world()->Gravity()-EffectiveGravity();
 }
+
 float CCar::GravityFactorImpulse()
 {
 	return _sqrt(EffectiveGravity()/physics_world()->Gravity());
 }
+
 void CCar::UpdateBack()
 {
 	if(b_breaks)
@@ -1353,34 +1354,26 @@ void CCar::UpdateBack()
 				i->Break(k);
 		Fvector v;
 		m_pPhysicsShell->get_LinearVel(v);
-		//if(DriveWheelsMeanAngleRate()<m_breaks_to_back_rate)
+	 
 		if(v.dotproduct(XFORM().k)<EPS)
 		{
 			StopBreaking();
 			DriveBack();
 		}
 	}
-	//else
-	//{
-	//	UpdatePower();
-	//	if(b_engine_on&&!b_starting && m_current_rpm<m_min_rpm)Stall();
-	//}
 }
 
 void CCar::PlayExhausts()
 {
-
 	xr_vector<SExhaust>::iterator i,e;
 	i=m_exhausts.begin();
 	e=m_exhausts.end();
 	for(;i!=e;++i)
 		i->Play();
-
 }
 
 void CCar::StopExhausts()
 {
-
 	xr_vector<SExhaust>::iterator i,e;
 	i=m_exhausts.begin();
 	e=m_exhausts.end();
@@ -1390,7 +1383,8 @@ void CCar::StopExhausts()
 
 void CCar::UpdateExhausts()
 {
-	if(!b_engine_on) return;
+	if(!b_engine_on)
+		return;
 	xr_vector<SExhaust>::iterator i,e;
 	i=m_exhausts.begin();
 	e=m_exhausts.end();
@@ -1413,7 +1407,8 @@ bool CCar::Use(const Fvector& pos,const Fvector& dir,const Fvector& foot_pos)
 
 	if(!Owner())
 	{
-		if(Enter(pos,dir,foot_pos)) return true;
+		if(Enter(pos,dir,foot_pos)) 
+			return true;
 	}
 	
 	RQR.r_clear			();
@@ -1444,8 +1439,7 @@ bool CCar::Use(const Fvector& pos,const Fvector& dir,const Fvector& foot_pos)
 }
 bool CCar::DoorUse(u16 id)
 {
-
-	xr_map<u16,SDoor>::iterator i;
+ 	xr_map<u16,SDoor>::iterator i;
 	if(is_Door(id,i)) 
 	{
 		i->second.Use();
@@ -1455,7 +1449,6 @@ bool CCar::DoorUse(u16 id)
 	{
 		return false;
 	}
-
 }
 
 bool CCar::DoorSwitch(u16 id)
@@ -1473,8 +1466,7 @@ bool CCar::DoorSwitch(u16 id)
 }
 bool CCar::DoorClose(u16 id)
 {
-
-	xr_map<u16,SDoor>::iterator i;
+ 	xr_map<u16,SDoor>::iterator i;
 	if(is_Door(id,i)) 
 	{
 		i->second.Close();
@@ -1488,8 +1480,7 @@ bool CCar::DoorClose(u16 id)
 
 bool CCar::DoorOpen(u16 id)
 {
-
-	xr_map<u16,SDoor>::iterator i;
+ 	xr_map<u16,SDoor>::iterator i;
 	if(is_Door(id,i)) 
 	{
 		i->second.Open();
@@ -1513,16 +1504,13 @@ void CCar::InitParabola()
 	//m_c = m_max_power* (3.f*m_power_rpm - 4.f*m_torque_rpm)/(m_power_rpm-m_torque_rpm)/2.f/m_power_rpm;
 	//m_a = -m_max_power/(m_power_rpm-m_torque_rpm)/m_power_rpm/m_power_rpm/2.f;
 	//m_b = m_max_power*m_torque_rpm/(m_power_rpm-m_torque_rpm)/m_power_rpm/m_power_rpm;
-
-
-
-
+ 
 	m_a=expf((m_power_rpm - m_torque_rpm)/(2.f*m_power_rpm))*m_max_power/m_power_rpm;
 	m_b=m_torque_rpm;
 	m_c=_sqrt(2.f*m_power_rpm*(m_power_rpm - m_torque_rpm));
-
-
+ 
 }
+
 float CCar::Parabola(float rpm)
 {
 	//float rpm_2=rpm*rpm;
@@ -1667,11 +1655,7 @@ void CCar::OnEvent(NET_Packet& P, u16 type)
 			bool just_before_destroy		= !P.r_eof() && P.r_u8();
 			O->SetTmpPreDestroy				(just_before_destroy);
 			GetInventory()->DropItem(smart_cast<CGameObject*>(O), just_before_destroy, just_before_destroy);
-			//if(GetInventory()->DropItem(smart_cast<CGameObject*>(O), just_before_destroy)) 
-			//{
-			//	O->H_SetParent(0, just_before_destroy);
-			//}
-			//moved to DropItem
+ 
 		}break;
 	}
 
@@ -1688,8 +1672,7 @@ void CCar::PhDataUpdate(float step)
 		LimitWheels();
 		UpdateFuel(step);
 
-	
-		//if(fwp)
+ 		//if(fwp)
 		{	
 			UpdatePower();
 			if(b_engine_on&&!b_starting && m_current_rpm<m_min_rpm)Stall();
@@ -1702,8 +1685,9 @@ void CCar::PhDataUpdate(float step)
 
 		if(brp)
 			HandBreak();
-//////////////////////////////////////////////////////////
-	for (int k=0; k<(int)m_doors_update.size(); ++k){
+ 
+	for (int k=0; k<(int)m_doors_update.size(); ++k)
+	{
 		SDoor* D = m_doors_update[k];
 		if (!D->update)
 		{
@@ -1742,8 +1726,9 @@ void CCar::OnBeforeExplosion()
 
 void CCar::CarExplode()
 {
+	if(b_exploded) 
+		return;
 
-	if(b_exploded) return;
 	CPHSkeleton::SetNotNeedSave();
 	if(m_car_weapon)m_car_weapon->Action(CCarWeapon::eWpnActivate,0);
 	m_lights.TurnOffHeadLights();
@@ -1762,53 +1747,7 @@ void CCar::CarExplode()
 	if(CPHDestroyable::CanDestroy())
 		CPHDestroyable::Destroy(ID(),"physic_destroyable_object_part");	
 }
-//void CCar::object_contactCallbackFun(bool& do_colide,dContact& c,SGameMtl * ,SGameMtl * )
-//{
-//
-//	dxGeomUserData *l_pUD1 = NULL;
-//	dxGeomUserData *l_pUD2 = NULL;
-//	l_pUD1 = PHRetrieveGeomUserData(c.geom.g1);
-//	l_pUD2 = PHRetrieveGeomUserData(c.geom.g2);
-//
-//	if(! l_pUD1) return;
-//	if(!l_pUD2) return;
-//
-//	CEntityAlive* capturer=smart_cast<CEntityAlive*>(l_pUD1->ph_ref_object);
-//	if(capturer)
-//	{
-//		CPHCapture* capture=capturer->m_PhysicMovementControl->PHCapture();
-//		if(capture)
-//		{
-//			if(capture->m_taget_element->PhysicsRefObject()==l_pUD2->ph_ref_object)
-//			{
-//				do_colide = false;
-//				capture->m_taget_element->Enable();
-//				if(capture->e_state==CPHCapture::cstReleased) capture->ReleaseInCallBack();
-//			}
-//
-//		}
-//
-//
-//	}
-//
-//	capturer=smart_cast<CEntityAlive*>(l_pUD2->ph_ref_object);
-//	if(capturer)
-//	{
-//		CPHCapture* capture=capturer->m_PhysicMovementControl->PHCapture();
-//		if(capture)
-//		{
-//			if(capture->m_taget_element->PhysicsRefObject()==l_pUD1->ph_ref_object)
-//			{
-//				do_colide = false;
-//				capture->m_taget_element->Enable();
-//				if(capture->e_state==CPHCapture::cstReleased) capture->ReleaseInCallBack();
-//			}
-//
-//		}
-//
-//	}
-//}
-
+ 
 template <class T> IC void CCar::fill_wheel_vector(LPCSTR S,xr_vector<T>& type_wheels)
 {
 	IKinematics* pKinematics	=smart_cast<IKinematics*>(Visual());
@@ -1900,11 +1839,9 @@ DLL_Pure *CCar::_construct			()
 u16 CCar::Initiator()
 {
 	if(g_Alive() && Owner())
-	{
 		return Owner()->ID();
-	}
-	//else if(CExplosive::Initiator()!=u16(-1))return CExplosive::Initiator();
-	else return ID()	;
+	else
+		return ID()	;
 }
 
 float	CCar::RefWheelMaxSpeed()
@@ -1916,15 +1853,19 @@ float	CCar:: EngineCurTorque()
 {
 	return m_current_engine_power/m_current_rpm;
 }
+
 float	CCar:: RefWheelCurTorque()
 {
-	if(b_transmission_switching) return 0.f;
+	if(b_transmission_switching)
+		return 0.f;
 	return EngineCurTorque()*((m_current_gear_ratio<0.f) ? -m_current_gear_ratio : m_current_gear_ratio);
 }
+
 void CCar::GetRayExplosionSourcePos(Fvector &pos)
 {
 	random_point_in_object_box(pos,this);
 }
+
 void CCar::net_Relcase(CObject* O)
 {
 	CExplosive::net_Relcase(O);
@@ -1968,11 +1909,13 @@ void		CCar::SetExplodeTime				(u32 et)
 {
 	CDelayedActionFuse::Initialize(float(et)/1000.f,CDamagableItem::DamageLevelToHealth(2));
 }
+
 u32			CCar::ExplodeTime					()			
 {
 	if(CDelayedActionFuse::isInitialized())
-				return u32(CDelayedActionFuse::Time())*1000;
-	else return 0;
+		return u32(CDelayedActionFuse::Time())*1000;
+	else
+		return 0;
 }
 
 void	CCar::		Die					(CObject* who)
@@ -1988,8 +1931,7 @@ Fvector	CCar::		ExitVelocity				()
 	CPhysicsElement *E=P->get_ElementByStoreOrder(0);
 	Fvector v=ExitPosition();
 	E->GetPointVel( v, v );
-	//dBodyGetPointVel(E->get_body(),v.x,v.y,v.z,cast_fp(v));
+ 
 	return v;
 }
-
-//#endif // #if 0
+ 

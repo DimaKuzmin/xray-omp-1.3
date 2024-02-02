@@ -105,7 +105,7 @@ void CCar::DBgClearPlots()
 void CCar::DbgUbdateCl()
 {
 	
-	if(m_pPhysicsShell&&OwnerActor()&&static_cast<CObject*>(Owner())==Level().CurrentViewEntity())
+	if(m_pPhysicsShell && OwnerActor() && static_cast<CObject*>(Owner()) == Level().CurrentViewEntity())
 	{	
 		if(ph_dbg_draw_mask.test(phDbgDrawCarDynamics))
 		{
@@ -184,25 +184,5 @@ void CCar::DbgUbdateCl()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 #endif
