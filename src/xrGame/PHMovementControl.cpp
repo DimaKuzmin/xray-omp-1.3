@@ -135,14 +135,14 @@ void CPHMovementControl::in_shedule_Update(u32 DT)
 		phcapture_destroy(m_capture);
 }
 
+ 
+extern int CheckVelocity = 128;
 // Ращет Плзиции для игрока (увидел только в игроке)
 void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /**ang_speed/**/,float jump,float /**dt/**/,bool /**bLight/**/)
 {
 	Fvector previous_position;
 	previous_position.set(vPosition);
-
-	
-	//
+	 
 	Fvector pospre = vPosition;
  
 	if (Level().CurrentControlEntity() == pObject)
@@ -154,19 +154,28 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 		{
 			vPosition = newpos;
 		}
+		else
+		{
+			Fvector cur_vel;
+			m_character->GetVelocity(cur_vel);
+			Msg("Try to Move To Pos[%f][%f][%f] from [%f][%f][%f], VELOCITY: [%f], PHVEL[%f]",
+				VPUSH(newpos), VPUSH(pospre), vAccel.magnitude(), cur_vel);
+			SetPosition(vPosition);
+		}
 	}
 	else
 	{
 		m_character->IPosition(vPosition);
 	}
-	
-	/*
-	if (pospre.distance_to(vPosition) > 16.0)
+
+ 
+	if (vAccel.x > CheckVelocity || vAccel.y > CheckVelocity || vAccel.z > CheckVelocity)
 	{
-		Msg("[CCharacterPhysicsSupport 0] CorrectObjPos: pre [%f][%f][%f] after IPosition [%f][%f][%f] extern Impilse: %d", VPUSH(pospre), VPUSH(vPosition), bExernalImpulse);
+		Fvector cur_vel;
+		m_character->GetVelocity(cur_vel);
+		Msg("Try to Move To VELOCITY: [%f] PHVEL [%f]", vAccel.magnitude(), cur_vel.magnitude());
 	}
-	*/
-	
+ 	
 	if(bExernalImpulse)
 	{
  		vAccel.add(vExternalImpulse);
@@ -175,25 +184,11 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 		
 		bExernalImpulse=false;
 	}
-
-	/*
-	if (pospre.distance_to(vPosition) > 16.0)
-	{
-		Msg("[CCharacterPhysicsSupport 1] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
-	}
-	*/
-
-	float mAccel=vAccel.magnitude();
+ 
+	float mAccel = vAccel.magnitude();
 	m_character->SetCamDir(camDir);
 	m_character->SetMaximumVelocity(mAccel/10.f);
 
-	/*
-	if (pospre.distance_to(vPosition) > 16.0)
-	{
-		Msg("[CCharacterPhysicsSupport 2] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
-	}
-	*/
- 
 	m_character->SetAcceleration(vAccel);
 	if(!fis_zero(jump))
 		m_character->Jump(vAccel);
@@ -202,28 +197,16 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 	fActualVelocity=vVelocity.magnitude();
  
 	gcontact_Was=m_character->ContactWas();
-
-	/*
-	if (pospre.distance_to(vPosition) > 16.0)
-	{
-		Msg("[CCharacterPhysicsSupport 3] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
-	}
-	*/
-
+ 
 	UpdateCollisionDamage( );
   
-	ICollisionDamageInfo	*cdi=CollisionDamageInfo();
+	ICollisionDamageInfo	*cdi = CollisionDamageInfo();
 	if(cdi->HitCallback())
 		cdi->HitCallback()->call((m_character->PhysicsRefObject()),fMinCrashSpeed,fMaxCrashSpeed,fContactSpeed,gcontact_HealthLost,CollisionDamageInfo());
 
 	TraceBorder(previous_position);
 	CheckEnvironment(vPosition);
 	
-	/*
-	if (pospre.distance_to(vPosition) > 16.0)
-		Msg("[CCharacterPhysicsSupport 4] CorrectObjPos: after [%f][%f][%f] extern Impilse: %d ", VPUSH(vPosition), bExernalImpulse);
-	*/
-
 	bSleep=false;
 	m_character->Reinit();
 }

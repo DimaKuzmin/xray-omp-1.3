@@ -123,6 +123,13 @@ void CActorMP::net_Export	(NET_Packet &packet)
 		//R_ASSERT						(g_Alive());
 		//R_ASSERT						(PHGetSyncItemsNumber() == 1);
 	}
-	R_ASSERT2(valid_pos(m_state_holder.state().position), "trying to export bad position");
+	
+	if (!valid_pos(m_state_holder.state().position))
+	{
+		Msg("ActorCL net_Export [%u] bad position: [%f][%f][%f]", ID(), VPUSH(m_state_holder.state().position));
+		//return;
+	}
+
+	//R_ASSERT2(valid_pos(m_state_holder.state().position), "trying to export bad position");
 	m_state_holder.write			(packet);
 }

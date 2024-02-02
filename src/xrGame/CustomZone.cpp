@@ -466,7 +466,7 @@ void CCustomZone::UpdateWorkload	(u32 dt)
 	default: NODEFAULT;
 	}
 
-	if (Level().CurrentEntity()) 
+	if (Level().CurrentEntity())
 	{
 		Fvector P			= Device.vCameraPosition;
 		P.y					-= 0.9f;
@@ -1414,7 +1414,7 @@ BOOL CCustomZone::AlwaysTheCrow()
  	else
  		return inherited::AlwaysTheCrow();
 }
-
+ 
 void CCustomZone::CalcDistanceTo(const Fvector& P, float& dist, float& radius)
 {
 	R_ASSERT			(CFORM()->Type()==cftShape);
@@ -1473,20 +1473,27 @@ void CCustomZone::CalcDistanceTo(const Fvector& P, float& dist, float& radius)
 			nearest_s	= &s;
 		}
 	}
-	R_ASSERT(nearest_s);
 	
-	dist	= nearest;
+	if (std::isnan(nearest) == 0)
+	{
+		dist = nearest;
 
-	if(nearest_s->type==0)
-		radius	= nearest_s->data.sphere.R;
+		if (nearest_s->type == 0)
+			radius = nearest_s->data.sphere.R;
+		else
+		{
+			float r1 = nearest_s->data.box.i.magnitude();
+			float r2 = nearest_s->data.box.j.magnitude();
+			float r3 = nearest_s->data.box.k.magnitude();
+			radius = _max(r1, r2);
+			radius = _max(radius, r3);
+		}
+	}
 	else
 	{
-		float r1 = nearest_s->data.box.i.magnitude();
-		float r2 = nearest_s->data.box.j.magnitude();
-		float r3 = nearest_s->data.box.k.magnitude();
-		radius = _max(r1,r2);
-		radius = _max(radius,r3);
+		return;
 	}
+ 
 
 }
 

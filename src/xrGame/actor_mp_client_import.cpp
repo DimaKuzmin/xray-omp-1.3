@@ -14,7 +14,12 @@ void CActorMP::net_Import	( NET_Packet &P)
 	net_update			N;
 
 	m_state_holder.read	(P);
-	R_ASSERT2(valid_pos(m_state_holder.state().position), "imported bad position");
+	if (!valid_pos(m_state_holder.state().position))
+	{
+		Msg("ActorCL net_Import [%u] bad position: [%f][%f][%f]", ID(), VPUSH(m_state_holder.state().position));
+		return;
+	}
+	//R_ASSERT2(valid_pos(m_state_holder.state().position), "imported bad position");
 
 	
 	/*if (m_i_am_dead)
@@ -32,7 +37,8 @@ void CActorMP::net_Import	( NET_Packet &P)
 		if (GetfHealth() < new_health)
 		{
 			SetfHealth(new_health);
-		} else
+		} 
+		else
 		{
 			if (!ps || !ps->testFlag(GAME_PLAYER_FLAG_INVINCIBLE))
 			{
@@ -95,7 +101,7 @@ void CActorMP::net_Import	( NET_Packet &P)
 
 	N_A.State.enabled		= m_state_holder.state().physics_state_enabled;
 	N_A.State.angular_vel	= m_state_holder.state().physics_angular_velocity;
-	N_A.State.linear_vel	= m_state_holder.state().physics_linear_velocity;
+	//N_A.State.linear_vel	= m_state_holder.state().physics_linear_velocity;
 	N_A.State.force			= m_state_holder.state().physics_force;
 	N_A.State.torque		= m_state_holder.state().physics_torque;
 	N_A.State.position		= m_state_holder.state().physics_position;
@@ -109,7 +115,7 @@ void CActorMP::net_Import	( NET_Packet &P)
 
 		// Pavel: Если новая позиция дальше текущей на 4 метра, то телепортируем игрока, в обход интерполяции.
 		// Нужно для телепорта игрока.
-		if (currentPosition.distance_to_sqr(N_A.State.position) > 16.f) // distance > 4m
+		if (currentPosition.distance_to(N_A.State.position) > 16.f) // distance > 4m
 		{
 			character_physics_support()->movement()->SetPosition(N_A.State.position);
 			character_physics_support()->movement()->SetVelocity(0, 0, 0);

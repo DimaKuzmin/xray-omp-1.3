@@ -969,35 +969,40 @@ void	CActor::SwitchOutBorder(bool new_border_state)
 	m_bOutBorder=new_border_state;
 }
 
+extern float MAX_VEL = 60.0f;
+extern float  MIN_VEL = -60.0f;
+
 void CActor::g_Physics			(Fvector& _accel, float jump, float dt)
 {
 	// Correct accel
 	Fvector		accel;
 	accel.set					(_accel);
 	m_hit_slowmo				-=	dt;
-	if(m_hit_slowmo<0)			m_hit_slowmo = 0.f;
+	if(m_hit_slowmo<0)		
+		m_hit_slowmo = 0.f;
 
 	accel.mul					(1.f-m_hit_slowmo);
-
 	
-	
+	//if (Local())
+	{
+	//	clamp(accel.x, MIN_VEL, MAX_VEL);
+	//	clamp(accel.y, MIN_VEL, MAX_VEL);
+	//	clamp(accel.z, MIN_VEL, MAX_VEL);
+	}
 
 	if(g_Alive())
 	{
-		if(mstate_real&mcClimb&&!cameras[eacFirstEye]->bClampYaw)
-				accel.set(0.f,0.f,0.f);
-		character_physics_support()->movement()->Calculate			(accel,cameras[cam_active]->vDirection,0,jump,dt,false);
+		if(mstate_real&mcClimb && !cameras[eacFirstEye]->bClampYaw)
+			accel.set(0.f,0.f,0.f);
+
+		character_physics_support()->movement()->Calculate	(accel,cameras[cam_active]->vDirection,0,jump,dt,false);
 		bool new_border_state=character_physics_support()->movement()->isOutBorder();
 		if(m_bOutBorder!=new_border_state && Level().CurrentControlEntity() == this)
 		{
 			SwitchOutBorder(new_border_state);
 		}
-#ifdef DEBUG
-		if(!psActorFlags.test(AF_NO_CLIP))
-			character_physics_support()->movement()->GetPosition		(Position());
-#else //DEBUG
+ 
 		character_physics_support()->movement()->GetPosition		(Position());
-#endif //DEBUG
 		character_physics_support()->movement()->bSleep				=false;
 
 		if (MpNoClip())
@@ -1020,14 +1025,12 @@ void CActor::g_Physics			(Fvector& _accel, float jump, float dt)
 
 		if (!fis_zero(character_physics_support()->movement()->gcontact_HealthLost))	
 		{
-			VERIFY( character_physics_support() );
-			VERIFY( character_physics_support()->movement() );
-			ICollisionDamageInfo* di=character_physics_support()->movement()->CollisionDamageInfo();
-			VERIFY( di );
+			ICollisionDamageInfo* di = character_physics_support()->movement()->CollisionDamageInfo();
+		
 			bool b_hit_initiated =  di->GetAndResetInitiated();
 			Fvector hdir;di->HitDir(hdir);
 			SetHitInfo(this, NULL, 0, Fvector().set(0, 0, 0), hdir);
-			//				Hit	(m_PhysicMovementControl->gcontact_HealthLost,hdir,di->DamageInitiator(),m_PhysicMovementControl->ContactBone(),di->HitPos(),0.f,ALife::eHitTypeStrike);//s16(6 + 2*::Random.randI(0,2))
+
 			if (Level().CurrentControlEntity() == this)
 			{
 				
@@ -1041,8 +1044,7 @@ void CActor::g_Physics			(Fvector& _accel, float jump, float dt)
 								di->HitType(),
 								0.0f, 
 								b_hit_initiated);
-//				Hit(&HDS);
-
+ 
 				NET_Packet	l_P;
 				HDS.GenHeader(GE_HIT, ID());
 				HDS.whoID = di->DamageInitiator()->ID();
@@ -1054,7 +1056,7 @@ void CActor::g_Physics			(Fvector& _accel, float jump, float dt)
 		}
 	}
 }
-float g_fov = 55.0f;
+float g_fov = 70.0f;
 
 float CActor::currentFOV()
 {
@@ -1293,32 +1295,34 @@ void CActor::shedule_Update	(u32 DT)
 		g_SetAnimation			(mstate_real);
 		
 		// Check for game-contacts
-		Fvector C; float R;		
-		//m_PhysicMovementControl->GetBoundingSphere	(C,R);
-		
+		Fvector C; float R;				
 		Center( C );
 		R = Radius();
 		feel_touch_update( C, R );
 		Feel_Grenade_Update( m_fFeelGrenadeRadius );
 
 		// Dropping
-		if (b_DropActivated)	{
+		if (b_DropActivated)	
+		{
 			f_DropPower			+= dt*0.1f;
 			clamp				(f_DropPower,0.f,1.f);
-		} else {
+		}
+		else 
+		{
 			f_DropPower			= 0.f;
 		}
+		
 		if (!Level().IsDemoPlay())
 		{		
-		mstate_wishful &=~mcAccel;
-		mstate_wishful &=~mcLStrafe;
-		mstate_wishful &=~mcRStrafe;
-		mstate_wishful &=~mcLLookout;
-		mstate_wishful &=~mcRLookout;
-		mstate_wishful &=~mcFwd;
-		mstate_wishful &=~mcBack;
-		if( !psActorFlags.test(AF_CROUCH_TOGGLE) )
-			mstate_wishful &=~mcCrouch;
+			mstate_wishful &=~mcAccel;
+			mstate_wishful &=~mcLStrafe;
+			mstate_wishful &=~mcRStrafe;
+			mstate_wishful &=~mcLLookout;
+			mstate_wishful &=~mcRLookout;
+			mstate_wishful &=~mcFwd;
+			mstate_wishful &=~mcBack;
+			if( !psActorFlags.test(AF_CROUCH_TOGGLE) )
+				mstate_wishful &=~mcCrouch;
 		}
 	}
 	else 
@@ -1327,21 +1331,20 @@ void CActor::shedule_Update	(u32 DT)
 	
 		if (NET.size())
 		{
-			
-//			NET_SavedAccel = NET_Last.p_accel;
-//			mstate_real = mstate_wishful = NET_Last.mstate;
-
-			g_sv_Orientate				(mstate_real,dt			);
+ 			g_sv_Orientate				(mstate_real,dt			);
 			g_Orientate					(mstate_real,dt			);
-			g_Physics					(NET_SavedAccel,NET_Jump,dt	);			
+
+			g_Physics					(NET_SavedAccel,NET_Jump,dt	);	
+
 			if (!m_bInInterpolation)
 				g_cl_ValidateMState			(dt,mstate_wishful);
+			
 			g_SetAnimation				(mstate_real);
 			
 			set_state_box(NET_Last.mstate);
-
-
 		}	
+
+
 		mstate_old = mstate_real;
 	}
 /*

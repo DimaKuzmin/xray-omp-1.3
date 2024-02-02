@@ -1,9 +1,6 @@
 #ifndef EXTENDED_GEOM
 #define EXTENDED_GEOM
-
-#ifndef	dSINGLE
- #define dSINGLE
-#endif
+ 
 #include "PHObject.h"
 //#include "ode_include.h"
 #include "../3rd party/ode/include/ode/common.h"

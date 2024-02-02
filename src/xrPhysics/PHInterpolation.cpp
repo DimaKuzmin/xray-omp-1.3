@@ -15,17 +15,19 @@ CPHInterpolation::CPHInterpolation()
 //	fTimeDelta=0.f;
 }
 
-void CPHInterpolation::SetBody(dBodyID body){
-if(!body) return;
-m_body=body;
-qPositions.fill_in(*((Fvector*) dBodyGetPosition(m_body)));
-const dReal* dQ=dBodyGetQuaternion(m_body);
-Fquaternion fQ;
-fQ.set(-dQ[0],dQ[1],dQ[2],dQ[3]);
-qRotations.fill_in(fQ);
+void CPHInterpolation::SetBody(dBodyID body)
+{
+	if(!body) return;
+	m_body=body;
+	qPositions.fill_in(*((Fvector*) dBodyGetPosition(m_body)));
+	const dReal* dQ=dBodyGetQuaternion(m_body);
+	Fquaternion fQ;
+	fQ.set(-dQ[0],dQ[1],dQ[2],dQ[3]);
+	qRotations.fill_in(fQ);
 }
 
-void CPHInterpolation::UpdatePositions(){
+void CPHInterpolation::UpdatePositions()
+{
 	VERIFY(m_body);
 	///VERIFY2(dV_valid(dBodyGetPosition(m_body)),"invalid body position in update interpolation");
 	qPositions.push_back(*((Fvector*) dBodyGetPosition(m_body)));
@@ -43,7 +45,7 @@ void CPHInterpolation::UpdateRotations(){
 void CPHInterpolation::InterpolatePosition(Fvector& pos)
 {
 	//if(!b_udating_positions)
-		pos.lerp(qPositions[0],qPositions[1],ph_world->m_frame_time/fixed_step);
+		pos.lerp(qPositions[0], qPositions[1], ph_world->m_frame_time/fixed_step);
 	//else
 		//pos.lerp(*bkp_pos,bk_pos,ph_world->FrameTime(b_frame_mark)/fixed_step);
 }

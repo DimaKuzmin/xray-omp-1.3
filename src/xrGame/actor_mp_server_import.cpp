@@ -17,7 +17,16 @@ void CSE_ActorMP::UPDATE_Read	(NET_Packet &packet)
 		return;
 	}
 	m_state_holder.read			(packet);
-	R_ASSERT2(valid_pos( m_state_holder.state().position ), "read bad position");
+	
+	if (!valid_pos(m_state_holder.state().position))
+	{
+		Msg("ActorCSE UPDATE_Read [%u] bad position: [%f][%f][%f] ", ID, VPUSH(m_state_holder.state().position) );
+		return;
+	}
+
+	//Msg("Update READ");
+
+	//R_ASSERT2(valid_pos( m_state_holder.state().position ), "read bad position");
 
 	m_AliveState.quaternion		= m_state_holder.state().physics_quaternion;
 	m_AliveState.angular_vel	= m_state_holder.state().physics_angular_velocity;

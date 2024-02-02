@@ -1128,7 +1128,7 @@ public:
 	  {
 		  float				step_count = (float)atof(args);
 #ifndef		DEBUG
-		  clamp				(step_count,50.f,200.f);
+		  clamp				(step_count,0.f,500.f);
 #endif
 		  //IPHWorld::SetStep(1.f/step_count);
 		  ph_console::ph_step_time = 1.f/step_count;

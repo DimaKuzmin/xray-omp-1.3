@@ -76,10 +76,12 @@ void _BCL CUIGameFMP::OnFrame()
 		{
 			xr_sprintf(
 				outstr,
+				"FPS: %u\\n"
 				"ping: %u/%u\\n"
 				"in/out: %.1f/%.2f KB/s\\n"
 				"packets dropped: %u\\n"
 				"packets retried: %u\\n",
+				(int)(1.f / Device.fTimeDelta),
 				Level().game->local_player->ping,
 				stats.getPing(),
 				stats.getReceivedPerSec() / 1000.0f,
@@ -92,6 +94,7 @@ void _BCL CUIGameFMP::OnFrame()
 		{
 			xr_sprintf(
 				outstr,
+				"FPS: %u\\n"
 				"ping: %u/%u\\n"
 				"in/out: %.1f/%.2f KB/s\\n"
 				"packets in/out: %.0f/%.0f\\n"
@@ -102,7 +105,7 @@ void _BCL CUIGameFMP::OnFrame()
 				//"sent unacked reliable: %u\\n"
 				"quality local: %.2f\\n"
 				"quality remote: %.2f\\n",
-
+				(int)(1.f / Device.fTimeDelta),
 				Level().game->local_player->ping,
 				stats.getPing(),
 				stats.getReceivedPerSec() / 1000.0f,

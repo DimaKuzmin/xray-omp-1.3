@@ -2776,9 +2776,16 @@ struct CCC_JumpToLevel : public IConsole_Command
 
 };
 
+extern float MAX_VEL;
+extern float  MIN_VEL;
+extern int CheckVelocity;
 
 void register_mp_console_commands()
 {
+	CMD4(CCC_Float, "actor_velocity_max", &MAX_VEL, 0, 128);
+	CMD4(CCC_Float, "actor_velocity_min", &MIN_VEL, -128, 0);
+	CMD4(CCC_Integer, "actor_velocity_check", &CheckVelocity, 0, 512);
+
 	CMD1(CCC_ActorDumpInfo, "g_dumpinfo");
 	CMD1(CCC_GiveMoneySelf, "g_money");
 	CMD1(CCC_MAPTEST, "g_testmap");

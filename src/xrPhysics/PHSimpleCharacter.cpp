@@ -479,31 +479,38 @@ void		CPHSimpleCharacter::ApplyForce(const Fvector& dir,float force)
 	ApplyForce(dir.x*force,dir.y*force,dir.z*force);
 }
 
-void CPHSimpleCharacter::PhDataUpdate(dReal /**step/**/){
-	///////////////////
-
+void CPHSimpleCharacter::PhDataUpdate(dReal /**step/**/)
+{
+	Fvector posprev;  
+	posprev.x = dBodyGetPosition(m_body)[0];
+	posprev.y = dBodyGetPosition(m_body)[1];
+	posprev.z = dBodyGetPosition(m_body)[2];
 
 	SafeAndLimitVelocity();
 
-	if( !dBodyIsEnabled(m_body)) {
-		if(!ph_world->IsFreezed())b_lose_control=false;
+	if( !dBodyIsEnabled(m_body)) 
+	{
+		if(!ph_world->IsFreezed())
+			b_lose_control=false;
 		return;
 	}
+
 	if(is_contact&&!is_control&&!b_lose_ground)
 		Disabling();
-
-
+ 
 	///////////////////////
 	if(ph_world->m_steps_num>m_ext_impuls_stop_step)
 	{
+		Msg("ph World m_steps_num: %u/%u", ph_world->m_steps_num, m_ext_impuls_stop_step);
 		b_external_impulse			=	false			;
 		m_ext_impuls_stop_step		=	u64(-1)			;
 		m_ext_imulse					.set(0,0,0)		;
 		Fvector							vel				;
 		GetVelocity						(vel)			;
-		dVectorLimit					(cast_fp(vel),m_max_velocity,cast_fp(vel));
+		dVectorLimit					(cast_fp(vel), m_max_velocity, cast_fp(vel));
 		SetVelocity(Fvector().set(0,0,0))				;
 	}
+
 	was_contact					=	is_contact		;
 	was_control					=	is_control		;
 	b_was_side_contact			=	b_side_contact	;
@@ -522,25 +529,31 @@ void CPHSimpleCharacter::PhDataUpdate(dReal /**step/**/){
 	b_collision_restrictor_touch=	false			;
 	b_foot_mtl_check			=	true			;
 	b_depart_control			=	false			;
+	
 	dMatrix3 R;
 	dRSetIdentity (R);
 	dBodySetAngularVel(m_body,0.f,0.f,0.f);
 	dBodySetRotation(m_body,R);
 
 	dMass mass;
-	const float		*linear_velocity		=dBodyGetLinearVel(m_body);
-	dReal			linear_velocity_mag		=_sqrt(dDOT(linear_velocity,linear_velocity));
+	const float		*linear_velocity		= dBodyGetLinearVel(m_body);
+	dReal			linear_velocity_mag		= _sqrt(dDOT(linear_velocity,linear_velocity));
 	dBodyGetMass(m_body,&mass);
-	dReal l_air=linear_velocity_mag*default_k_l;//force/velocity !!!
-	if(l_air>mass.mass/fixed_step) l_air=mass.mass/fixed_step;//validate
 	
-	if(!fis_zero(l_air))
+	dReal l_air = linear_velocity_mag*default_k_l;
+	
+	if(l_air > mass.mass/fixed_step)
+		l_air = mass.mass/fixed_step; 
+	
+	if (!fis_zero(l_air))
+	{
 		dBodyAddForce(
-		m_body,
-		-linear_velocity[0]*l_air,
-		-linear_velocity[1]*l_air,
-		-linear_velocity[2]*l_air
+			m_body,
+			-linear_velocity[0] * l_air,
+			-linear_velocity[1] * l_air,
+			-linear_velocity[2] * l_air
 		);
+	}
 
 	if(b_non_interactive)
 	{
@@ -548,11 +561,23 @@ void CPHSimpleCharacter::PhDataUpdate(dReal /**step/**/){
 		dBodySetPosition( m_body, m_last_move.x, m_last_move.y, m_last_move.z );
 	}
 
+	//	Fvector p_last_move = m_last_move;
+	
 	m_last_move.sub(cast_fv(dBodyGetPosition(m_body)),m_last_move);
 	m_last_move.mul(1.f/fixed_step);
-	VERIFY2(dBodyStateValide(m_body),"WRONG BODYSTATE IN PhDataUpdate");
-	if(PhOutOfBoundaries(cast_fv(dBodyGetPosition(m_body))))Disable();
-	VERIFY_BOUNDARIES(cast_fv(dBodyGetPosition(m_body)),phBoundaries,PhysicsRefObject());
+	
+	//if (p_last_move.distance_to(m_last_move) > 16.0f)
+	//	Msg("PMove: [%f][%f][%f] to [%f][%f][%f]", VPUSH(p_last_move), VPUSH(m_last_move));
+	
+	
+	//VERIFY2(dBodyStateValide(m_body),"WRONG BODYSTATE IN PhDataUpdate");
+	
+	if(PhOutOfBoundaries(cast_fv(dBodyGetPosition(m_body))))
+		Disable();
+
+	VERIFY_BOUNDARIES(cast_fv(dBodyGetPosition(m_body)), phBoundaries, PhysicsRefObject());
+	
+	
 	m_body_interpolation.UpdatePositions();
 }
 
@@ -943,10 +968,12 @@ void CPHSimpleCharacter::ApplyAcceleration()
 
 void	CPHSimpleCharacter::IPosition(Fvector& pos) {
 
-	if(!b_exist){
+	if(!b_exist)
+	{
 		pos.set(cast_fv(m_safe_position));
 	}
-	else{
+	else
+	{
 		m_body_interpolation.InterpolatePosition(pos);
 		pos.y-=m_radius;
 	}
@@ -954,7 +981,8 @@ void	CPHSimpleCharacter::IPosition(Fvector& pos) {
 	return;
 }
 
-void CPHSimpleCharacter::SetPosition(const Fvector &pos){
+void CPHSimpleCharacter::SetPosition(const Fvector &pos)
+{
 	VERIFY_BOUNDARIES(pos,phBoundaries,PhysicsRefObject());
 	if(!b_exist) return;
 	m_death_position[0]=pos.x;
@@ -1062,11 +1090,12 @@ void CPHSimpleCharacter::SetPhysicsRefObject					(IPhysicsShellHolder* ref_objec
  
 void CPHSimpleCharacter::SafeAndLimitVelocity()
 {
+ 	const float		*linear_velocity = dBodyGetLinearVel(m_body);
 
-	const float		*linear_velocity		=dBodyGetLinearVel(m_body);
 	if(dV_valid(linear_velocity))
 	{	
 		dReal mag=_sqrt(linear_velocity[0]*linear_velocity[0]+linear_velocity[1]*linear_velocity[1]+linear_velocity[2]*linear_velocity[2]);//;
+	
 		//limit velocity
 		dReal l_limit;
 		if(is_control&&!b_lose_control) 
@@ -1094,43 +1123,64 @@ void CPHSimpleCharacter::SafeAndLimitVelocity()
 		}
 ////////////////////////////////////////////////////////////////////////////////////////////
 		m_mean_y=m_mean_y*0.9999f+linear_velocity[1]*0.0001f;
-		if(mag>l_limit)
-		{	//CutVelocity(m_l_limit,m_w_limit);
-			if(!fis_zero(l_limit))
+		
+		if (mag > l_limit)
+		{
+			if (!fis_zero(l_limit))
 			{
-			
-				dReal f=mag/l_limit;
 
-				if(b_lose_ground&&linear_velocity[1]<0.f&&linear_velocity[1]>-default_l_limit)
-					dBodySetLinearVel(m_body,linear_velocity[0]/f,linear_velocity[1],linear_velocity[2]/f);///f
+				dReal f = mag / l_limit;
+
+				if (b_lose_ground && linear_velocity[1]<0.f && linear_velocity[1]>-default_l_limit)
+					dBodySetLinearVel(m_body, linear_velocity[0] / f, linear_velocity[1], linear_velocity[2] / f);///f
 				else
-					CutVelocity(l_limit,0.f);
-					//dBodySetLinearVel(m_body,linear_velocity[0]/f,linear_velocity[1]/f,linear_velocity[2]/f);///f
-				if(is_control&&!b_lose_control)
+					CutVelocity(l_limit, 0.f);
+
+				if (is_control && !b_lose_control)
 				{
 					dBodySetPosition(m_body,
-					m_safe_position[0]+linear_velocity[0]*fixed_step,
-					m_safe_position[1]+linear_velocity[1]*fixed_step,
-					m_safe_position[2]+linear_velocity[2]*fixed_step);
-					VERIFY_BOUNDARIES(cast_fv(dBodyGetPosition(m_body)),phBoundaries,PhysicsRefObject());
+						m_safe_position[0] + linear_velocity[0] * fixed_step,
+						m_safe_position[1] + linear_velocity[1] * fixed_step,
+						m_safe_position[2] + linear_velocity[2] * fixed_step);
+					VERIFY_BOUNDARIES(cast_fv(dBodyGetPosition(m_body)), phBoundaries, PhysicsRefObject());
 				}
 			}
-			else	
-				dBodySetLinearVel(m_body,0,0,0);
-
-			
+			else
+				dBodySetLinearVel(m_body, 0, 0, 0);
 		}
+			
 	}
-	else
+ 	else
 	{
-		dBodySetLinearVel(m_body,m_safe_velocity[0],m_safe_velocity[1],m_safe_velocity[2]);
+		dBodySetLinearVel(m_body, m_safe_velocity[0], m_safe_velocity[1], m_safe_velocity[2]);
 	}
 
-	if(!dV_valid(dBodyGetPosition(m_body)))
-		dBodySetPosition(m_body,m_safe_position[0]-m_safe_velocity[0]*fixed_step,
-		m_safe_position[1]-m_safe_velocity[1]*fixed_step,
-		m_safe_position[2]-m_safe_velocity[2]*fixed_step);
-		
+	if (!dV_valid(dBodyGetPosition(m_body)))
+	{
+		Fvector pos;
+		pos.x = dBodyGetPosition(m_body)[0];
+		pos.y = dBodyGetPosition(m_body)[1];
+		pos.z = dBodyGetPosition(m_body)[2];
+
+		Fvector safepos;
+		safepos.x = m_safe_position[0];
+		safepos.y = m_safe_position[1];
+		safepos.z = m_safe_position[2];
+	
+		Fvector vel;
+		vel.x = m_safe_velocity[0];
+		vel.y = m_safe_velocity[1];
+		vel.z = m_safe_velocity[2];
+
+
+		Msg("!dV_Valid: POS[%f][%f][%f] safePOS[%f][%f][%f], safeVELOCITY[%f][%f][%f]", VPUSH(pos), VPUSH(safepos), VPUSH(vel));
+
+		dBodySetPosition(m_body,
+			m_safe_position[0] - m_safe_velocity[0] * fixed_step,
+			m_safe_position[1] - m_safe_velocity[1] * fixed_step,
+			m_safe_position[2] - m_safe_velocity[2] * fixed_step
+		);
+	}
 
 	dVectorSet(m_safe_position,dBodyGetPosition(m_body));
 	dVectorSet(m_safe_velocity,linear_velocity);
@@ -1360,13 +1410,15 @@ void CPHSimpleCharacter::InitContact(dContact* c,bool	&do_collide,u16 material_i
 	if(m_friction_factor<friction)m_friction_factor=friction; 
 	++m_contact_count;
 
-	if(bo1){
+	if(bo1)
+	{
 		if(normal[1]>m_ground_contact_normal[1]||!b_valide_ground_contact)//
 		{
 			dVectorSet(m_ground_contact_normal,normal);
 			dVectorSet(m_ground_contact_position,pos);
 			b_valide_ground_contact=true;
 		}
+
 		if(dXZDot(normal,cast_fp(m_acceleration))<dXZDot(m_wall_contact_normal,cast_fp(m_acceleration))||!b_valide_wall_contact)
 		{
 			dVectorSet(m_wall_contact_normal,c->geom.normal);
