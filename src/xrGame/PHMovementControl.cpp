@@ -141,7 +141,31 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 	Fvector previous_position;
 	previous_position.set(vPosition);
 
-	m_character->IPosition(vPosition);
+	
+	//
+	Fvector pospre = vPosition;
+ 
+	if (Level().CurrentControlEntity() == pObject)
+	{
+		Fvector newpos;
+		m_character->IPosition(newpos);
+
+		if (newpos.distance_to(vPosition) < 8.0)
+		{
+			vPosition = newpos;
+		}
+	}
+	else
+	{
+		m_character->IPosition(vPosition);
+	}
+	
+	/*
+	if (pospre.distance_to(vPosition) > 16.0)
+	{
+		Msg("[CCharacterPhysicsSupport 0] CorrectObjPos: pre [%f][%f][%f] after IPosition [%f][%f][%f] extern Impilse: %d", VPUSH(pospre), VPUSH(vPosition), bExernalImpulse);
+	}
+	*/
 	
 	if(bExernalImpulse)
 	{
@@ -152,9 +176,23 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 		bExernalImpulse=false;
 	}
 
+	/*
+	if (pospre.distance_to(vPosition) > 16.0)
+	{
+		Msg("[CCharacterPhysicsSupport 1] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
+	}
+	*/
+
 	float mAccel=vAccel.magnitude();
 	m_character->SetCamDir(camDir);
 	m_character->SetMaximumVelocity(mAccel/10.f);
+
+	/*
+	if (pospre.distance_to(vPosition) > 16.0)
+	{
+		Msg("[CCharacterPhysicsSupport 2] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
+	}
+	*/
  
 	m_character->SetAcceleration(vAccel);
 	if(!fis_zero(jump))
@@ -165,6 +203,13 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
  
 	gcontact_Was=m_character->ContactWas();
 
+	/*
+	if (pospre.distance_to(vPosition) > 16.0)
+	{
+		Msg("[CCharacterPhysicsSupport 3] CorrectObjPos: pre [%f][%f][%f] extern Impilse: %d", VPUSH(vPosition), bExernalImpulse);
+	}
+	*/
+
 	UpdateCollisionDamage( );
   
 	ICollisionDamageInfo	*cdi=CollisionDamageInfo();
@@ -173,6 +218,12 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 
 	TraceBorder(previous_position);
 	CheckEnvironment(vPosition);
+	
+	/*
+	if (pospre.distance_to(vPosition) > 16.0)
+		Msg("[CCharacterPhysicsSupport 4] CorrectObjPos: after [%f][%f][%f] extern Impilse: %d ", VPUSH(vPosition), bExernalImpulse);
+	*/
+
 	bSleep=false;
 	m_character->Reinit();
 }
