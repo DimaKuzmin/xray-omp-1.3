@@ -76,9 +76,7 @@ void CPHCharacter::get_State(SPHNetState& state)
 	state.quaternion.identity();
 	state.previous_quaternion.identity();
 	state.torque.set(0.f,0.f,0.f);
-//	state.accel = GetAcceleration();
-//	state.max_velocity = GetMaximumVelocity();
-
+ 
 	if(!b_exist) 
 	{
 		state.enabled=false;
@@ -124,12 +122,7 @@ void CPHCharacter::Enable()
 	dBodyEnable(m_body);
 
 }
-
-
-
-
-
-
+ 
 
 void  CarHitCallback(bool& /**do_colide/**/,dContact& /**c/**/)
 {

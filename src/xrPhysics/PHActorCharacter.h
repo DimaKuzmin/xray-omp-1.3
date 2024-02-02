@@ -84,8 +84,7 @@ IC RESTRICTOR_I end(RESRICTORS_V& v)
 	return v.end();
 }
 
-class CPHActorCharacter :
-	public CPHSimpleCharacter
+class CPHActorCharacter : public CPHSimpleCharacter
 {
 	typedef CPHSimpleCharacter	inherited;
 

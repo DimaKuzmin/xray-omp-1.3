@@ -111,6 +111,11 @@ virtual CPhysicsShellHolder*			PPhysicsShellHolder				( )	{ return m_EntityAlife
 
 virtual bool							CanRemoveObject					( );
 public:
+	virtual CEntityAlive* PEntityAlive()
+	{
+		return &m_EntityAlife;
+	}
+
 IC		CPHMovementControl				*movement						( )	{ return m_PhysicMovementControl; }
 IC	const	CPHMovementControl			*movement						( ) const{ return m_PhysicMovementControl; }
 IC		CPHSoundPlayer					*ph_sound_player				( )	{ return &m_ph_sound_player; }
