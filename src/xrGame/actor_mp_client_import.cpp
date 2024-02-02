@@ -101,7 +101,7 @@ void CActorMP::net_Import	( NET_Packet &P)
 
 	N_A.State.enabled		= m_state_holder.state().physics_state_enabled;
 	N_A.State.angular_vel	= m_state_holder.state().physics_angular_velocity;
-	//N_A.State.linear_vel	= m_state_holder.state().physics_linear_velocity;
+	N_A.State.linear_vel	= m_state_holder.state().physics_linear_velocity;
 	N_A.State.force			= m_state_holder.state().physics_force;
 	N_A.State.torque		= m_state_holder.state().physics_torque;
 	N_A.State.position		= m_state_holder.state().physics_position;

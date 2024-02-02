@@ -2776,6 +2776,51 @@ struct CCC_JumpToLevel : public IConsole_Command
 
 };
 
+class CCC_movePlayerToPosition : public IConsole_Command
+{
+public:
+	CCC_movePlayerToPosition(LPCSTR N) : IConsole_Command(N) { bEmptyArgsHandled = false; };
+
+	virtual void	Execute(LPCSTR args)
+	{
+		if (OnServer())
+		{
+			if (!g_pGameLevel)
+				return;
+
+			game_sv_mpalife* sv_game = smart_cast<game_sv_mpalife*>(Level().Server->game);
+			if (!sv_game) return;
+
+			Fvector pos;
+			ClientID id;
+			u32 CLID = -1;
+
+			string256 tmp_pos;
+			exclude_raid_from_args(args, tmp_pos, sizeof(tmp_pos));
+
+			if (4 == sscanf(tmp_pos, "%f,%f,%f, %u", &pos.x, &pos.y, &pos.z, &CLID))
+			{
+				id.set(CLID);
+				sv_game->TeleportPlayerTo(id, pos, Fvector().set(0, 0, 0));
+			}
+			else
+			{
+				Msg("Check args: %s", tmp_pos);
+			}
+		}
+		else
+		{
+			NET_Packet		P;
+			P.w_begin(M_REMOTE_CONTROL_CMD);
+			string128 str;
+			xr_sprintf(str, "adm_move_player %s, %u", args, Game().local_svdpnid.value());
+			P.w_stringZ(str);
+			Level().Send(P, net_flags(TRUE, TRUE));
+		}
+	};
+};
+
+
 extern float MAX_VEL;
 extern float  MIN_VEL;
 extern int CheckVelocity;
@@ -2786,6 +2831,8 @@ void register_mp_console_commands()
 	CMD4(CCC_Float, "actor_velocity_min", &MIN_VEL, -128, 0);
 	CMD4(CCC_Integer, "actor_velocity_check", &CheckVelocity, 0, 512);
 
+
+	CMD1(CCC_movePlayerToPosition, "adm_move_player");
 	CMD1(CCC_ActorDumpInfo, "g_dumpinfo");
 	CMD1(CCC_GiveMoneySelf, "g_money");
 	CMD1(CCC_MAPTEST, "g_testmap");

@@ -137,6 +137,9 @@ void CPHMovementControl::in_shedule_Update(u32 DT)
 
  
 extern int CheckVelocity = 128;
+
+#include "Actor.h"
+
 // Ращет Плзиции для игрока (увидел только в игроке)
 void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /**ang_speed/**/,float jump,float /**dt/**/,bool /**bLight/**/)
 {
@@ -150,7 +153,7 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 		Fvector newpos;
 		m_character->IPosition(newpos);
 
-		if (newpos.distance_to(vPosition) < 8.0)
+		if (valid_pos(newpos) && newpos.distance_to(pospre) < 16)
 		{
 			vPosition = newpos;
 		}
@@ -158,22 +161,19 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 		{
 			Fvector cur_vel;
 			m_character->GetVelocity(cur_vel);
-			Msg("Try to Move To Pos[%f][%f][%f] from [%f][%f][%f], VELOCITY: [%f], PHVEL[%f]",
-				VPUSH(newpos), VPUSH(pospre), vAccel.magnitude(), cur_vel);
-			SetPosition(vPosition);
+			Msg("Try to Move To Pos[%f][%f][%f] from [%f][%f][%f], VELOCITY: [%f], PHVEL[%f]", VPUSH(newpos), VPUSH(pospre), vAccel.magnitude(), cur_vel);
+			
+			//if (CActor* a = smart_cast<CActor*>(pObject))
+			{
+ 				SetVelocity(0,0,0);
+				SetPosition(vPosition);
+				pObject->XFORM().c = vPosition;
+			}
 		}
 	}
 	else
 	{
 		m_character->IPosition(vPosition);
-	}
-
- 
-	if (vAccel.x > CheckVelocity || vAccel.y > CheckVelocity || vAccel.z > CheckVelocity)
-	{
-		Fvector cur_vel;
-		m_character->GetVelocity(cur_vel);
-		Msg("Try to Move To VELOCITY: [%f] PHVEL [%f]", vAccel.magnitude(), cur_vel.magnitude());
 	}
  	
 	if(bExernalImpulse)
@@ -907,7 +907,9 @@ void	CPHMovementControl::SetEnvironment( int enviroment,int old_enviroment){
 
 void	CPHMovementControl::SetPosition(const Fvector &P)
 {	
-	vPosition.set	(P);  VERIFY( m_character ) ;m_character->SetPosition(vPosition);
+	vPosition.set	(P);  
+	VERIFY( m_character ) ;
+	m_character->SetPosition(vPosition);
 }
 
 bool		CPHMovementControl::		TryPosition				(Fvector& pos)															

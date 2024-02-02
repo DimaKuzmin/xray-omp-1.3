@@ -30,7 +30,16 @@ void CPHInterpolation::UpdatePositions()
 {
 	VERIFY(m_body);
 	///VERIFY2(dV_valid(dBodyGetPosition(m_body)),"invalid body position in update interpolation");
-	qPositions.push_back(*((Fvector*) dBodyGetPosition(m_body)));
+	Fvector pos = *((Fvector*)dBodyGetPosition(m_body));
+
+	//if (valid_pos(pos))
+	{
+		qPositions.push_back(pos);
+	}
+	//else
+	{
+	//	Msg("Pos not Valid: [%f][%f][%f], size buff: %d", VPUSH(pos), qPositions);
+	}
 }
 
 void CPHInterpolation::UpdateRotations(){

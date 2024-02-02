@@ -170,13 +170,23 @@ void SPHCharacterRestrictor::SetMaterial(u16 material)
 }
 void CPHActorCharacter::SetAcceleration(Fvector accel)
 {
-	Fvector cur_a,input_a;float cur_mug,input_mug;
-	cur_a.set(m_acceleration);cur_mug=m_acceleration.magnitude();
-	if(!fis_zero(cur_mug))cur_a.mul(1.f/cur_mug);
-	input_a.set(accel);input_mug=accel.magnitude();
-	if(!fis_zero(input_mug))input_a.mul(1.f/input_mug);
-	if(!cur_a.similar(input_a,0.05f)||!fis_zero(input_mug-cur_mug,0.5f))
-						inherited::SetAcceleration(accel);
+	Fvector cur_a,input_a;
+	
+	float cur_mug,input_mug;
+	cur_a.set(m_acceleration);
+	cur_mug=m_acceleration.magnitude();
+
+	if(!fis_zero(cur_mug))
+		cur_a.mul(1.f/cur_mug);
+	input_a.set(accel);
+	input_mug=accel.magnitude();
+
+	if(!fis_zero(input_mug))
+		input_a.mul(1.f/input_mug);
+
+	if(!cur_a.similar(input_a,0.05f) || !fis_zero(input_mug-cur_mug,0.5f))
+		inherited::SetAcceleration(accel);
+
 }
 bool	CPHActorCharacter::	CanJump								()
 {
@@ -233,6 +243,7 @@ struct SFindPredicate
 		return *b1||c->geom.g2==o->m_restrictor_transform;
 	}
 };
+extern int need_data = 0;
 
 static void BigVelSeparate(dContact* c,bool &do_collide)
 {
@@ -242,26 +253,29 @@ static void BigVelSeparate(dContact* c,bool &do_collide)
 	dxGeomUserData* dat1 = retrieveGeomUserData(c->geom.g1);
 	dxGeomUserData* dat2 = retrieveGeomUserData(c->geom.g2);
 
-	if( !dat1 || !dat2 ||
-		!dat1->ph_object || !dat2->ph_object ||
+	if( !dat1 || !dat2 || !dat1->ph_object || !dat2->ph_object ||
 		dat1->ph_object->CastType() != CPHObject::tpCharacter || 
 		dat2->ph_object->CastType() != CPHObject::tpCharacter 
-		) 
-		return;
+	) 
+	 return;
 
 	c->surface.soft_cfm *= 100.f;
-	c->surface.soft_erp *=0.1f;
+	c->surface.soft_erp *= 0.1f;
 
 	CPHCharacter* ch1 = static_cast<CPHCharacter*>(dat1->ph_object);
 	CPHCharacter* ch2 = static_cast<CPHCharacter*>(dat2->ph_object);
+	
 	Fvector v1, v2;
 	ch1->GetVelocity(v1);
 	ch2->GetVelocity(v2);
-	if(v1.square_magnitude()<4.f && 
-		v2.square_magnitude()<4.f
-	)
+	if(v1.square_magnitude() < 4.f && v2.square_magnitude()<4.f)
 		return;
-	c->surface.mu		= 1.00f;
+
+ 
+	c->surface.mu		= 1.50f;
+	
+	if (need_data)
+	Msg("Vel: %f/%f", v1.square_magnitude(), v2.square_magnitude());
 
 	dJointID contact_joint1	= dJointCreateContactSpecial(0, ContactGroup, c);
 	dJointID contact_joint2	= dJointCreateContactSpecial(0, ContactGroup, c);
@@ -334,7 +348,9 @@ void CPHActorCharacter::InitContact(dContact* c,bool &do_collide,u16 material_id
 			}
 		}
 		
-		if(do_collide)inherited::InitContact(c,do_collide,material_idx_1,material_idx_2);
+		if(do_collide)
+			inherited::InitContact(c,do_collide,material_idx_1,material_idx_2);
+		
 		BigVelSeparate( c, do_collide );
 	}
 }
@@ -375,7 +391,7 @@ float free_fly_up_force_limit = 4000.f;
 void	CPHActorCharacter::PhTune( dReal step )
 {
 	inherited::PhTune( step );
-	if(b_lose_control&&!b_external_impulse)//
+	if(b_lose_control&&!b_external_impulse) 
 	{
 			const float* force = dBodyGetForce( m_body );
 			float fy = force[1];
