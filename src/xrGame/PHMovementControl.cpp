@@ -162,13 +162,11 @@ void CPHMovementControl::Calculate(Fvector& vAccel,const Fvector& camDir,float /
 			Fvector cur_vel;
 			m_character->GetVelocity(cur_vel);
 			Msg("Try to Move To Pos[%f][%f][%f] from [%f][%f][%f], VELOCITY: [%f], PHVEL[%f]", VPUSH(newpos), VPUSH(pospre), vAccel.magnitude(), cur_vel);
-			
-			//if (CActor* a = smart_cast<CActor*>(pObject))
-			{
- 				SetVelocity(0,0,0);
-				SetPosition(vPosition);
-				pObject->XFORM().c = vPosition;
-			}
+			 
+ 			SetVelocity(0,0,0);
+			SetPosition(vPosition);
+			pObject->XFORM().c = vPosition;
+ 
 		}
 	}
 	else
