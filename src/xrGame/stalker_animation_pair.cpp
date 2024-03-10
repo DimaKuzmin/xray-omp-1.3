@@ -93,6 +93,8 @@ void CStalkerAnimationPair::play			(IKinematicsAnimated *skeleton_animated, Play
 void CStalkerAnimationPair::play			(IKinematicsAnimated *skeleton_animated, PlayCallback callback, const bool &use_animation_movement_control, const bool &local_animation, bool continue_interrupted_animation, const u32 &bone_part, bool mix_animations)
 #endif
 {
+
+
 	VERIFY					(animation());
 	if (actual()) {
 #if 0
@@ -153,6 +155,9 @@ void CStalkerAnimationPair::play			(IKinematicsAnimated *skeleton_animated, Play
 		play_global_animation	(skeleton_animated,callback,bone_part,use_animation_movement_control, local_animation, mix_animations);
 #endif
 	m_actual				= true;
+
+	m_object->OnAnimationChange(this, animation(), blend(), mix_animations, 0);
+
 
 	if (m_step_dependence)
 		m_object->CStepManager::on_animation_start(animation(),blend());

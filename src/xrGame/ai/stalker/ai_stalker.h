@@ -15,7 +15,9 @@
 #include "../../../xrServerEntities/script_export_space.h"
 
 #include "../../../xrServerEntities/PHNetState.h"
+
 #include "aistalker_state_net.h"
+#include "ai_stalker_animations.h"
 
 #ifdef DEBUG
 	template <typename _object_type>
@@ -147,9 +149,7 @@ private:
 private:
 	float							m_power_fx_factor;
 public:
-	Motions_NUM num_torso_sv;
-	Motions_NUM num_head_sv;
-	Motions_NUM num_legs_sv;
+
 
 	xr_deque<stalker_interpolation::net_update_A>	NET_A;
 
@@ -166,7 +166,34 @@ private:
 	float							HCoeff[3][4];			//коэффициэнты для сплайна Эрмита
 	Fvector							IPosS, IPosH, IPosL;	//положение актера после интерполяции Бизье, Эрмита, линейной
 
-	aistalker_state_net*				stalker_network_state;
+
+
+	//MP ANIMATIONS se7kills
+
+
+
+	u8 idx_torso_cl;
+	u8 idx_head_cl;
+	u8 idx_legs_cl;
+
+	CBlend* head_blend;
+	CBlend* torso_blend;
+	CBlend* legs_blend;
+
+	bool Ragdoll = false; 
+
+public:
+	Motions_NUM num_torso_sv;
+	Motions_NUM num_head_sv;
+	Motions_NUM num_legs_sv;
+
+	void ApplyAnimation(Motions_NUM* legs, Motions_NUM* torso, Motions_NUM* head);
+
+	void OnAnimationChange(void* pair_manager, MotionID id, CBlend* blend, bool mix, bool global);
+
+private:
+
+	aistalker_state_net				stalker_network_state;
 
 	stalker_interpolation::InterpData		IStart;
 	//stalker_interpolation::InterpData		IRec;
@@ -354,12 +381,14 @@ public:
 
 private:
 
-			void						ApplyAnimation(
+			/* void						ApplyAnimation(
 											u16 u_torso_motion_idx, u8 u_torso_motion_slot,
 											u16 u_legs_motion_idx, u8 u_legs_motion_slot,
 											u16 u_head_motion_idx, u8 u_head_motion_slot,
 											u16 u_script_motion_idx, u8 u_script_motion_slot
 										);
+										*/
+
 
 			void						CalculateInterpolationParams();
 			virtual void				make_Interpolation();
@@ -503,6 +532,7 @@ public:
 #ifdef DEBUG
 			void						debug_planner					(const script_planner *planner);
 #endif
+
 
 private:
 	u32				m_pstl_min_queue_size_far;

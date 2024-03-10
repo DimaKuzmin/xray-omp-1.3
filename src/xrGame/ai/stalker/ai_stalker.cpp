@@ -61,6 +61,7 @@
 #include "smart_cover_animation_planner.h"
 #include "smart_cover_planner_target_selector.h"
 
+
 #ifdef DEBUG
 #	include "../../alife_simulator.h"
 #	include "../../alife_object_registry.h"
@@ -192,8 +193,6 @@ void CAI_Stalker::reinit			()
 
 	m_update_rotation_on_frame						= false;
 
-
-	stalker_network_state = new aistalker_state_net(this);
 }
 
 void CAI_Stalker::LoadSounds		(LPCSTR section)

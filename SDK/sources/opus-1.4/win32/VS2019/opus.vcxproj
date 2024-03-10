@@ -39,7 +39,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)..\SDK\libraries\x64\</OutDir>
+    <OutDir>$(SolutionDir)\..\binares\$(Platform)-$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup>
@@ -49,6 +49,7 @@
       <PreprocessorDefinitions Condition="'$(Configuration)'=='DebugDLL_fixed' or '$(Configuration)'=='ReleaseDLL_fixed'">FIXED_POINT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalOptions Condition="'$(Platform)'=='Win32'">/arch:IA32 %(AdditionalOptions)</AdditionalOptions>
       <PreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">OPUS_BUILD;USE_ALLOCA;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</SDLCheck>
     </ClCompile>
     <Lib>
       <AdditionalOptions>/ignore:4221 %(AdditionalOptions)</AdditionalOptions>

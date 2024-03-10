@@ -109,7 +109,7 @@ void	CTextConsole::CreateLogWnd()
 	UpdateWindow(m_hLogWnd);
 	//-----------------------------------------------
 	LOGFONT lf; 
-	lf.lfHeight = -12; 
+	lf.lfHeight = -8; 
 	lf.lfWidth = 0;
 	lf.lfEscapement = 0; 
 	lf.lfOrientation = 0; 

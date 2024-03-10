@@ -95,7 +95,7 @@ struct	hdrNODES
 #pragma pack(1)
 
 
-#define _USE_NODE_POSITION_11
+//#define _USE_NODE_POSITION_11
 
 #ifndef _EDITOR
 

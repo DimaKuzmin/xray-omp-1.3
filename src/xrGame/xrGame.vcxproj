@@ -701,6 +701,7 @@
     <ClInclude Include="AI_PhraseDialogManager.h" />
     <ClInclude Include="ai_space.h" />
     <ClInclude Include="ai_space_inline.h" />
+    <ClInclude Include="ai_stalker_animations.h" />
     <ClInclude Include="alife_abstract_registry.h" />
     <ClInclude Include="alife_abstract_registry_inline.h" />
     <ClInclude Include="alife_combat_manager.h" />
@@ -2776,7 +2777,6 @@
     </ClCompile>
     <ClCompile Include="cta_game_artefact.cpp" />
     <ClCompile Include="cta_game_artefact_activation.cpp" />
- 
     <ClCompile Include="game_cl_coop.cpp" />
     <ClCompile Include="game_cl_deffense.cpp" />
     <ClCompile Include="game_cl_deffense_messages.cpp" />

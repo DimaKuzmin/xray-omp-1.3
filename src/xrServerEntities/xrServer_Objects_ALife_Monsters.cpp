@@ -2234,8 +2234,7 @@ void CSE_ALifeHumanStalker::UPDATE_Read		(NET_Packet &tNetPacket)
 
 		o_model = stalker_state.o_torso.yaw;
 		o_Position = stalker_state.Position;
-
-		set_health(stalker_state.health);
+ 		set_health(stalker_state.health);
 	}
 }
 
